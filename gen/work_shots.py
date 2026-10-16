@@ -56,6 +56,44 @@ def edge(img):
     return img
 
 
+# Location masking for the operations captures. The console is pointed at a real place,
+# so the satellite basemap is blurred and the camera's agency badge and mile marker are
+# obscured. "keep" rectangles are pasted back sharp afterwards so the interface stays
+# readable: these are overlay controls that sit on top of the map.
+MASKS = {
+    "dd-map.webp": {
+        "blur": [(405, 0, 2000, 1217)],
+        "redact": [(424, 46, 702, 118)],
+        "keep": [(405, 16, 926, 1186), (898, 18, 1512, 82), (1858, 196, 1952, 792),
+                 (1842, 812, 1958, 1188), (938, 1042, 1472, 1178)],
+    },
+    "dd-planning.webp": {
+        "blur": [(405, 38, 1350, 1257)],
+        "redact": [],
+        "keep": [(418, 52, 1182, 122), (1188, 236, 1292, 842),
+                 (1158, 828, 1312, 1218), (1032, 1088, 1368, 1162),
+                 (405, 1166, 548, 1224)],
+    },
+}
+BLUR_R = 9
+
+
+def mask(im, name):
+    cfg = MASKS.get(name)
+    if not cfg:
+        return im
+    im = im.convert("RGB")
+    for box in cfg["blur"]:
+        im.paste(im.crop(box).filter(ImageFilter.GaussianBlur(BLUR_R)), box[:2])
+    sharp = Image.open(os.path.join(SHOTS, name)).convert("RGB")
+    for box in cfg["keep"]:
+        im.paste(sharp.crop(box), box[:2])
+    for box in cfg["redact"]:
+        patch = im.crop(box).filter(ImageFilter.GaussianBlur(22))
+        im.paste(Image.blend(patch, Image.new("RGB", patch.size, (14, 14, 18)), 0.45), box[:2])
+    return im
+
+
 def treat(im, width):
     """Scale a capture, veil it with scanlines, and give it a cyan edge and glow."""
     h = round(im.height * width / im.width)
@@ -77,7 +115,7 @@ def treat(im, width):
 
 def panel(rows):
     """rows: list of lists of (path, width). Each row is centred."""
-    tiles = [[treat(Image.open(os.path.join(SHOTS, p)), w) for p, w in row] for row in rows]
+    tiles = [[treat(mask(Image.open(os.path.join(SHOTS, p)), p), w) for p, w in row] for row in rows]
     heights = [max(t.height for t in row) for row in tiles]
     H = PAD * 2 + sum(heights) + GAP * (len(tiles) - 1)
     img = Image.new("RGB", (W, H), PANEL)

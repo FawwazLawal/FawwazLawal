@@ -110,7 +110,8 @@ after-action review.
 
 Owned assets and public infrastructure share one map. Above, public traffic cameras sit
 beside the operator's own entities, and any camera opens in place and can be pinned to a
-live feed panel. Everything assumes the link will drop: offline map packs, a sync queue that
+live feed panel. The basemap is blurred in these captures, and the camera's agency badge
+obscured, because the console is pointed at a real place. Everything assumes the link will drop: offline map packs, a sync queue that
 drains when the connection returns, and a status bar that stays honest about what is
 connected and what is not.
 
