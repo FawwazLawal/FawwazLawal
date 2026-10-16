@@ -185,9 +185,9 @@ def build(out, jobs=14):
 CHAPTERS = [
     # num, title, subtitle, shot, time s, band centre y
     ("01", "ENTRY", "identity", "Shot 1.mp4", 5.3, 330),
-    ("02", "SYSTEMS", "how I engineer", "Shot 2.mp4", 3.9, 250),
-    ("03", "SELECTED WORK", "what I have built", "Shot 2.mp4", 8.3, 300),
-    ("04", "TOOLKIT", "what I build with", "Shot 2.mp4", 6.9, 300),
+    ("01", "SYSTEMS", "how I engineer", "Shot 2.mp4", 3.9, 250),
+    ("02", "SELECTED WORK", "what I have built", "Shot 2.mp4", 8.3, 300),
+    ("03", "TOOLKIT", "what I build with", "Shot 2.mp4", 6.9, 300),
     ("05", "EXIT", "end of transmission", "Shot 3.mp4", 7.4, 330),
 ]
 BAND = 210
@@ -222,12 +222,76 @@ def chapters(out):
     print("chapters written")
 
 
+LOOPS = [
+    # num, title, subtitle, shot, start s, end s, band centre y
+    ("01", "SYSTEMS", "how I engineer", "Shot 2.mp4", 3.3, 5.3, 250),
+    ("02", "SELECTED WORK", "what I have built", "Shot 2.mp4", 7.3, 9.3, 300),
+    ("03", "TOOLKIT", "what I build with", "Shot 2.mp4", 5.6, 7.3, 300),
+    ("04", "EXIT", "end of transmission", "Shot 3.mp4", 6.2, 8.0, 330),
+]
+LOOP_FPS = 15
+
+
+def title_band(im, num, title, sub):
+    big = ImageFont.truetype(FONT, 38)
+    num_f = ImageFont.truetype(FONT, 15)
+    sub_f = ImageFont.truetype(FONT, 13)
+    a = np.asarray(im, float)
+    ramp = np.clip((np.arange(OUT_W) - 120) / 380, 0, 1)[None, :, None]
+    im = Image.fromarray((a * (0.35 + 0.65 * ramp)).astype(np.uint8))
+    d = ImageDraw.Draw(im)
+    x, y = 44, 58
+    d.text((x, y), f"{num} //", font=num_f, fill=(0, 220, 240))
+    for dx, c in ((-2, (150, 20, 70)), (2, (0, 140, 160)), (0, (236, 234, 245))):
+        d.text((x + dx, y + 22), title, font=big, fill=c)
+    d.text((x, y + 72), "> " + sub, font=sub_f, fill=(186, 156, 255))
+    for (bx, by, dx, dy) in ((12, 12, 1, 1), (OUT_W - 13, 12, -1, 1), (12, BAND - 13, 1, -1), (OUT_W - 13, BAND - 13, -1, -1)):
+        d.line([(bx, by), (bx + 22 * dx, by)], fill=(0, 150, 170), width=1)
+        d.line([(bx, by), (bx, by + 22 * dy)], fill=(0, 150, 170), width=1)
+    return im
+
+
+def _loop_frame(args):
+    i, fr, top = args
+    return i, np.asarray(Image.fromarray(to_ascii(fr, i)).crop((0, top, OUT_W, top + BAND)))
+
+
+def chapter_loops(out, jobs=14):
+    os.makedirs(out, exist_ok=True)
+    for num, title, sub, shot, t0, t1, cy in LOOPS:
+        cmd = ["ffmpeg", "-v", "error", "-ss", f"{t0}", "-to", f"{t1}", "-i", os.path.join(SRC, shot),
+               "-vf", f"fps={LOOP_FPS},scale={OUT_W}:-2,crop={OUT_W}:{OUT_H}",
+               "-f", "rawvideo", "-pix_fmt", "rgb24", "-"]
+        raw = subprocess.run(cmd, check=True, capture_output=True).stdout
+        n = len(raw) // (OUT_W * OUT_H * 3)
+        frames = np.frombuffer(raw, np.uint8)[: n * OUT_W * OUT_H * 3].reshape(n, OUT_H, OUT_W, 3)
+        top = max(0, min(OUT_H - BAND, cy - BAND // 2))
+        with Pool(jobs) as p:
+            res = dict(p.map(_loop_frame, [(i, f, top) for i, f in enumerate(frames)]))
+        seq = [res[i] for i in range(n)]
+        # seamless loop: glyph-dissolve the tail into the head
+        k = 6
+        r = np.random.default_rng(int(num)).uniform(size=(BAND // CH + 1, COLS + 1))
+        r = r.repeat(CH, 0).repeat(CW, 1)[:BAND, :OUT_W][..., None]
+        head, tail = seq[:k], seq[-k:]
+        seq = seq[k:-k] + [np.where(r < (j + 1) / (k + 1), head[j], tail[j]) for j in range(k)]
+        ims = [title_band(Image.fromarray(f), num, title, sub) for f in seq]
+        name = os.path.join(out, f"chapter-{num}-{title.lower().replace(' ', '-')}.webp")
+        ims[0].save(name, save_all=True, append_images=ims[1:], duration=int(1000 / LOOP_FPS),
+                    loop=0, quality=40, method=6)
+        print(f"{os.path.basename(name)} {len(ims)} frames {os.path.getsize(name) // 1024} KB")
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", required=True)
     ap.add_argument("--test", action="store_true", help="convert a few single frames only")
     ap.add_argument("--chapters", action="store_true", help="render the README chapter stills")
+    ap.add_argument("--chapter-loops", action="store_true", help="render animated chapter bands")
     a = ap.parse_args()
+    if a.chapter_loops:
+        chapter_loops(a.out)
+        return
     if a.chapters:
         chapters(a.out)
         return

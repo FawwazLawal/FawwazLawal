@@ -3,14 +3,12 @@
   <img src="./assets/hero.webp" width="100%" alt="A first person journey through a cyberpunk world rendered in glowing 0 and 1 glyphs. A netrunner with a silver lavender bob materializes from falling digits, turns to look at the viewer, beckons with two fingers, then runs ahead through corridors of binary code and out through a blazing gateway. Title: Fawwaz Lawal, software engineer, Go, Swift, SwiftUI, security.">
 </picture>
 
-<img src="./assets/chapter-01-entry.png" width="100%" alt="01 // Entry. She materializes out of falling digits.">
-
 I build backend services in Go and iPhone apps in Swift and SwiftUI, and I spend as much
 care on the checks around a system as on the system itself. I came to software through
 security, where the habit of asking "how would I know if this were wrong?" was the whole
 job. I kept the habit.
 
-<img src="./assets/chapter-02-systems.png" width="100%" alt="02 // Systems. She turns into a corridor of binary walls.">
+<img src="./assets/chapter-01-systems.webp" width="100%" alt="01 // Systems. She turns and runs into a corridor of binary walls.">
 
 ### How I work
 
@@ -48,7 +46,7 @@ The agents were the easy part. The work was building the instruments that keep t
 detection for two agents about to write the same file, for gates that cannot fail, and for
 records claiming more certainty than they have.
 
-<img src="./assets/chapter-03-selected-work.png" width="100%" alt="03 // Selected work. She runs toward an archway of glyphs.">
+<img src="./assets/chapter-02-selected-work.webp" width="100%" alt="02 // Selected work. She runs through an archway of glyphs.">
 
 ### [Speed-to-lead](https://github.com/FawwazLawal/blaze-speed-to-lead)
 
@@ -63,7 +61,7 @@ README says exactly where simulation stops and real infrastructure starts. The m
 is parsed against a schema so a malformed response raises instead of reaching a human, and
 the prompt is read from disk at runtime so the file in the repo is exactly what gets sent.
 
-<img src="./assets/chapter-04-toolkit.png" width="100%" alt="04 // Toolkit. She runs on through streams of code.">
+<img src="./assets/chapter-03-toolkit.webp" width="100%" alt="03 // Toolkit. She runs on through streams of code.">
 
 | | |
 |---|---|
@@ -73,8 +71,8 @@ the prompt is read from disk at runtime so the file in the repo is exactly what 
 | **Background** | B.S. Cybersecurity · B.S. Electrical Engineering, in progress |
 | **Certifications** | Security+ · CySA+ · PenTest+ · ISC2 Associate |
 
-<img src="./assets/chapter-05-exit.png" width="100%" alt="05 // Exit. She passes through the gateway into light.">
+<img src="./assets/chapter-04-exit.webp" width="100%" alt="04 // Exit. She passes through the gateway into light.">
 
 <p align="center"><code>&gt; end of transmission. the rest of the work is in <a href="https://github.com/FawwazLawal?tab=repositories">repositories</a>.</code></p>
 
-<p align="center"><sub>Hero footage generated with Google Flow, then cut and rendered into 0/1 glyphs frame by frame by <a href="./gen/ascii_film.py">gen/ascii_film.py</a>. The chapter frames are stills from the same footage.</sub></p>
+<p align="center"><sub>Hero footage generated with Google Flow, then cut and rendered into 0/1 glyphs frame by frame by <a href="./gen/ascii_film.py">gen/ascii_film.py</a>. The chapter bands are short loops from the same footage.</sub></p>

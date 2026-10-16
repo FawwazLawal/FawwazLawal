@@ -8,7 +8,7 @@ The hero is three clips generated with Google Flow (`source/Shot 1.mp4`, `Shot 2
 veil, and dissolves the gateway white-out back into the opening so the loop is seamless.
 
     python3 gen/ascii_film.py --out frames          # 313 frames, 20 fps
-    python3 gen/ascii_film.py --chapters --out assets
+    python3 gen/ascii_film.py --chapter-loops --out assets
 
 Then encode `frames/` to `assets/hero.webp` at 960 px wide, 20 fps (WebP quality 32).
 Needs ffmpeg, numpy and Pillow.
