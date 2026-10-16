@@ -38,6 +38,7 @@ CUTS = [
     ("Shot 3.mp4", 7.25, 8.2),       # white-out at the gateway
 ]
 DISSOLVE = 5                         # frames of glyph dissolve between cuts
+BAND = 210                           # height of every banner on the page
 
 
 def glyph_masks():
@@ -142,10 +143,48 @@ def hud(img):
     return img
 
 
+# Virtual camera for the hero band: (output seconds, band top in frame pixels).
+# Hand keyed against the footage: horizon, her materializing, the turn, eye contact
+# and the beckon framed on her face, then the chase down the corridor.
+CAMERA = [(0.0, 200), (1.8, 200), (2.8, 170), (4.3, 150), (5.8, 130), (6.8, 70),
+          (7.6, 40), (8.3, 10), (9.4, 10), (9.7, 40), (10.3, 120), (11.0, 150),
+          (13.0, 175), (14.5, 200), (15.7, 200)]
+
+
+def track(frames):
+    t = np.arange(len(frames)) / FPS
+    kt = np.array([k[0] for k in CAMERA])
+    kv = np.array([k[1] for k in CAMERA], float)
+    lin = np.interp(t, kt, kv)
+    k = np.exp(-0.5 * (np.arange(-12, 13) / 5.0) ** 2)
+    k /= k.sum()
+    pad = np.concatenate([lin[-12:], lin, lin[:12]])
+    sm = np.convolve(pad, k, mode="same")[12:-12]
+    return np.clip(sm, 0, OUT_H - BAND).astype(int)
+
+
+def hero_band(im):
+    big = ImageFont.truetype(FONT, 34)
+    mid = ImageFont.truetype(FONT, 13)
+    a = np.asarray(im, float)
+    ramp = np.clip((np.arange(OUT_W) - 160) / 420, 0, 1)[None, :, None]
+    im = Image.fromarray((a * (0.3 + 0.7 * ramp)).astype(np.uint8))
+    d = ImageDraw.Draw(im)
+    x, y = 44, 48
+    for dx, c in ((-2, (150, 20, 70)), (2, (0, 140, 160)), (0, (236, 234, 245))):
+        d.text((x + dx, y), "FAWWAZ LAWAL", font=big, fill=c)
+    d.text((x, y + 50), "S O F T W A R E   E N G I N E E R", font=mid, fill=(200, 196, 220))
+    d.text((x, y + 72), "GO  \u00b7  SWIFT  \u00b7  SWIFTUI  \u00b7  SECURITY", font=mid, fill=(0, 220, 240))
+    for (bx, by, dx, dy) in ((12, 12, 1, 1), (OUT_W - 13, 12, -1, 1), (12, BAND - 13, 1, -1), (OUT_W - 13, BAND - 13, -1, -1)):
+        d.line([(bx, by), (bx + 22 * dx, by)], fill=(0, 150, 170), width=1)
+        d.line([(bx, by), (bx, by + 22 * dy)], fill=(0, 150, 170), width=1)
+    return im
+
+
 def _conv(args):
-    i, frame, out = args
-    im = hud(Image.fromarray(to_ascii(frame, i)))
-    im.save(os.path.join(out, f"a{i:04d}.png"))
+    i, frame, top, out = args
+    band = Image.fromarray(to_ascii(frame, i)).crop((0, top, OUT_W, top + BAND))
+    hero_band(band).save(os.path.join(out, f"a{i:04d}.png"))
     return i
 
 
@@ -176,58 +215,19 @@ def build(out, jobs=14):
         return x
 
     frames = [resolve(x) for x in seq]
+    tops = track(frames)
     with Pool(jobs) as p:
-        for _ in p.imap_unordered(_conv, [(i, f, out) for i, f in enumerate(frames)], chunksize=4):
+        for _ in p.imap_unordered(_conv, [(i, f, int(tops[i]), out) for i, f in enumerate(frames)], chunksize=4):
             pass
     print(f"{len(frames)} frames, {len(frames) / FPS:.1f}s at {FPS} fps -> {out}")
 
 
-CHAPTERS = [
-    # num, title, subtitle, shot, time s, band centre y
-    ("01", "ENTRY", "identity", "Shot 1.mp4", 5.3, 330),
-    ("01", "SYSTEMS", "how I engineer", "Shot 2.mp4", 3.9, 250),
-    ("02", "SELECTED WORK", "what I have built", "Shot 2.mp4", 8.3, 300),
-    ("03", "TOOLKIT", "what I build with", "Shot 2.mp4", 6.9, 300),
-    ("05", "EXIT", "end of transmission", "Shot 3.mp4", 7.4, 330),
-]
-BAND = 210
-
-
-def chapters(out):
-    os.makedirs(out, exist_ok=True)
-    big = ImageFont.truetype(FONT, 38)
-    num_f = ImageFont.truetype(FONT, 15)
-    sub_f = ImageFont.truetype(FONT, 13)
-    for num, title, sub, shot, t, cy in CHAPTERS:
-        fr = read_frames(os.path.join(SRC, shot), t, t + 0.06)[0]
-        im = Image.fromarray(to_ascii(fr))
-        top = max(0, min(OUT_H - BAND, cy - BAND // 2))
-        im = im.crop((0, top, OUT_W, top + BAND))
-        # darken the left third so the title reads
-        a = np.asarray(im, float)
-        ramp = np.clip((np.arange(OUT_W) - 120) / 380, 0, 1)[None, :, None]
-        a = a * (0.35 + 0.65 * ramp)
-        im = Image.fromarray(a.astype(np.uint8))
-        d = ImageDraw.Draw(im)
-        x, y = 44, 58
-        d.text((x, y), f"{num} //", font=num_f, fill=(0, 220, 240))
-        for dx, c in ((-2, (150, 20, 70)), (2, (0, 140, 160)), (0, (236, 234, 245))):
-            d.text((x + dx, y + 22), title, font=big, fill=c)
-        d.text((x, y + 72), "> " + sub, font=sub_f, fill=(186, 156, 255))
-        for (bx, by, dx, dy) in ((12, 12, 1, 1), (OUT_W - 13, 12, -1, 1), (12, BAND - 13, 1, -1), (OUT_W - 13, BAND - 13, -1, -1)):
-            d.line([(bx, by), (bx + 22 * dx, by)], fill=(0, 150, 170), width=1)
-            d.line([(bx, by), (bx, by + 22 * dy)], fill=(0, 150, 170), width=1)
-        name = f"chapter-{num}-{title.lower().replace(' ', '-')}.png"
-        im.save(os.path.join(out, name), optimize=True)
-    print("chapters written")
-
-
 LOOPS = [
     # num, title, subtitle, shot, start s, end s, band centre y
-    ("01", "SYSTEMS", "how I engineer", "Shot 2.mp4", 3.3, 5.3, 250),
-    ("02", "SELECTED WORK", "what I have built", "Shot 2.mp4", 7.3, 9.3, 300),
-    ("03", "TOOLKIT", "what I build with", "Shot 2.mp4", 5.6, 7.3, 300),
-    ("04", "EXIT", "end of transmission", "Shot 3.mp4", 6.2, 8.0, 330),
+    ("01", "SYSTEMS", "how I engineer", "Shot 1.mp4", 0.2, 2.4, 280),
+    ("02", "SELECTED WORK", "what I have built", "Shot 3.mp4", 0.0, 1.5, 300),
+    ("03", "TOOLKIT", "what I build with", "Shot 3.mp4", 1.6, 3.2, 260),
+    ("04", "EXIT", "end of transmission", "Shot 3.mp4", 8.4, 10.0, 400),
 ]
 LOOP_FPS = 15
 
@@ -286,14 +286,10 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--out", required=True)
     ap.add_argument("--test", action="store_true", help="convert a few single frames only")
-    ap.add_argument("--chapters", action="store_true", help="render the README chapter stills")
     ap.add_argument("--chapter-loops", action="store_true", help="render animated chapter bands")
     a = ap.parse_args()
     if a.chapter_loops:
         chapter_loops(a.out)
-        return
-    if a.chapters:
-        chapters(a.out)
         return
     if a.test:
         os.makedirs(a.out, exist_ok=True)

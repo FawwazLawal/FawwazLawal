@@ -10,5 +10,6 @@ veil, and dissolves the gateway white-out back into the opening so the loop is s
     python3 gen/ascii_film.py --out frames          # 313 frames, 20 fps
     python3 gen/ascii_film.py --chapter-loops --out assets
 
-Then encode `frames/` to `assets/hero.webp` at 960 px wide, 20 fps (WebP quality 32).
+The hero is a 1200x210 band that follows her along a hand-keyed camera path (`CAMERA`).
+Encode `frames/` to `assets/hero.webp` at 20 fps (WebP quality 36).
 Needs ffmpeg, numpy and Pillow.

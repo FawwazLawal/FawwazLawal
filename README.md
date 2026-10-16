@@ -61,6 +61,11 @@ README says exactly where simulation stops and real infrastructure starts. The m
 is parsed against a schema so a malformed response raises instead of reaching a human, and
 the prompt is read from disk at runtime so the file in the repo is exactly what gets sent.
 
+### Public repositories
+
+<!-- REPOS:START -->
+<!-- REPOS:END -->
+
 <img src="./assets/chapter-03-toolkit.webp" width="100%" alt="03 // Toolkit. She runs on through streams of code.">
 
 | | |
@@ -71,8 +76,10 @@ the prompt is read from disk at runtime so the file in the repo is exactly what 
 | **Background** | B.S. Cybersecurity · B.S. Electrical Engineering, in progress |
 | **Certifications** | Security+ · CySA+ · PenTest+ · ISC2 Associate |
 
+<img src="./assets/stats.svg" width="100%" alt="GitHub stats: contributions and streaks over the past year, public repositories, stars, commits, pull requests, and languages across public repositories. Refreshed daily.">
+
 <img src="./assets/chapter-04-exit.webp" width="100%" alt="04 // Exit. She passes through the gateway into light.">
 
 <p align="center"><code>&gt; end of transmission. the rest of the work is in <a href="https://github.com/FawwazLawal?tab=repositories">repositories</a>.</code></p>
 
-<p align="center"><sub>Hero footage generated with Google Flow, then cut and rendered into 0/1 glyphs frame by frame by <a href="./gen/ascii_film.py">gen/ascii_film.py</a>. The chapter bands are short loops from the same footage.</sub></p>
+<p align="center"><sub>Hero footage generated with Google Flow, then cut and rendered into 0/1 glyphs frame by frame by <a href="./gen/ascii_film.py">gen/ascii_film.py</a>. The chapter bands are short loops from the same footage. Stats and repository cards are regenerated daily by <a href="./gen/stats_cards.py">gen/stats_cards.py</a>.</sub></p>
