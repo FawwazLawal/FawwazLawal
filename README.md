@@ -72,7 +72,58 @@ the prompt is read from disk at runtime so the file in the repo is exactly what 
 </p>
 <!-- REPOS:END -->
 
-<img src="./assets/chapter-03-toolkit.webp" width="100%" alt="03 // Toolkit. She runs on through streams of code.">
+<img src="./assets/chapter-03-restricted.webp" width="100%" alt="03 // Restricted. A gateway of glowing binary glyphs.">
+
+The two projects I spend most of my time on are in private repositories. The source stays
+closed, so this is what they do and what they look like.
+
+### Fisher
+
+`Swift` `SwiftUI` `Go` `private repository`
+
+An iPhone client and a Go backend for the Internet Archive's public audio: a century of
+concerts, broadcasts and records that no streaming service carries. Playback is the easy
+part. The work is making an archive this large and this uncurated feel like a music app.
+
+<img src="./assets/work/fisher.webp" width="100%" alt="Three iPhone screens from Fisher. Home with a Good afternoon greeting, Liked Songs and Trending Now shortcuts, a Popular Mixes row with generated mosaic artwork, and a Trending Now row. A playlist screen for Hip Hop Essentials with mosaic art, a play button and a numbered track list. A now playing screen for Dr. Dre with artwork, scrubber, transport controls and an About this recording panel.">
+
+Mixes are built by rule instead of by hand, and each one states the rule it was built from:
+Hip Hop Essentials is "tagged hip hop or rap, most downloaded this week, one record an
+artist, from artists a music database knows." The cover is a mosaic assembled from the
+records that made the cut. The home feed reorders itself from listening behaviour, with
+artist affinity and genre weighting that decays over time, computed on the device. The
+player carries a written note on the recording itself, so a 1992 record arrives with its
+history attached rather than as a bare file name.
+
+A Go API with background workers, a SwiftUI client with a widget extension, and unit and UI
+test targets. 629 commits, in development, not in any app store.
+
+### Domain Dispatch
+
+`Swift` `Kotlin` `Go` `private repository`
+
+A macOS console that holds one live picture of a drone operation: aircraft, vehicles,
+cameras, radios and public feeds on a single map, with tasking, live tracking and
+after-action review.
+
+<img src="./assets/work/domain-dispatch-map.webp" width="100%" alt="Domain Dispatch live map on macOS. A sidebar lists Live Map, Live Feeds, Create Event, Task Board, Task Rules, Alert History, a sync centre, after-action review, offline maps and paired devices. A satellite map shows camera and aircraft markers with range rings, and a public traffic camera feed is open in place beside it.">
+
+Owned assets and public infrastructure share one map. Above, public traffic cameras sit
+beside the operator's own entities, and any camera opens in place and can be pinned to a
+live feed panel. Everything assumes the link will drop: offline map packs, a sync queue that
+drains when the connection returns, and a status bar that stays honest about what is
+connected and what is not.
+
+<img src="./assets/work/domain-dispatch-plan.webp" width="100%" alt="Domain Dispatch mission planning on macOS. A satellite map with a drawn boundary and range ring sits beside a panel for Area of Operations, Assets, Flight Parameters at 50 metres and 8 metres per second, Classification and Geofence, and Operator, with Save Plan and Begin Mission buttons.">
+
+Planning is a checklist with teeth. An area of operations is drawn on the map, searched by
+address or taken from the current view, and assets, flight parameters, classification,
+geofence and operator each have to be set before a mission can begin. Plans save and replay.
+
+A Swift app with an Android companion for paired devices, its own backend and a telemetry
+service. 1,497 commits, currently at v0.193.0-alpha.
+
+<img src="./assets/chapter-04-toolkit.webp" width="100%" alt="04 // Toolkit. She runs on through streams of code.">
 
 | | |
 |---|---|
@@ -84,8 +135,8 @@ the prompt is read from disk at runtime so the file in the repo is exactly what 
 
 <img src="./assets/stats.svg" width="100%" alt="GitHub stats: contributions and streaks over the past year, public repositories, stars, commits, pull requests, and languages across public repositories. Refreshed daily.">
 
-<img src="./assets/chapter-04-exit.webp" width="100%" alt="04 // Exit. She passes through the gateway into light.">
+<img src="./assets/chapter-05-exit.webp" width="100%" alt="05 // Exit. She passes through the gateway into light.">
 
 <p align="center"><code>&gt; end of transmission. the rest of the work is in <a href="https://github.com/FawwazLawal?tab=repositories">repositories</a>.</code></p>
 
-<p align="center"><sub>Hero footage generated with Google Flow, then cut and rendered into 0/1 glyphs frame by frame by <a href="./gen/ascii_film.py">gen/ascii_film.py</a>. The chapter bands are short loops from the same footage. Stats and repository cards are regenerated daily by <a href="./gen/stats_cards.py">gen/stats_cards.py</a>.</sub></p>
+<p align="center"><sub>Hero footage generated with Google Flow, then cut and rendered into 0/1 glyphs frame by frame by <a href="./gen/ascii_film.py">gen/ascii_film.py</a>. The chapter bands are short loops from the same footage. Screenshots of the private work are framed by <a href="./gen/work_shots.py">gen/work_shots.py</a>. Stats and repository cards are regenerated daily by <a href="./gen/stats_cards.py">gen/stats_cards.py</a>.</sub></p>

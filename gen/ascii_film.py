@@ -226,8 +226,9 @@ LOOPS = [
     # num, title, subtitle, shot, start s, end s, band centre y
     ("01", "SYSTEMS", "how I engineer", "Shot 1.mp4", 0.2, 2.4, 280),
     ("02", "SELECTED WORK", "what I have built", "Shot 3.mp4", 0.0, 1.5, 300),
-    ("03", "TOOLKIT", "what I build with", "Shot 3.mp4", 1.6, 3.2, 260),
-    ("04", "EXIT", "end of transmission", "Shot 3.mp4", 8.4, 10.0, 400),
+    ("03", "RESTRICTED", "private repositories", "Shot 2.mp4", 8.6, 10.0, 300),
+    ("04", "TOOLKIT", "what I build with", "Shot 3.mp4", 1.6, 3.2, 260),
+    ("05", "EXIT", "end of transmission", "Shot 3.mp4", 8.4, 10.0, 400),
 ]
 LOOP_FPS = 15
 
