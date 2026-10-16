@@ -1,94 +1,72 @@
-<div align="center">
-  <img src="./banner.svg" alt="Fawwaz Lawal, Software Engineer" width="100%">
-</div>
+<p align="center">
+  <img src="./banner.svg" alt="Fawwaz Lawal, software engineer" width="100%">
+</p>
 
-```
-┌─[ PERSONNEL ]────────────────────────────────────────────────────┐
-│                                                                  │
-│   NAME ........ Fawwaz Lawal                                     │
-│   FUNCTION .... Software Engineer: iOS · Go · Systems            │
-│   STATUS ...... ● ACTIVE                                         │
-│   CREDENTIALS . B.S. Cybersecurity · B.S. EE (in progress)       │
-│                 Security+ · CySA+ · PenTest+ · Associate ISC2    │
-│                                                                  │
-└──────────────────────────────────────────────────────────────────┘
-```
+I build backend services in Go and iPhone apps in Swift and SwiftUI, and I spend as much
+care on the checks around a system as on the system itself. I came to software through
+security, where the habit of asking "how would I know if this were wrong?" was the whole
+job. I kept the habit.
 
-<div align="center">
+`Go` `Swift` `SwiftUI` `Python` `Kotlin` `Docker` `GitHub Actions` `Xcode`
 
-![Swift](https://img.shields.io/badge/SWIFT-0a0a0a?style=for-the-badge&logo=swift&logoColor=ff1e1e&labelColor=0a0a0a)
-![Go](https://img.shields.io/badge/GO-0a0a0a?style=for-the-badge&logo=go&logoColor=ff1e1e&labelColor=0a0a0a)
-![SwiftUI](https://img.shields.io/badge/SWIFTUI-0a0a0a?style=for-the-badge&logo=swift&logoColor=ff1e1e&labelColor=0a0a0a)
-![Kotlin](https://img.shields.io/badge/KOTLIN-0a0a0a?style=for-the-badge&logo=kotlin&logoColor=ff1e1e&labelColor=0a0a0a)
-![Python](https://img.shields.io/badge/PYTHON-0a0a0a?style=for-the-badge&logo=python&logoColor=ff1e1e&labelColor=0a0a0a)
-![Docker](https://img.shields.io/badge/DOCKER-0a0a0a?style=for-the-badge&logo=docker&logoColor=ff1e1e&labelColor=0a0a0a)
-![CI/CD](https://img.shields.io/badge/CI%2FCD-0a0a0a?style=for-the-badge&logo=githubactions&logoColor=ff1e1e&labelColor=0a0a0a)
-![Xcode](https://img.shields.io/badge/XCODE-0a0a0a?style=for-the-badge&logo=xcode&logoColor=ff1e1e&labelColor=0a0a0a)
+<br>
 
-</div>
+## Selected work
 
----
+**[Speed-to-lead](https://github.com/FawwazLawal/blaze-speed-to-lead)** · Python, FastAPI, Supabase, Discord
 
-## ▰ OPERATING NOTES
+A lead-ad form submission becomes a scored, personalised reply in Discord a few seconds
+later, against a 22-hour human baseline. One webhook, one database row, one structured
+model call, one card. Three consecutive live runs measured end to end: 4.8s, 5.0s, 3.0s.
 
-> Field notes from this year. Each one cost a wasted round or a wrong conclusion.
+The part I care about is the honesty of the seam. Facebook itself is simulated, and the
+README says exactly where simulation stops and real infrastructure starts. The model's reply
+is parsed against a schema so a malformed response raises instead of reaching a human, and
+the prompt is read from disk at runtime so the file in the repo is exactly what gets sent.
 
-```
-[01] A CHECK THAT CANNOT GO RED IS NOT A CHECK
-```
-`go test` without `-count=1` reads the test cache. A mutation test was reporting a pass
-when the test had never actually run, and 1 of 25 mutants came back falsely green that way.
-Show a check failing against the broken state before you trust it passing.
+<br>
 
-```
-[02] DETECTORS STOP DEFECT CLASSES. RULES DO NOT.
-```
-Across thirteen recurring defect classes in my own build process, the only two that ever
-stopped were stopped by an automated check, not by a rule everyone had agreed to.
-I build the detector first now.
+## How I work
 
-```
-[03] REPLACE THE PROXY WITH THE ACT
-```
-`git check-ignore` exits 0 when *any* pattern matches, including a negating `!pattern`,
-so a perfectly committable file reports as ignored. `git add --dry-run` is the operation
-itself rather than a predicate about it. When you add a check, ask not only whether it can
-fail, but whether it measures the thing you care about or a proxy for it.
+**A check that cannot go red is not a check.**
+`go test` without `-count=1` reads the cache. A mutation test of mine reported a pass on a
+test that had never run, and 1 of 25 mutants came back falsely green. I now show a check
+failing against the broken state before I trust it passing.
 
-```
-[04] AUDIT BY COMPUTATION, NOT BY EYE
-```
-Audited a design system for WCAG AA by computing contrast ratios rather than trusting the
-documented values. Found one token passing by 0.0008 and another failing outright with zero
-usages anywhere. Deleted the second rather than fixing it, because an unused failing token is a
-trap for whoever reaches for it next, not a bug.
+**Detectors stop defect classes. Rules do not.**
+Of thirteen recurring defect classes in my own build process, the only two that ever stopped
+were stopped by an automated check, not by a rule everyone had agreed to. I build the
+detector first.
 
-```
-[05] MEASURE BEFORE YOU CLAIM
-```
-"It builds" means you ran it this session and it exited 0. Every number says how it was
-measured. Reading is a hypothesis, running is a finding. Say which one you have.
+**Replace the proxy with the act.**
+`git check-ignore` exits 0 when any pattern matches, including a negating one, so a perfectly
+committable file reports as ignored. `git add --dry-run` is the operation itself. A check
+should measure the thing you care about, not a predicate about it.
 
----
+**Audit by computation, not by eye.**
+I audited a design system for WCAG AA by computing the contrast ratios instead of trusting the
+documented values. One token passed by 0.0008. Another failed outright and had zero usages,
+so I deleted it rather than fixing it: an unused failing token is a trap for the next person.
 
-## ▰ SYSTEMS
+**Measure before you claim.**
+"It builds" means it ran this session and exited 0. Every number says how it was measured.
+Reading is a hypothesis, running is a finding, and I say which one I have.
 
-Development runs through a program of ~30 specialized Claude Code agents (builders, QA,
-composition review, release) coordinating over a file-based message bus, with lane ownership,
-handoff protocol, and gated task promotion.
+<br>
+
+## Working with agents
+
+My day-to-day development runs through a program of roughly thirty specialised Claude Code
+agents: builders, QA, composition review, release. They coordinate over a file-based message
+bus with lane ownership, a handoff protocol, and gated task promotion.
 
 The agents were the easy part. The work was building the instruments that keep them honest:
-automated detection for two agents about to write the same file, for gates that cannot fail,
-for records claiming more certainty than they have.
+detection for two agents about to write the same file, for gates that cannot fail, and for
+records claiming more certainty than they have.
 
----
+<br>
 
-<div align="center">
+## Background
 
-<img src="https://github-readme-stats.vercel.app/api?username=FawwazLawal&show_icons=true&hide_title=true&bg_color=07070a&text_color=b9aca2&icon_color=ff1e1e&border_color=3a1010" alt="GitHub stats" width="60%">
-
-```
-// END OF RECORD
-```
-
-</div>
+B.S. Cybersecurity · B.S. Electrical Engineering, in progress  
+Security+ · CySA+ · PenTest+ · ISC2 Associate
