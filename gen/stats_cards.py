@@ -72,7 +72,7 @@ def fetch():
 
 def clean(s):
     """Plain text for the cards: no em or en dashes, collapsed whitespace."""
-    s = (s or "").replace("—", ", ").replace("–", "-")
+    s = (s or "").replace(chr(0x2014), ", ").replace(chr(0x2013), "-")
     return re.sub(r"\s+", " ", s).strip()
 
 
