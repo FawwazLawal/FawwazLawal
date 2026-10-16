@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="590" height="150" viewBox="0 0 590 150" role="img" aria-label="blaze-speed-to-lead: Speed-to-lead pipeline: a simulated Facebook lead-ad webhook to a qualified, personalised reply in Discord in under 5 seconds, against a 22-hour baseline.">
+<title>blaze-speed-to-lead: Speed-to-lead pipeline: a simulated Facebook lead-ad webhook to a qualified, personalised reply in Discord in under 5 seconds, against a 22-hour baseline.</title>
+<defs>
+  <linearGradient id="edge" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#00f0ff" stop-opacity="0.7"/>
+    <stop offset="0.55" stop-color="#7a2cff" stop-opacity="0.45"/>
+    <stop offset="1" stop-color="#ff2a6d" stop-opacity="0.7"/>
+  </linearGradient>
+  <linearGradient id="sweep" x1="0" y1="0" x2="1" y2="0">
+    <stop offset="0" stop-color="#00f0ff" stop-opacity="0"/>
+    <stop offset="0.5" stop-color="#00f0ff" stop-opacity="0.10"/>
+    <stop offset="1" stop-color="#00f0ff" stop-opacity="0"/>
+  </linearGradient>
+  <clipPath id="clip"><rect width="590" height="150" rx="6"/></clipPath>
+</defs>
+<g clip-path="url(#clip)">
+  <rect width="590" height="150" fill="#0b0b16"/>
+  <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#00f0ff" opacity="0.045"><text x="0" y="14">010101010101010101010101010101010101010101010101010101010101010101010101010101010101</text><text x="0" y="28">111110000011111000001111100000111110000011111000001111100000111110000011111000001111</text><text x="0" y="42">010011011001001101100100110110010011011001001101100100110110010011011001001101100100</text><text x="0" y="56">110010011011001001101100100110110010011011001001101100100110110010011011001001101100</text><text x="0" y="70">011111000001111100000111110000011111000001111100000111110000011111000001111100000111</text><text x="0" y="84">101010101010101010101010101010101010101010101010101010101010101010101010101010101010</text><text x="0" y="98">000001111100000111110000011111000001111100000111110000011111000001111100000111110000</text><text x="0" y="112">101100100110110010011011001001101100100110110010011011001001101100100110110010011011</text><text x="0" y="126">001101100100110110010011011001001101100100110110010011011001001101100100110110010011</text><text x="0" y="140">100000111110000011111000001111100000111110000011111000001111100000111110000011111000</text></g>
+  <rect x="-240" y="0" width="240" height="150" fill="url(#sweep)">
+    <animate attributeName="x" values="-240;590" dur="6s" repeatCount="indefinite"/>
+  </rect>
+  <text x="28" y="46" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="20" fill="#00f0ff" font-weight="bold" text-anchor="start" letter-spacing="0" opacity="1">blaze-speed-to-lead</text><text x="28" y="76" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="13" fill="#e8e6f0" font-weight="normal" text-anchor="start" letter-spacing="0" opacity="0.9">Speed-to-lead pipeline: a simulated Facebook lead-ad webhook to a</text><text x="28" y="95" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="13" fill="#e8e6f0" font-weight="normal" text-anchor="start" letter-spacing="0" opacity="0.9">qualified, personalised reply in Discord in under 5 seconds,...</text><circle cx="33" cy="121" r="5" fill="#ff2a6d"/><text x="44" y="125" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#e8e6f0" font-weight="normal" text-anchor="start" letter-spacing="0" opacity="1">Python</text><text x="106" y="125" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#fcee0a" font-weight="normal" text-anchor="start" letter-spacing="0" opacity="1">★ 0</text><text x="170" y="125" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="12" fill="#ba9cff" font-weight="normal" text-anchor="start" letter-spacing="0" opacity="1">⑂ 0</text><text x="562" y="125" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, 'DejaVu Sans Mono', monospace" font-size="11" fill="#8f8aa8" font-weight="normal" text-anchor="end" letter-spacing="0" opacity="1">updated 2026-10-14</text>
+</g>
+<rect x="0.75" y="0.75" width="588.5" height="148.5" rx="6" fill="none" stroke="url(#edge)" stroke-width="1.5"/>
+<path d="M10 28 V10 H28" stroke="#0a7f8a" fill="none" stroke-width="1.2"/><path d="M580 28 V10 H562" stroke="#0a7f8a" fill="none" stroke-width="1.2"/><path d="M10 122 V140 H28" stroke="#0a7f8a" fill="none" stroke-width="1.2"/><path d="M580 122 V140 H562" stroke="#0a7f8a" fill="none" stroke-width="1.2"/>
+</svg>
