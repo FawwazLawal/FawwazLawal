@@ -25,14 +25,12 @@ the prompt is read from disk at runtime so the file in the repo is exactly what 
 
 ### Public repositories
 <!-- REPOS:START -->
-
 <p align="center">
 <a href="https://github.com/FawwazLawal/blaze-speed-to-lead"><img src="./assets/repos/blaze-speed-to-lead.svg" width="49%" alt="blaze-speed-to-lead: Speed-to-lead pipeline: a simulated Facebook lead-ad webhook to a qualified, personalised reply in Discord in under 5 seconds, against a 22-hour baseline."></a>
 <a href="https://github.com/FawwazLawal/VS-Code-Notes-By-Fawwaz-Lawal"><img src="./assets/repos/VS-Code-Notes-By-Fawwaz-Lawal.svg" width="49%" alt="VS-Code-Notes-By-Fawwaz-Lawal: VS Code is a Microsoft IDE, this repo is a live update of notes, tips and info I find useful in work with VS Code"></a>
 <a href="https://github.com/FawwazLawal/Moderate-Calculator-Demo-By-Fawwaz-Lawal"><img src="./assets/repos/Moderate-Calculator-Demo-By-Fawwaz-Lawal.svg" width="49%" alt="Moderate-Calculator-Demo-By-Fawwaz-Lawal: Now we cooking lets SELL SOME CALCULATORS"></a>
 <a href="https://github.com/FawwazLawal/Basic-Calculator-Demo-by-Fawwaz-Lawal"><img src="./assets/repos/Basic-Calculator-Demo-by-Fawwaz-Lawal.svg" width="49%" alt="Basic-Calculator-Demo-by-Fawwaz-Lawal: Step by Step on How To Create A Web Calculator App (NOT FOR PUBLIC USE)"></a>
 </p>
-
 <!-- REPOS:END -->
 
 <img src="./assets/chapter-02-restricted.webp" width="100%" alt="02 // Restricted. A gateway of glowing binary glyphs.">
