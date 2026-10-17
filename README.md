@@ -137,8 +137,7 @@ Reading is a hypothesis, running is a finding, and I say which one I have.
 ### Working with agents
 
 My day-to-day development runs through a program of roughly thirty specialised Claude Code
-agents: builders, QA, composition review, release. They coordinate over a file-based message
-bus with lane ownership, a handoff protocol, and gated task promotion.
+agents: builders, QA, composition review, release.
 
 The agents were the easy part. The work was building the instruments that keep them honest:
 detection for two agents about to write the same file, for gates that cannot fail, and for
