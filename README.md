@@ -106,7 +106,7 @@ conflict", because an absent answer that renders as "clear" fails in the dangero
 direction. The same reasoning made the terrain lookup opt in: it sends planned search area
 coordinates to a third party, and that is an operator's decision, not a default.
 
-<img src="./assets/chapter-03-systems.webp" width="100%" alt="03 // Systems. She turns and runs into a corridor of binary walls.">
+<img src="./assets/chapter-03-systems-v2.webp" width="100%" alt="03 // Systems. She works at a curved holographic terminal. Floating code panels surround her. A test suite flashes green.">
 
 ### How I work
 
@@ -143,7 +143,7 @@ The agents were the easy part. The work was building the instruments that keep t
 detection for two agents about to write the same file, for gates that cannot fail, and for
 records claiming more certainty than they have.
 
-<img src="./assets/chapter-04-toolkit.webp" width="100%" alt="04 // Toolkit. She runs on through streams of code.">
+<img src="./assets/chapter-04-toolkit-v2.webp" width="100%" alt="04 // Toolkit. A gloved hand pulls holographic tools from mid-air. Hammer, shield, blade materialise in cyan and violet.">
 
 | | |
 |---|---|
@@ -155,7 +155,7 @@ records claiming more certainty than they have.
 
 <img src="./assets/stats.svg" width="100%" alt="GitHub stats: contributions and streaks over the past year, public repositories, stars, commits, pull requests, and languages across public repositories. Refreshed daily.">
 
-<img src="./assets/chapter-05-exit.webp" width="100%" alt="05 // Exit. She passes through the gateway into light.">
+<img src="./assets/chapter-05-exit-v2.webp" width="100%" alt="05 // Exit. She walks a corridor of falling binary toward a blinding white gateway and steps through into light.">
 
 <p align="center"><code>&gt; end of transmission. the rest of the work is in <a href="https://github.com/FawwazLawal?tab=repositories">repositories</a>.</code></p>
 
