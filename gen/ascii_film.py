@@ -225,7 +225,7 @@ def build(out, jobs=14):
 LOOPS = [
     # num, title, subtitle, shot, start s, end s, band centre y
     ("01", "SELECTED WORK", "what I have built", "Shot 3.mp4", 0.0, 1.5, 300),
-    ("02", "RESTRICTED", "private repositories", "Shot 2.mp4", 8.6, 10.0, 300),
+    ("02", "RESTRICTED", "private repositories", "restricted.mp4", 5.0, 8.5, 280),
     ("03", "SYSTEMS", "how I engineer", "Shot 1.mp4", 0.2, 2.4, 280),
     ("04", "TOOLKIT", "what I build with", "Shot 3.mp4", 1.6, 3.2, 260),
     ("05", "EXIT", "end of transmission", "Shot 3.mp4", 8.4, 10.0, 400),
