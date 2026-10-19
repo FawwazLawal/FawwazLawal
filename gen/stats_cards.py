@@ -48,7 +48,7 @@ query($login: String!) {
       }
     }
     contributionsCollection {
-      totalCommitContributions totalPullRequestContributions
+      totalCommitContributions restrictedContributionsCount
       contributionCalendar { totalContributions weeks { contributionDays { date contributionCount } } }
     }
   }
@@ -191,8 +191,8 @@ def stats_svg(user, repos):
     b.append(f'<line x1="{x2 - 30}" y1="84" x2="{x2 - 30}" y2="214" stroke="{CYAN_DIM}" stroke-opacity="0.4"/>')
     b.append(stat_block(x2, 118, len(repos), "PUBLIC REPOSITORIES", CYAN))
     b.append(stat_block(x2 + 190, 118, stars, "STARS EARNED", YELLOW))
-    b.append(stat_block(x2, 188, cc["totalCommitContributions"], "COMMITS, PAST YEAR", LAVENDER))
-    b.append(stat_block(x2 + 190, 188, cc["totalPullRequestContributions"], "PRS, PAST YEAR", MAGENTA))
+    b.append(stat_block(x2, 188, cc["restrictedContributionsCount"], "PRIVATE, PAST YEAR", MAGENTA))
+    b.append(stat_block(x2 + 190, 188, cc["totalCommitContributions"], "PUBLIC COMMITS, PAST YEAR", LAVENDER))
     # languages
     x3, bw = 880, 280
     b.append(f'<line x1="{x3 - 30}" y1="84" x2="{x3 - 30}" y2="214" stroke="{CYAN_DIM}" stroke-opacity="0.4"/>')
@@ -206,7 +206,10 @@ def stats_svg(user, repos):
         cx, cy = x3 + (i % 2) * 150, 134 + (i // 2) * 26
         b.append(f'<circle cx="{cx + 5}" cy="{cy - 4}" r="4" fill="{LANG_COLORS[i]}"/>')
         b.append(text(cx + 16, cy, f"{name} {100 * size / total:.1f}%", 12, BONE))
-    return frame(W, H, "".join(b), "GitHub stats for " + LOGIN)
+    return frame(W, H, "".join(b),
+                 f"GitHub stats for {LOGIN}: total and private contributions, "
+                 "streaks, public repositories, stars, public commits, "
+                 "and languages across public repositories")
 
 
 def repo_svg(r):
