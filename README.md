@@ -15,6 +15,22 @@ job. I kept the habit.
 
 <img src="./assets/chapter-01-selected-work.webp" width="100%" alt="01 // Selected work. She runs through an archway of glyphs.">
 
+### [HelloGitty](https://github.com/FawwazLawal/hellogitty)
+
+`Go` `SQLite` `GitHub API`
+
+A local dashboard for tracking contribution opportunities across repositories you choose:
+open issues, good-first-issues, maintainer activity, repo health, and pull requests that
+were closed without merging and why. It polls the GitHub API on a schedule, stores
+everything in SQLite, and serves a single self-contained page on localhost. No build step,
+no CDN, no external fonts. It works offline once the data is local.
+
+The part I care about is that it stays honest about what it knows. Every poll writes a
+machine-readable snapshot alongside the dashboard, so anything downstream can read exactly
+what the last sweep found rather than scraping an HTML page. Configuration is one JSON file:
+which repos to watch, how often to poll, and where to listen. A full guide covering every
+column, colour and cell is in [docs/GUIDE.md](https://github.com/FawwazLawal/hellogitty/blob/main/docs/GUIDE.md).
+
 ### Public repositories
 <!-- REPOS:START -->
 <p align="center">
