@@ -28,6 +28,7 @@ the prompt is read from disk at runtime so the file in the repo is exactly what 
 ### Public repositories
 <!-- REPOS:START -->
 <p align="center">
+<a href="https://github.com/FawwazLawal/hellogitty"><img src="./assets/repos/hellogitty.svg" width="49%" alt="hellogitty: GitHub repository health dashboard"></a>
 <a href="https://github.com/FawwazLawal/blaze-speed-to-lead"><img src="./assets/repos/blaze-speed-to-lead.svg" width="49%" alt="blaze-speed-to-lead: Speed-to-lead pipeline: a simulated Facebook lead-ad webhook to a qualified, personalised reply in Discord in under 5 seconds, against a 22-hour baseline."></a>
 <a href="https://github.com/FawwazLawal/VS-Code-Notes-By-Fawwaz-Lawal"><img src="./assets/repos/VS-Code-Notes-By-Fawwaz-Lawal.svg" width="49%" alt="VS-Code-Notes-By-Fawwaz-Lawal: VS Code is a Microsoft IDE, this repo is a live update of notes, tips and info I find useful in work with VS Code"></a>
 <a href="https://github.com/FawwazLawal/Moderate-Calculator-Demo-By-Fawwaz-Lawal"><img src="./assets/repos/Moderate-Calculator-Demo-By-Fawwaz-Lawal.svg" width="49%" alt="Moderate-Calculator-Demo-By-Fawwaz-Lawal: Now we cooking lets SELL SOME CALCULATORS"></a>
