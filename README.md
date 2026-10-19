@@ -15,19 +15,6 @@ job. I kept the habit.
 
 <img src="./assets/chapter-01-selected-work.webp" width="100%" alt="01 // Selected work. She runs through an archway of glyphs.">
 
-### [Speed-to-lead](https://github.com/FawwazLawal/blaze-speed-to-lead)
-
-`Python` `FastAPI` `Supabase` `Discord`
-
-A lead-ad form submission becomes a scored, personalised reply in Discord a few seconds
-later, against a 22-hour human baseline. One webhook, one database row, one structured
-model call, one card. Three consecutive live runs measured end to end: 4.8s, 5.0s, 3.0s.
-
-The part I care about is the honesty of the seam. Facebook itself is simulated, and the
-README says exactly where simulation stops and real infrastructure starts. The model's reply
-is parsed against a schema so a malformed response raises instead of reaching a human, and
-the prompt is read from disk at runtime so the file in the repo is exactly what gets sent.
-
 ### Public repositories
 <!-- REPOS:START -->
 <p align="center">
