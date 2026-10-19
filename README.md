@@ -8,6 +8,8 @@ care on the checks around a system as on the system itself. I came to software t
 security, where the habit of asking "how would I know if this were wrong?" was the whole
 job. I kept the habit.
 
+<img src="./assets/stats.svg" width="100%" alt="GitHub stats: contributions and streaks over the past year, public repositories, stars, commits, pull requests, and languages across public repositories. Refreshed daily.">
+
 <img src="./assets/chapter-01-selected-work.webp" width="100%" alt="01 // Selected work. She runs through an archway of glyphs.">
 
 ### [Speed-to-lead](https://github.com/FawwazLawal/blaze-speed-to-lead)
@@ -150,8 +152,6 @@ records claiming more certainty than they have.
 | **Delivery** | Docker · GitHub Actions |
 | **Background** | B.S. Cybersecurity · B.S. Electrical Engineering, in progress |
 | **Certifications** | Security+ · CySA+ · PenTest+ · ISC2 Associate |
-
-<img src="./assets/stats.svg" width="100%" alt="GitHub stats: contributions and streaks over the past year, public repositories, stars, commits, pull requests, and languages across public repositories. Refreshed daily.">
 
 <img src="./assets/chapter-05-exit-v2.webp" width="100%" alt="05 // Exit. She walks a corridor of falling binary toward a blinding white gateway and steps through into light.">
 
