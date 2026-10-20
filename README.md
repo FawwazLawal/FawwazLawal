@@ -37,9 +37,6 @@ column, colour and cell is in [docs/GUIDE.md](https://github.com/FawwazLawal/hel
 <!-- REPOS:START -->
 <p align="center">
 <a href="https://github.com/FawwazLawal/hellogitty"><img src="./assets/repos/hellogitty.svg" width="49%" alt="hellogitty: GitHub repository health dashboard"></a>
-<a href="https://github.com/FawwazLawal/VS-Code-Notes-By-Fawwaz-Lawal"><img src="./assets/repos/VS-Code-Notes-By-Fawwaz-Lawal.svg" width="49%" alt="VS-Code-Notes-By-Fawwaz-Lawal: VS Code is a Microsoft IDE, this repo is a live update of notes, tips and info I find useful in work with VS Code"></a>
-<a href="https://github.com/FawwazLawal/Moderate-Calculator-Demo-By-Fawwaz-Lawal"><img src="./assets/repos/Moderate-Calculator-Demo-By-Fawwaz-Lawal.svg" width="49%" alt="Moderate-Calculator-Demo-By-Fawwaz-Lawal: Now we cooking lets SELL SOME CALCULATORS"></a>
-<a href="https://github.com/FawwazLawal/Basic-Calculator-Demo-by-Fawwaz-Lawal"><img src="./assets/repos/Basic-Calculator-Demo-by-Fawwaz-Lawal.svg" width="49%" alt="Basic-Calculator-Demo-by-Fawwaz-Lawal: Step by Step on How To Create A Web Calculator App (NOT FOR PUBLIC USE)"></a>
 </p>
 <!-- REPOS:END -->
 

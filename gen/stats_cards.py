@@ -254,6 +254,9 @@ def repo_svg(r):
     return frame(W, H, "".join(b), f"{r['name']}: {desc}", theme)
 
 
+FEATURED = {"hellogitty"}
+
+
 def main():
     user = fetch()
     repos = [r for r in user["repositories"]["nodes"]
@@ -263,9 +266,10 @@ def main():
         f.write(stats_svg(user, repos, DARK))
     with open(os.path.join(ROOT, "assets", "stats-light.svg"), "w", encoding="utf-8") as f:
         f.write(stats_svg(user, repos, LIGHT))
+    card_repos = [r for r in repos if r["name"] in FEATURED] if FEATURED else repos
     keep = set()
     cells = []
-    for r in repos:
+    for r in card_repos:
         fn = f"{r['name']}.svg"
         keep.add(fn)
         with open(os.path.join(ROOT, "assets", "repos", fn), "w", encoding="utf-8") as f:
