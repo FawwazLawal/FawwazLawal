@@ -31,6 +31,8 @@ what the last sweep found rather than scraping an HTML page. Configuration is on
 which repos to watch, how often to poll, and where to listen. A full guide covering every
 column, colour and cell is in [docs/GUIDE.md](https://github.com/FawwazLawal/hellogitty/blob/main/docs/GUIDE.md).
 
+<img src="./assets/work/hellogitty.webp" width="100%" alt="HelloGitty dashboard on localhost. A top bar shows the version, last check time, GitHub API quota and repo count, with Auto, Light and Dark theme switches and a cat silhouette. Eight status cards below it report watched-issue claims, items waiting on you, check failures, stale data, closed watched issues, dormant repos, slowing repos and API quota. The main panel lists pull requests and issues across five tracked repositories, split into Your move and Waiting on others, each with repo, number, labels, age and status. A right sidebar has three sections: Watched issues with a watch command example, Merge rate with opened, open, merged, closed and rate columns and individual PR rows, and Checks with last-check time, next check, interval, duration, API calls per check, quota reset, GraphQL points remaining and data-file path.">
+
 ### Public repositories
 <!-- REPOS:START -->
 <p align="center">

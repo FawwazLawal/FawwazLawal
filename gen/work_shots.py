@@ -139,6 +139,7 @@ LAYOUTS = {
     "fisher.webp": [[("fisher-home.png", 352), ("fisher-playlist.png", 352), ("fisher-player.png", 352)]],
     "domain-dispatch-map.webp": [[("dd-map.webp", 1120)]],
     "domain-dispatch-plan.webp": [[("dd-planning.webp", 1120)]],
+    "hellogitty.webp": [[("hellogitty.png", 1120)]],
 }
 
 
