@@ -8,10 +8,7 @@ care on the checks around a system as on the system itself. I came to software t
 security, where the habit of asking "how would I know if this were wrong?" was the whole
 job. I kept the habit.
 
-<picture>
-  <source media="(prefers-color-scheme: light)" srcset="./assets/stats-light.svg">
-  <img src="./assets/stats.svg" width="100%" alt="GitHub stats: total and private contributions, streaks, public repositories, stars, public commits, and languages across public repositories. Refreshed daily.">
-</picture>
+
 
 <img src="./assets/chapter-01-selected-work.webp" width="100%" alt="01 // Selected work. She runs through an archway of glyphs.">
 
