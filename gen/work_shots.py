@@ -6,7 +6,7 @@ magenta gradient edge, bracket corners, and a faint scanline veil over the captu
 so the shots sit in the same world as the rest of the page.
 
     python3 gen/work_shots.py                         # every layout
-    python3 gen/work_shots.py hellogitty-dark.webp    # one layout
+    python3 gen/work_shots.py hellogitty-split.webp   # one layout
 
 Needs Pillow. The raw captures are not committed. The HelloGitty pair expects
 source/shots/hellogitty-dark.png and hellogitty-light.png, the same dashboard captured
@@ -17,7 +17,7 @@ import os
 from collections import deque
 
 import numpy as np
-from PIL import Image, ImageDraw, ImageFilter
+from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
@@ -206,8 +206,67 @@ def panel(rows, t=DARK):
     return edge(img, t)
 
 
+# The half-and-half: the same dashboard captured in each theme, split on a diagonal, with a
+# tab over each half saying which mode it is. The tabs sit on the frame, above the capture,
+# so they never cover the interface. offset() lines the light capture up with the dark one.
+SPLIT = ("hellogitty-dark.png", "hellogitty-light.png")
+
+
+def offset(dark, light, reach=16):
+    """(dx, dy) such that light's pixel at (x + dx, y + dy) shows dark's (x, y), found by
+    matching the two captures' edges at half size. Theme changes colours, not edges."""
+    def search(scale, cx, cy, r):
+        e = lambda im: np.asarray(im.convert("L").reduce(scale).filter(ImageFilter.FIND_EDGES), float)
+        d, l = e(dark), e(light)
+        m = r + max(abs(cx), abs(cy))
+        h, w = min(d.shape[0], l.shape[0]) - 2 * m, min(d.shape[1], l.shape[1]) - 2 * m
+        a = d[m:m + h, m:m + w].ravel()
+        return max((np.corrcoef(a, l[m + dy:m + dy + h, m + dx:m + dx + w].ravel())[0, 1], dx, dy)
+                   for dy in range(cy - r, cy + r + 1) for dx in range(cx - r, cx + r + 1))[1:]
+
+    cx, cy = search(4, 0, 0, reach // 4)                  # coarse, then refine at full size
+    return search(1, cx * 4, cy * 4, 6)
+TAB_FONT = next(f for f in ("/usr/share/fonts/truetype/dejavu/DejaVuSansMono-Bold.ttf",
+                            "/Library/Fonts/DejaVuSansMono-Bold.ttf",
+                            "/System/Library/Fonts/Menlo.ttc") if os.path.exists(f))
+
+
+def split_capture():
+    dark = Image.open(os.path.join(SHOTS, SPLIT[0])).convert("RGB")
+    light = Image.open(os.path.join(SHOTS, SPLIT[1])).convert("RGB")
+    dx, dy = offset(dark, light)
+    shifted = Image.new("RGB", light.size)
+    shifted.paste(light, (-dx, -dy))
+    w, h = dark.size
+    m = Image.new("L", (w, h), 0)
+    top, bottom = int(w * 0.58), int(w * 0.42)
+    ImageDraw.Draw(m).polygon([(top, 0), (w, 0), (w, h), (bottom, h)], fill=255)
+    im = Image.composite(shifted, dark, m)
+    ImageDraw.Draw(im).line([(top, 0), (bottom, h)], fill=CYAN, width=5)
+    return im.crop((0, max(0, -dy), w - max(0, dx), h))
+
+
+def split_panel(t=DARK):
+    tile = treat(split_capture(), 1120, t)
+    font = ImageFont.truetype(TAB_FONT, 40)
+    tab_h = 64
+    H = PAD + tab_h + tile.height + PAD
+    img = Image.new("RGB", (W, H), t["panel"])
+    x0, y0 = (W - tile.width) // 2, PAD + tab_h
+    img.paste(tile, (x0, y0))
+    d = ImageDraw.Draw(img)
+    left, right = x0 + 12, x0 + tile.width - 12
+    for text, fill, ink, side in (("DARK MODE", (13, 17, 23), CYAN, "left"), ("LIGHT MODE", (246, 247, 250), (26, 26, 46), "right")):
+        tw = d.textlength(text, font=font)
+        bx0 = left if side == "left" else right - tw - 44
+        box = [bx0, y0 + 12 - tab_h + 8, bx0 + tw + 44, y0 + 12]
+        d.rectangle(box, fill=fill, outline=CYAN, width=2)
+        d.text((bx0 + 22, box[1] + (tab_h - 8) / 2), text, font=font, fill=ink, anchor="lm")
+    return edge(img, t)
+
+
 # name: (rows, theme). The HelloGitty pair is shown through <picture> so the capture
-# follows the viewer's GitHub theme.
+# follows the viewer's GitHub theme; the split shows both themes at once.
 LAYOUTS = {
     "fisher.webp": ([[("fisher-home.png", 352), ("fisher-playlist.png", 352), ("fisher-player.png", 352)]], DARK),
     "domain-dispatch-map.webp": ([[("dd-map.webp", 1120)]], DARK),
@@ -219,11 +278,13 @@ LAYOUTS = {
 
 def main(only=None):
     os.makedirs(OUT, exist_ok=True)
-    for name, (rows, t) in LAYOUTS.items():
+    jobs = {name: (lambda rows=rows, t=t: panel(rows, t)) for name, (rows, t) in LAYOUTS.items()}
+    jobs["hellogitty-split.webp"] = split_panel
+    for name, build in jobs.items():
         if only and name not in only:
             continue
         p = os.path.join(OUT, name)
-        panel(rows, t).save(p, quality=86, method=6)
+        build().save(p, quality=86, method=6)
         print(f"{name} {Image.open(p).size} {os.path.getsize(p) // 1024} KB")
 
 
