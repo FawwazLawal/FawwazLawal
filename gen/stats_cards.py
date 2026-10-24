@@ -101,7 +101,12 @@ query($q: String!) {
 """
 
 # Practice repositories (first-contribution exercises) are not project contributions.
-LEDGER_EXCLUDE = {"MikeMajdalani1/devtreasure-contributions"}
+# Compared in lower case: GitHub reports this one under both owner spellings.
+LEDGER_EXCLUDE = {"mikemajdalani1/devtreasure-contributions", "mikemajdalani/devtreasure-contributions"}
+
+
+def practice(repo):
+    return repo.lower() in LEDGER_EXCLUDE
 
 # golang/go merges changes through Gerrit. Its bot, gopherbot, then closes the pull request
 # with this message (golang/build cmd/gerritbot), so GitHub reports it closed, not merged.
@@ -156,7 +161,7 @@ def ledger_md(prs, today):
     rows.sort(key=lambda r: r[0] != "merged")
     merged = sum(1 for r in rows if r[0] == "merged")
     closed = sum(1 for p in prs if p["state"] == "CLOSED" and not p.get("merged") and not gerrit_merged(p)
-                 and p["repository"]["nameWithOwner"] not in LEDGER_EXCLUDE)
+                 and not practice(p["repository"]["nameWithOwner"]))
     out = ["<details open>",
            f"<summary><b>{len(rows)} pull requests, merged or open, as of {today}</b> · {merged} merged · "
            f"{len(rows) - merged} open</summary>", ""]
@@ -315,7 +320,7 @@ def ledger_rows(prs):
     for p in prs:
         repo = p["repository"]["nameWithOwner"]
         state = "merged" if p.get("merged") or gerrit_merged(p) else p["state"].lower()
-        if state in ("merged", "open") and repo not in LEDGER_EXCLUDE:
+        if state in ("merged", "open") and not practice(repo):
             rows.append((state, p, repo))
     return rows
 
