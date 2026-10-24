@@ -88,19 +88,20 @@ landed. Open means open: the state of every one comes from GitHub, in the list u
 
 <!-- UPSTREAM:START -->
 <details open>
-<summary><b>9 pull requests, merged or open, as of 2026-10-24</b> · 2 merged · 7 open</summary>
+<summary><b>10 pull requests, merged or open, as of 2026-10-24</b> · 3 merged · 7 open</summary>
 
-- `merged 2026-10-23` [fix(ui): fix SMTP configuration margin and empty value display (\#18931)](https://github.com/OpenCTI-Platform/opencti/pull/19110) · [OpenCTI-Platform/opencti](https://github.com/OpenCTI-Platform/opencti)
-- `merged 2026-10-21` [Add Arabic-script specifics to hardening reference (\#1009)](https://github.com/pbakaus/impeccable/pull/1084) · [pbakaus/impeccable](https://github.com/pbakaus/impeccable)
+- `merged 2026-10-23` [fix(ui): fix SMTP configuration margin and empty value display (#18931)](https://github.com/OpenCTI-Platform/opencti/pull/19110) · [OpenCTI-Platform/opencti](https://github.com/OpenCTI-Platform/opencti)
+- `merged 2026-10-21` [Add Arabic-script specifics to hardening reference (#1009)](https://github.com/pbakaus/impeccable/pull/1084) · [pbakaus/impeccable](https://github.com/pbakaus/impeccable)
+- `merged 2026-02-27` [added an entry](https://github.com/mikemajdalani/devtreasure-contributions/pull/3) · [mikemajdalani/devtreasure-contributions](https://github.com/mikemajdalani/devtreasure-contributions)
 - `open since 2026-10-23` [Warn on unrecognized keys in target dictionaries](https://github.com/yonaskolb/XcodeGen/pull/1660) · [yonaskolb/XcodeGen](https://github.com/yonaskolb/XcodeGen)
 - `open since 2026-10-22` [audit: add RTL checks to Responsive Design dimension](https://github.com/pbakaus/impeccable/pull/1114) · [pbakaus/impeccable](https://github.com/pbakaus/impeccable)
-- `open since 2026-10-21` [fix(ui): separate indicator list column values in the Knowledge tab (\#18163)](https://github.com/OpenCTI-Platform/opencti/pull/19154) · [OpenCTI-Platform/opencti](https://github.com/OpenCTI-Platform/opencti)
+- `open since 2026-10-21` [fix(ui): separate indicator list column values in the Knowledge tab (#18163)](https://github.com/OpenCTI-Platform/opencti/pull/19154) · [OpenCTI-Platform/opencti](https://github.com/OpenCTI-Platform/opencti)
 - `open since 2026-10-20` [cmd/go: clarify test cache behavior for file metadata](https://github.com/golang/go/pull/82377) · [golang/go](https://github.com/golang/go)
 - `open since 2026-10-20` [fix: \[api\] return proper REST response from auth key pin endpoint](https://github.com/MISP/MISP/pull/11222) · [MISP/MISP](https://github.com/MISP/MISP)
-- `open since 2026-10-19` [docs: document skip/skipAfter limitations under multiphase evaluation (\#804)](https://github.com/corazawaf/coraza/pull/1785) · [corazawaf/coraza](https://github.com/corazawaf/coraza)
-- `open since 2026-10-19` [fix(ui): align info icon tooltips in user creation form (\#19017)](https://github.com/OpenCTI-Platform/opencti/pull/19108) · [OpenCTI-Platform/opencti](https://github.com/OpenCTI-Platform/opencti)
+- `open since 2026-10-19` [fix(ui): align info icon tooltips in user creation form (#19017)](https://github.com/OpenCTI-Platform/opencti/pull/19108) · [OpenCTI-Platform/opencti](https://github.com/OpenCTI-Platform/opencti)
+- `open since 2026-10-19` [docs: document skip/skipAfter limitations under multiphase evaluation (#804)](https://github.com/corazawaf/coraza/pull/1785) · [corazawaf/coraza](https://github.com/corazawaf/coraza)
 
-<sub>Checked by hand on 2026-10-24 against each project's pull request refs. The next daily run replaces this list with one <code>GENERATED</code> from GitHub's API by <a href="./gen/stats_cards.py">gen/stats_cards.py</a>.</sub>
+<sub><code>GENERATED</code> 2026-10-24 from GitHub's API by <a href="./gen/stats_cards.py">gen/stats_cards.py</a>: every public pull request I have opened against a repository I don't own. Left out: 2 closed without merging, and first-contribution practice repositories. Go merges through Gerrit, so a Go pull request counts as merged when Gerrit's bot says so. If a daily run fails, these dates stop moving.</sub>
 
 </details>
 <!-- UPSTREAM:END -->
@@ -119,7 +120,7 @@ closed, so this chapter shows what they do and what they look like, and marks wh
 are my word. GitHub can count the private work without showing it:
 
 <!-- ACTIVITY:START -->
-<code>GENERATED</code> 2026-10-24 from GitHub's API: **2,189 of my 2,375** contributions in the past year were in private repositories.
+<code>GENERATED</code> 2026-10-24 from GitHub's API: **2,189 of my 2,378** contributions in the past year were in private repositories.
 <!-- ACTIVITY:END -->
 
 ### Fisher: the Internet Archive's audio as a music app
@@ -318,7 +319,7 @@ their old date.
 <!-- STATS:START -->
 <picture>
   <source media="(prefers-color-scheme: light)" srcset="./assets/stats-light.svg">
-  <img src="./assets/stats.svg" width="100%" alt="System status, synced 2026-10-24: 2,375 contributions in the past year, 2,189 of them in private repositories, 9 upstream pull requests, 2 merged.">
+  <img src="./assets/stats.svg" width="100%" alt="System status, synced 2026-10-24: 2,378 contributions in the past year, 2,189 of them in private repositories, 10 upstream pull requests, 3 merged.">
 </picture>
 <!-- STATS:END -->
 
