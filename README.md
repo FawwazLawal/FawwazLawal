@@ -100,7 +100,7 @@ The source is private, so this chapter shows the apps and marks every number as 
 GitHub counts the work without showing it:
 
 <!-- ACTIVITY:START -->
-<code>GENERATED</code> 2026-10-24 from GitHub's API: **2,189 of my 2,417** contributions in the past year were in private repositories.
+<code>GENERATED</code> 2026-10-24 from GitHub's API: **2,189 of my 2,422** contributions in the past year were in private repositories.
 <!-- ACTIVITY:END -->
 
 ### Fisher: the Internet Archive's audio as a music app
@@ -244,7 +244,7 @@ flowchart TD
 <!-- STATS:START -->
 <picture>
   <source media="(prefers-color-scheme: light)" srcset="./assets/stats-light.svg">
-  <img src="./assets/stats.svg" width="100%" alt="System status, synced 2026-10-24: 2,417 contributions in the past year, 2,189 of them in private repositories, 9 upstream pull requests, 2 merged.">
+  <img src="./assets/stats.svg" width="100%" alt="System status, synced 2026-10-24: 2,422 contributions in the past year, 2,189 of them in private repositories, 9 upstream pull requests, 2 merged.">
 </picture>
 <!-- STATS:END -->
 
