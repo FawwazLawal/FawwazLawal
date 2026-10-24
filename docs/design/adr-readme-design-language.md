@@ -191,6 +191,7 @@ Motion is **[C]** in general and **[E3]** at Tier 3.
   - WCAG 2.2.2 requires a pause mechanism for auto-playing motion over 5 s shown alongside other content (DOC).
   - GitHub documents a pause mechanism, an autoplay setting that follows the system reduced-motion preference, **for `.gif` only** (DOC). Behaviour for animated WebP is UNVERIFIED.
   - Long loops in WebP therefore have no documented pause path. Keep them short, use GIF, or use S5.4.
+  - 2.2.2 counts total running time, not cycle length: a 4 s loop that repeats forever still runs for more than 5 s. A short cycle does not make an infinite loop compliant on its own. An infinite ambient loop relies on the S5.4 still as its stop mechanism, and that mechanism stays UNVERIFIED on github.com until it is checked there (C11).
 - **S5.3 Long demonstrations.** Demos longer than about 10 s use uploaded video with controls, so the reader starts it, rather than an autoplay loop (DOC upload limits: 10 MB free, 100 MB paid).
 - **S5.4 Reduced motion.** Provide a still through `<source media="(prefers-reduced-motion: reduce)">` as **progressive enhancement** only. It works by browser mechanism but is undocumented on GitHub. Verify on github.com before relying on it.
 - **S5.5 Budget.** At most one moving focal element per screen in the opening. Ambient motion stays lower in contrast than the text near it.

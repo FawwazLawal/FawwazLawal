@@ -38,32 +38,41 @@ CYAN, BONE = (0, 220, 240), (236, 234, 245)
 CHROMA = ((-2, (150, 20, 70)), (2, (0, 140, 160)))   # the hero's chromatic split
 
 # A line is (text, px, colour, chromatic split, x, y). "cursor" adds a blinking block
-# after the last line. "cut" keeps frames [a, b) and closes them into a seamless loop.
+# after the last line; "cursor_off" lists frame ranges [a, b) where the footage has its own
+# words and the cursor stays off. "cut" keeps frames [a, b) and closes them into a seamless
+# loop; "start" rotates the loop so it opens on that frame (counted after the cut).
 # "box" is the title zone (x0, y0, x1, y1); it must stay clear of the figure in every frame.
+# "pips" is (chapter, chapters): a progress meter after the chapter number.
+HERO_LINES = [("FAWWAZ LAWAL", 52, BONE, True, 44, 50), (">", 42, CYAN, False, 44, 118)]
 SPECS = {
-    "hero": dict(src="hero-band.webp", out="hero", box=(0, 40, 430, 146), cut=(160, 260), still=185,
-                 lines=[("FAWWAZ LAWAL", 52, BONE, True, 44, 79)]),
-    "film": dict(src="hero-band.webp", out="film", box=(0, 40, 430, 146), cut=None, still=185,
-                 lines=[("FAWWAZ LAWAL", 52, BONE, True, 44, 79)]),
+    "hero": dict(src="hero-band.webp", out="hero", box=(0, 34, 430, 178), cut=(160, 260), start=19,
+                 still=185, cursor=True, lines=HERO_LINES),
+    "film": dict(src="hero-band.webp", out="film", box=(0, 34, 430, 178), cut=None, still=185,
+                 cursor=True, lines=HERO_LINES),
 }
 
 
-def chapter(num, title, src, box_x1, still, old, mode="plate", cursor=True, slug=None):
+def chapter(num, title, src, box_x1, still, old, mode="plate", cursor=True, cursor_off=(), slug=None):
     """old: (num, title, subtitle) exactly as ascii_film.py drew them, for mode "strokes"."""
     return dict(src=src, out=f"chapter-{num}-{slug or title.lower().replace(' ', '-')}", box=(0, 46, box_x1, 156),
-                cut=None, still=still, cursor=cursor, mode=mode, old=old,
+                cut=None, still=still, cursor=cursor, cursor_off=cursor_off, mode=mode, old=old,
+                pips=(int(num), CHAPTERS),
                 lines=[(f"{num} //", 42, CYAN, False, 44, 42), (title, 52, BONE, True, 44, 92)])
+
+
+CHAPTERS = 5
 
 
 # Footage -> chapter. Chapter 00 (the public work) has no band: the hero is its frame, so the
 # first screen carries one moving element. The source bands keep their ascii_film.py names;
 # box_x1 stops each title zone short of the figure or light in that footage (checked frame
 # by frame). Chapter 02's footage has ACCESS DENIED passing under the title, so only the old
-# letter strokes are repainted there.
+# letter strokes are repainted there, the cursor stays off while the sign is lit (frames
+# 11-29), and its still is a lit frame.
 SPECS.update({
     "01": chapter("01", "UPSTREAM", "chapter-01-selected-work.webp", 470, 8, ("01", "SELECTED WORK", "what I have built")),
-    "02": chapter("02", "RESTRICTED", "chapter-02-restricted.webp", 380, 15, ("02", "RESTRICTED", "private repositories"),
-                  mode="strokes"),
+    "02": chapter("02", "RESTRICTED", "chapter-02-restricted.webp", 380, 20, ("02", "RESTRICTED", "private repositories"),
+                  mode="strokes", cursor_off=[(11, 30)]),
     "03": chapter("03", "SYSTEMS", "chapter-03-systems.webp", 330, 15, ("03", "SYSTEMS", "how I engineer")),
     "04": chapter("04", "TOOLKIT", "chapter-04-toolkit.webp", 330, 27, ("04", "TOOLKIT", "what I build with")),
     "05": chapter("05", "EXIT", "chapter-05-exit.webp", 300, 27, ("05", "EXIT", "end of transmission")),
@@ -154,11 +163,24 @@ def compose(a, s, mask, n, t, fonts, blink_on):
             for dx, c in CHROMA:
                 d.text((x + dx, y), text, font=fonts[px], fill=c)
         d.text((x, y), text, font=fonts[px], fill=col)
+    if s.get("pips"):
+        n, total = s["pips"]
+        text, px, _, _, x, y = s["lines"][0]
+        x0, side, gap = x + d.textlength(text, font=fonts[px]) + 20, 15, 7
+        top = y + px * 0.55 - side / 2 + 4
+        for k in range(total):
+            bx = x0 + k * (side + gap)
+            box = [bx, top, bx + side, top + side]
+            d.rectangle(box, fill=CYAN) if k < n else d.rectangle(box, outline=(0, 120, 136), width=2)
     if s.get("cursor") and blink_on:
         text, px, _, _, x, y = s["lines"][-1]
         x1 = x + d.textlength(text + " ", font=fonts[px])
         d.rectangle([x1, y + px * 0.18, x1 + px * 0.55, y + px * 1.08], fill=CYAN)
     return im
+
+
+def cursor_on(s, i):
+    return not any(a <= i < b for a, b in s.get("cursor_off", ()))
 
 
 def render(key):
@@ -167,17 +189,20 @@ def render(key):
     still_src = frames[s["still"]]
     if s["cut"]:
         frames = seam(frames[s["cut"][0]:s["cut"][1]])
+    k = s.get("start", 0)
+    frames = frames[k:] + frames[:k]                 # the loop is closed, so rotating keeps it seamless
     n = len(frames)
     h, w = frames[0].shape[:2]
     mask = old_text_mask(w, h, s["old"]) if s.get("mode") == "strokes" else zone_mask(w, h, s["box"])
     fonts = {px: ImageFont.truetype(FONT, px) for _, px, *_ in s["lines"]}
     halves = max(2, round(n * dur / 530))            # ~0.5 s on / off, an even count per loop so it stays seamless
     halves += halves % 2
-    out = [compose(a, s, mask, n, i, fonts, (i * halves // n) % 2 == 0) for i, a in enumerate(frames)]
+    out = [compose(a, s, mask, n, i, fonts, (i * halves // n) % 2 == 0 and cursor_on(s, i))
+           for i, a in enumerate(frames)]
     os.makedirs(OUT, exist_ok=True)
     path = os.path.join(OUT, s["out"] + ".webp")
     out[0].save(path, save_all=True, append_images=out[1:], duration=int(dur), loop=0, quality=40, method=6)
-    still = compose(still_src, s, mask, n, 0, fonts, True)
+    still = compose(still_src, s, mask, n, 0, fonts, cursor_on(s, s["still"]))
     spath = os.path.join(OUT, s["out"] + "-still.webp")
     still.save(spath, quality=82, method=6)
     print(f"{key}: {n} frames, {n * dur / 1000:.2f} s loop, {os.path.getsize(path) / 1e6:.2f} MB, "

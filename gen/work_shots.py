@@ -14,6 +14,7 @@ in each theme.
 """
 
 import os
+from collections import deque
 
 import numpy as np
 from PIL import Image, ImageDraw, ImageFilter
@@ -67,25 +68,74 @@ def edge(img, t=DARK):
 
 
 # Location masking for the operations captures. The console is pointed at a real place,
-# so the satellite basemap is blurred and the camera's agency badge and mile marker are
-# obscured. "keep" rectangles are pasted back sharp afterwards so the interface stays
-# readable: these are overlay controls that sit on top of the map.
+# so the satellite basemap is blurred, and the camera's agency badge and the state code in
+# the camera toast are obscured. "panel" rectangles are opaque interface (the open camera
+# feed, the planning sidebar's version label) and are pasted back whole. Inside each "keep"
+# rectangle only the overlay controls are pasted back, traced by chrome_mask(), so no
+# imagery around or between them survives.
 MASKS = {
     "dd-map.webp": {
         "blur": [(405, 0, 2000, 1217)],
-        "redact": [(424, 46, 702, 118)],
-        "keep": [(405, 16, 926, 1186), (898, 18, 1512, 82), (1858, 196, 1952, 792),
+        "panel": [(427, 39, 923, 1152)],
+        "keep": [(898, 18, 1512, 82), (1858, 196, 1952, 792),
                  (1842, 812, 1958, 1188), (938, 1042, 1472, 1178)],
+        "redact": [(424, 46, 702, 118)],
+        "fill": [((1087, 1068, 1122, 1098), (1080, 1083))],
     },
     "dd-planning.webp": {
-        "blur": [(405, 38, 1350, 1257)],
-        "redact": [],
+        "blur": [(405, 38, 2000, 1225)],
+        "panel": [],
         "keep": [(418, 52, 1182, 122), (1188, 236, 1292, 842),
                  (1158, 828, 1312, 1218), (1032, 1088, 1368, 1162),
-                 (405, 1166, 548, 1224)],
+                 (405, 1166, 548, 1224), (1350, 38, 2000, 1225)],
+        "redact": [],
+        "fill": [((1087, 1107, 1120, 1138), (1080, 1122))],
     },
 }
 BLUR_R = 9
+
+
+def _odd(n):
+    n = max(3, int(round(n)))
+    return n + (n % 2 == 0)
+
+
+def chrome_mask(crop, s=1.8, dark=62, min_side=14):
+    """The overlay controls in a crop, as a mask: dark neutral panels and accent-blue chips
+    that are big enough to be controls, filled row by row so their text and icons stay
+    whole. s is the capture's scale against a 1,120 px wide tile."""
+    a = np.asarray(crop.convert("RGB"), float)
+    mx, mn = a.max(2), a.min(2)
+    panel = (mx < dark) & ((mx - mn) / np.maximum(mx, 1) < 0.45)
+    chip = (a[..., 2] - a[..., 0] > 70) & (a[..., 2] > 110) & (a[..., 2] > a[..., 1] + 25)
+    m = Image.fromarray(((panel | chip) * 255).astype(np.uint8))
+    m = m.filter(ImageFilter.MinFilter(_odd(5 * s))).filter(ImageFilter.MaxFilter(_odd(5 * s)))
+    g = np.asarray(m) > 0
+    h, w = g.shape
+    seen = np.zeros_like(g)
+    keep = np.zeros_like(g)
+    for y, x in zip(*np.nonzero(g)):
+        if seen[y, x]:
+            continue
+        q, comp = deque([(y, x)]), []
+        seen[y, x] = True
+        while q:
+            cy, cx = q.popleft()
+            comp.append((cy, cx))
+            for ny, nx in ((cy + 1, cx), (cy - 1, cx), (cy, cx + 1), (cy, cx - 1)):
+                if 0 <= ny < h and 0 <= nx < w and g[ny, nx] and not seen[ny, nx]:
+                    seen[ny, nx] = True
+                    q.append((ny, nx))
+        ys, xs = zip(*comp)
+        if max(xs) - min(xs) < min_side * s or max(ys) - min(ys) < min_side * s:
+            continue
+        rows = {}
+        for cy, cx in comp:
+            lo, hi = rows.get(cy, (cx, cx))
+            rows[cy] = (min(lo, cx), max(hi, cx))
+        for cy, (lo, hi) in rows.items():
+            keep[cy, lo:hi + 1] = True
+    return Image.fromarray((keep * 255).astype(np.uint8)).filter(ImageFilter.MaxFilter(_odd(2 * s)))
 
 
 def mask(im, name):
@@ -93,14 +143,19 @@ def mask(im, name):
     if not cfg:
         return im
     im = im.convert("RGB")
+    sharp = im.copy()
     for box in cfg["blur"]:
         im.paste(im.crop(box).filter(ImageFilter.GaussianBlur(BLUR_R)), box[:2])
-    sharp = Image.open(os.path.join(SHOTS, name)).convert("RGB")
-    for box in cfg["keep"]:
+    for box in cfg["panel"]:
         im.paste(sharp.crop(box), box[:2])
+    for box in cfg["keep"]:
+        crop = sharp.crop(box)
+        im.paste(Image.composite(crop, im.crop(box), chrome_mask(crop)), box[:2])
     for box in cfg["redact"]:
         patch = im.crop(box).filter(ImageFilter.GaussianBlur(22))
         im.paste(Image.blend(patch, Image.new("RGB", patch.size, (14, 14, 18)), 0.45), box[:2])
+    for box, ref in cfg["fill"]:
+        im.paste(im.getpixel(ref), box)
     return im
 
 

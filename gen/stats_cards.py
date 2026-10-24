@@ -91,8 +91,9 @@ query($q: String!) {
   search(query: $q, type: ISSUE, first: 50) {
     nodes {
       ... on PullRequest {
-        title url number state merged mergedAt createdAt
+        title url number state merged mergedAt createdAt closedAt
         repository { nameWithOwner }
+        comments(last: 10) { nodes { body author { login } } }
       }
     }
   }
@@ -101,6 +102,16 @@ query($q: String!) {
 
 # Practice repositories (first-contribution exercises) are not project contributions.
 LEDGER_EXCLUDE = {"MikeMajdalani1/devtreasure-contributions"}
+
+# golang/go merges changes through Gerrit. Its bot, gopherbot, then closes the pull request
+# with this message (golang/build cmd/gerritbot), so GitHub reports it closed, not merged.
+GERRIT_MERGED = re.compile(r"This PR is being closed because \[golang\.org/cl/\d+\]\([^)]*\) has been merged\.")
+
+
+def gerrit_merged(p):
+    return p["state"] == "CLOSED" and any(
+        (c.get("author") or {}).get("login") == "gopherbot" and GERRIT_MERGED.search(c.get("body") or "")
+        for c in (p.get("comments") or {}).get("nodes") or [])
 
 
 def graphql(query, variables):
@@ -134,23 +145,29 @@ def md_escape(s):
 
 
 def ledger_md(prs, today):
-    """A <details> list: merged first, then open, newest first. Closed-without-merge and practice
-    repositories are left out. A list (not a table) so it wraps on a phone."""
+    """An open <details> list: merged first, then open, newest first, each with a labelled date.
+    Closed-without-merge and practice repositories are left out, and the footnote says how
+    many were closed. A list (not a table) so it wraps on a phone."""
     rows = []
     for state, p, repo in ledger_rows(prs):
-        when = (p["mergedAt"] if state == "merged" else p["createdAt"])[:10]
+        when = ((p["mergedAt"] or p["closedAt"]) if state == "merged" else p["createdAt"])[:10]
         rows.append((state, when, p, repo))
     rows.sort(key=lambda r: r[1], reverse=True)
     rows.sort(key=lambda r: r[0] != "merged")
     merged = sum(1 for r in rows if r[0] == "merged")
-    out = ["<details>",
-           f"<summary><b>All {len(rows)} pull requests and their state today</b> · {merged} merged · "
+    closed = sum(1 for p in prs if p["state"] == "CLOSED" and not p.get("merged") and not gerrit_merged(p)
+                 and p["repository"]["nameWithOwner"] not in LEDGER_EXCLUDE)
+    out = ["<details open>",
+           f"<summary><b>{len(rows)} pull requests, merged or open, as of {today}</b> · {merged} merged · "
            f"{len(rows) - merged} open</summary>", ""]
     for state, when, p, repo in rows:
-        out.append(f"- `{state}` [{md_escape(p['title'])}]({p['url']}) · [{repo}](https://github.com/{repo}) · {when}")
+        chip = f"merged {when}" if state == "merged" else f"open since {when}"
+        out.append(f"- `{chip}` [{md_escape(p['title'])}]({p['url']}) · [{repo}](https://github.com/{repo})")
     out += ["", f"<sub><code>GENERATED</code> {today} from GitHub's API by <a href=\"./gen/stats_cards.py\">gen/stats_cards.py</a>: "
-                f"every public pull request I have opened against a repository I don't own, except ones closed "
-                f"without merging and practice repositories.</sub>", "", "</details>"]
+                f"every public pull request I have opened against a repository I don't own. Left out: {closed} closed "
+                f"without merging, and first-contribution practice repositories. Go merges through Gerrit, so a Go "
+                f"pull request counts as merged when Gerrit's bot says so. If a daily run fails, these dates stop moving.</sub>",
+            "", "</details>"]
     return "\n".join(out)
 
 
@@ -232,22 +249,6 @@ def frame(w, h, body, title, theme):
 '''
 
 
-def streaks(days):
-    counts = [d["contributionCount"] for d in days]
-    longest = run = 0
-    for c in counts:
-        run = run + 1 if c else 0
-        longest = max(longest, run)
-    i = len(counts) - 1
-    if i >= 0 and counts[i] == 0:      # today may not have started yet
-        i -= 1
-    cur = 0
-    while i >= 0 and counts[i]:
-        cur += 1
-        i -= 1
-    return cur, longest
-
-
 def text(x, y, s, size, fill, weight="normal", anchor="start", ls=0, opacity=1):
     return (f'<text x="{x}" y="{y}" font-family="{FONT}" font-size="{size}" fill="{fill}" '
             f'font-weight="{weight}" text-anchor="{anchor}" letter-spacing="{ls}" opacity="{opacity}">'
@@ -256,35 +257,34 @@ def text(x, y, s, size, fill, weight="normal", anchor="start", ls=0, opacity=1):
 
 def stat_cell(x, value, label, sub, color, theme):
     """One readout: a large figure and two 42 px label lines (42 px stays above 12 px at a 358 px phone column)."""
-    return (text(x, 214, value, 112, color, "bold") + text(x, 268, label, 42, theme["bone"], ls=1)
+    return (text(x, 206, value, 96, color, "bold") + text(x, 264, label, 42, theme["bone"], ls=1)
             + text(x, 318, sub, 42, theme["muted"], ls=1))
 
 
 def stats_svg(user, theme, upstream):
-    """Three figures, sized to stay legible on a phone. upstream is (total, merged) or None if the query failed."""
+    """Three figures, sized to stay legible on a phone, all in one colour so none outshouts
+    the others. upstream is (total, merged) or None if the query failed."""
     cc = user["contributionsCollection"]
-    cal = cc["contributionCalendar"]
-    days = [d for w in cal["weeks"] for d in w["contributionDays"]]
-    cur, _ = streaks(days)
+    total, private = cc["contributionCalendar"]["totalContributions"], cc["restrictedContributionsCount"]
     W, H = 1200, 360
     b = [text(40, 64, "// SYSTEM STATUS", 42, theme["cyan"], ls=2),
          text(W - 40, 64, f"SYNC {dt.date.today().isoformat()}", 42, theme["muted"], anchor="end"),
          f'<line x1="40" y1="88" x2="{W - 40}" y2="88" stroke="{theme["cyan_dim"]}" stroke-opacity="0.5"/>',
-         stat_cell(40, f"{cal['totalContributions']:,}", "CONTRIBUTIONS", "PAST YEAR", theme["cyan"], theme),
-         stat_cell(430, str(cur), "DAY STREAK", "CURRENT", theme["magenta"], theme)]
+         stat_cell(40, f"{total:,}", "CONTRIBUTIONS", "PAST YEAR", theme["cyan"], theme),
+         stat_cell(430, f"{private:,}", "IN PRIVATE", "REPOSITORIES", theme["cyan"], theme)]
     if upstream:
-        b.append(stat_cell(800, str(upstream[0]), "UPSTREAM PRS", f"{upstream[1]} MERGED", theme["lavender"], theme))
+        b.append(stat_cell(800, str(upstream[0]), "UPSTREAM PRS", f"{upstream[1]} MERGED", theme["cyan"], theme))
     else:
         b.append(stat_cell(800, "—", "UPSTREAM PRS", "UNAVAILABLE", theme["muted"], theme))
     for x in (400, 770):
         b.append(f'<line x1="{x}" y1="120" x2="{x}" y2="320" stroke="{theme["cyan_dim"]}" stroke-opacity="0.4"/>')
-    return frame(W, H, "".join(b), stats_alt(cal["totalContributions"], cur, upstream), theme)
+    return frame(W, H, "".join(b), stats_alt(total, private, upstream), theme)
 
 
-def stats_alt(total, streak, upstream):
+def stats_alt(total, private, upstream):
     up = f"{upstream[0]} upstream pull requests, {upstream[1]} merged" if upstream else "upstream count unavailable"
     return (f"System status, synced {dt.date.today().isoformat()}: {total:,} contributions in the past year, "
-            f"a {streak}-day current streak, {up}.")
+            f"{private:,} of them in private repositories, {up}.")
 
 
 def repo_svg(r):
@@ -314,7 +314,7 @@ def ledger_rows(prs):
     rows = []
     for p in prs:
         repo = p["repository"]["nameWithOwner"]
-        state = "merged" if p.get("merged") else p["state"].lower()
+        state = "merged" if p.get("merged") or gerrit_merged(p) else p["state"].lower()
         if state in ("merged", "open") and repo not in LEDGER_EXCLUDE:
             rows.append((state, p, repo))
     return rows
@@ -335,14 +335,12 @@ def main():
         with open(os.path.join(ROOT, "assets", name), "w", encoding="utf-8") as f:
             f.write(stats_svg(user, theme, upstream))
     cc = user["contributionsCollection"]
-    cur, _ = streaks([d for w in cc["contributionCalendar"]["weeks"] for d in w["contributionDays"]])
-    alt = escape(stats_alt(cc["contributionCalendar"]["totalContributions"], cur, upstream), {'"': "&quot;"})
+    total, private = cc["contributionCalendar"]["totalContributions"], cc["restrictedContributionsCount"]
+    alt = escape(stats_alt(total, private, upstream), {'"': "&quot;"})
     write_block(readme, "STATS", '<picture>\n  <source media="(prefers-color-scheme: light)" srcset="./assets/stats-light.svg">\n'
                 f'  <img src="./assets/stats.svg" width="100%" alt="{alt}">\n</picture>')
-    total, private = cc["contributionCalendar"]["totalContributions"], cc["restrictedContributionsCount"]
     write_block(readme, "ACTIVITY", f"<code>GENERATED</code> {dt.date.today().isoformat()} from GitHub's API: "
-                f"**{private:,} of my {total:,}** contributions in the past year were in private repositories, "
-                f"by GitHub's own count.")
+                f"**{private:,} of my {total:,}** contributions in the past year were in private repositories.")
     if "<!-- REPOS:START -->" in open(readme, encoding="utf-8").read():
         os.makedirs(os.path.join(ROOT, "assets", "repos"), exist_ok=True)
         card_repos = [r for r in repos if r["name"] in FEATURED] if FEATURED else repos
