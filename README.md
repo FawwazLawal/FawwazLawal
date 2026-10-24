@@ -76,11 +76,8 @@ built it to run the work in the ops log, and it's the one project on this page y
 and check for yourself. It polls GitHub hourly into SQLite and serves a self-contained page on `localhost`: no build
 step, no CDN, and it works offline.
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="./assets/work/hellogitty-dark.webp">
-  <img src="./assets/work/hellogitty-light.webp" width="100%" alt="HelloGitty on localhost, tracking 31 repositories with 21 in the pipeline. Your move: an RTL-audit pull request to pbakaus/impeccable with changes requested, and an XcodeGen pull request failing on Linux. Waiting on others: eight, led by a MISP API fix awaiting first review. A live sidebar lists new issues from golang/go and other watched repositories.">
-</picture>
-<p align="center"><sub><i>My own instance, a dev build after v0.2.0 (8), in your GitHub theme. The two pull requests under "Your move" are rows in the ops log above.</i></sub></p>
+<img src="./assets/work/hellogitty-split.webp" width="100%" alt="HelloGitty on localhost, split on a diagonal: dark mode on the left, light mode on the right, each half labelled on a tab above it. It tracks 31 repositories with 21 in the pipeline. Your move: an RTL-audit pull request to pbakaus/impeccable with changes requested, and an XcodeGen pull request failing on Linux. Waiting on others: eight, led by a MISP API fix awaiting first review. A live sidebar lists new issues from golang/go and other watched repositories.">
+<p align="center"><sub><i>My own instance, a dev build after v0.2.0 (8), in both of its themes. The two pull requests under "Your move" are rows in the ops log above.</i></sub></p>
 
 ```sh
 go install github.com/FawwazLawal/hellogitty/cmd/hellogitty@latest

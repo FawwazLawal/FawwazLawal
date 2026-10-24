@@ -265,14 +265,11 @@ def split_panel(t=DARK):
     return edge(img, t)
 
 
-# name: (rows, theme). The HelloGitty pair is shown through <picture> so the capture
-# follows the viewer's GitHub theme; the split shows both themes at once.
+# name: (rows, theme). HelloGitty is built separately by split_panel(), both themes at once.
 LAYOUTS = {
     "fisher.webp": ([[("fisher-home.png", 352), ("fisher-playlist.png", 352), ("fisher-player.png", 352)]], DARK),
     "domain-dispatch-map.webp": ([[("dd-map.webp", 1120)]], DARK),
     "domain-dispatch-plan.webp": ([[("dd-planning.webp", 1120)]], DARK),
-    "hellogitty-dark.webp": ([[("hellogitty-dark.png", 1120)]], DARK),
-    "hellogitty-light.webp": ([[("hellogitty-light.png", 1120)]], LIGHT),
 }
 
 
