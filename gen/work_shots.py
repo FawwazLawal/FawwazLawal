@@ -5,9 +5,12 @@ assets/work/. The frame matches gen/stats_cards.py: near black ground, a cyan to
 magenta gradient edge, bracket corners, and a faint scanline veil over the capture
 so the shots sit in the same world as the rest of the page.
 
-    python3 gen/work_shots.py
+    python3 gen/work_shots.py                         # every layout
+    python3 gen/work_shots.py hellogitty-dark.webp    # one layout
 
-Needs Pillow. The raw captures are not committed.
+Needs Pillow. The raw captures are not committed. The HelloGitty pair expects
+source/shots/hellogitty-dark.png and hellogitty-light.png, the same dashboard captured
+in each theme.
 """
 
 import os
@@ -29,30 +32,37 @@ CYAN = (0, 240, 255)
 VIOLET = (122, 44, 255)
 MAGENTA = (255, 42, 109)
 
+# Light-theme twin of the panel, for captures shown through a <picture> theme pair.
+# Same gradient edge and brackets, darkened so they keep 3:1 against the paper ground.
+LIGHT = dict(panel=(246, 247, 250), cyan=(0, 105, 111), violet=(90, 26, 176), magenta=(196, 20, 78),
+             bracket=(0, 105, 111), scan=0.96, glow=(0, 0, 0), glow_a=0.10, outline=(160, 170, 185))
+DARK = dict(panel=PANEL, cyan=CYAN, violet=VIOLET, magenta=MAGENTA,
+            bracket=(0, 150, 170), scan=0.86, glow=None, glow_a=0.55, outline=(0, 120, 140))
+
 
 def lerp(a, b, f):
     return tuple(int(x + (y - x) * f) for x, y in zip(a, b))
 
 
-def edge(img):
+def edge(img, t=DARK):
     """Gradient border plus bracket corners, drawn over the panel."""
     w, h = img.size
     d = ImageDraw.Draw(img)
     steps = 160
     for i in range(steps):
         f = i / (steps - 1)
-        c = lerp(CYAN, VIOLET, f * 2) if f < 0.5 else lerp(VIOLET, MAGENTA, (f - 0.5) * 2)
+        c = lerp(t["cyan"], t["violet"], f * 2) if f < 0.5 else lerp(t["violet"], t["magenta"], (f - 0.5) * 2)
         x0, x1 = int(w * f), int(w * (i + 1) / steps) + 1
         d.line([(x0, 0), (x1, 0)], fill=c, width=2)
         d.line([(x0, h - 2), (x1, h - 2)], fill=c, width=2)
         y0, y1 = int(h * f), int(h * (i + 1) / steps) + 1
-        d.line([(0, y0), (0, y1)], fill=lerp(CYAN, MAGENTA, f), width=2)
-        d.line([(w - 2, y0), (w - 2, y1)], fill=lerp(CYAN, MAGENTA, f), width=2)
+        d.line([(0, y0), (0, y1)], fill=lerp(t["cyan"], t["magenta"], f), width=2)
+        d.line([(w - 2, y0), (w - 2, y1)], fill=lerp(t["cyan"], t["magenta"], f), width=2)
     arm, ins = 26, 11
     for x, y, dx, dy in ((ins, ins, 1, 1), (w - ins, ins, -1, 1),
                          (ins, h - ins, 1, -1), (w - ins, h - ins, -1, -1)):
-        d.line([(x, y), (x + arm * dx, y)], fill=(0, 150, 170), width=2)
-        d.line([(x, y), (x, y + arm * dy)], fill=(0, 150, 170), width=2)
+        d.line([(x, y), (x + arm * dx, y)], fill=t["bracket"], width=2)
+        d.line([(x, y), (x, y + arm * dy)], fill=t["bracket"], width=2)
     return img
 
 
@@ -94,62 +104,74 @@ def mask(im, name):
     return im
 
 
-def treat(im, width):
-    """Scale a capture, veil it with scanlines, and give it a cyan edge and glow."""
+def treat(im, width, t=DARK):
+    """Scale a capture, veil it with scanlines, and give it an edge and glow (a soft shadow on light)."""
     h = round(im.height * width / im.width)
     im = im.convert("RGB").resize((width, h), Image.LANCZOS)
     a = np.asarray(im, float)
-    scan = np.where(np.arange(h) % 3 == 0, 0.86, 1.0)[:, None, None]
+    scan = np.where(np.arange(h) % 3 == 0, t["scan"], 1.0)[:, None, None]
     a = a * scan * 0.97
     im = Image.fromarray(np.clip(a, 0, 255).astype(np.uint8))
-    glow = Image.new("RGB", (width + 24, h + 24), (0, 0, 0))
-    glow.paste(im, (12, 12))
-    glow = glow.filter(ImageFilter.GaussianBlur(10))
-    g = np.asarray(glow, float) * 0.55
-    out = Image.fromarray(np.clip(g, 0, 255).astype(np.uint8))
+    if t["glow"] is None:
+        glow = Image.new("RGB", (width + 24, h + 24), (0, 0, 0))
+        glow.paste(im, (12, 12))
+        g = np.asarray(glow.filter(ImageFilter.GaussianBlur(10)), float) * t["glow_a"]
+        out = Image.fromarray(np.clip(g, 0, 255).astype(np.uint8))
+    else:
+        out = Image.new("RGB", (width + 24, h + 24), t["panel"])
+        shade = Image.new("L", out.size, 0)
+        ImageDraw.Draw(shade).rectangle([12, 14, 12 + width, 14 + h], fill=int(255 * t["glow_a"]))
+        out = Image.composite(Image.new("RGB", out.size, t["glow"]), out, shade.filter(ImageFilter.GaussianBlur(8)))
     out.paste(im, (12, 12))
     d = ImageDraw.Draw(out)
-    d.rectangle([11, 11, 12 + width, 12 + h], outline=(0, 120, 140), width=1)
+    d.rectangle([11, 11, 12 + width, 12 + h], outline=t["outline"], width=1)
     return out
 
 
-def panel(rows):
+def panel(rows, t=DARK):
     """rows: list of lists of (path, width). Each row is centred."""
-    tiles = [[treat(mask(Image.open(os.path.join(SHOTS, p)), p), w) for p, w in row] for row in rows]
-    heights = [max(t.height for t in row) for row in tiles]
+    tiles = [[treat(mask(Image.open(os.path.join(SHOTS, p)), p), w, t) for p, w in row] for row in rows]
+    heights = [max(tl.height for tl in row) for row in tiles]
     H = PAD * 2 + sum(heights) + GAP * (len(tiles) - 1)
-    img = Image.new("RGB", (W, H), PANEL)
+    img = Image.new("RGB", (W, H), t["panel"])
     a = np.asarray(img, float)
     yy, xx = np.mgrid[0:H, 0:W]
-    a += (np.exp(-(((xx - W / 2) / (W * 0.6)) ** 2 + ((yy - H / 2) / (H * 0.7)) ** 2))[..., None]
-          * np.array(VIOLET) * 0.05)
+    if t is DARK:
+        a += (np.exp(-(((xx - W / 2) / (W * 0.6)) ** 2 + ((yy - H / 2) / (H * 0.7)) ** 2))[..., None]
+              * np.array(VIOLET) * 0.05)
     img = Image.fromarray(np.clip(a, 0, 255).astype(np.uint8))
     y = PAD
     for row, tile_row, rh in zip(rows, tiles, heights):
-        total = sum(t.width for t in tile_row) + GAP * (len(tile_row) - 1)
+        total = sum(tl.width for tl in tile_row) + GAP * (len(tile_row) - 1)
         x = (W - total) // 2
-        for t in tile_row:
-            img.paste(t, (x, y + (rh - t.height) // 2))
-            x += t.width + GAP
+        for tl in tile_row:
+            img.paste(tl, (x, y + (rh - tl.height) // 2))
+            x += tl.width + GAP
         y += rh + GAP
-    return edge(img)
+    return edge(img, t)
 
 
+# name: (rows, theme). The HelloGitty pair is shown through <picture> so the capture
+# follows the viewer's GitHub theme.
 LAYOUTS = {
-    "fisher.webp": [[("fisher-home.png", 352), ("fisher-playlist.png", 352), ("fisher-player.png", 352)]],
-    "domain-dispatch-map.webp": [[("dd-map.webp", 1120)]],
-    "domain-dispatch-plan.webp": [[("dd-planning.webp", 1120)]],
-    "hellogitty.webp": [[("hellogitty.png", 1120)]],
+    "fisher.webp": ([[("fisher-home.png", 352), ("fisher-playlist.png", 352), ("fisher-player.png", 352)]], DARK),
+    "domain-dispatch-map.webp": ([[("dd-map.webp", 1120)]], DARK),
+    "domain-dispatch-plan.webp": ([[("dd-planning.webp", 1120)]], DARK),
+    "hellogitty-dark.webp": ([[("hellogitty-dark.png", 1120)]], DARK),
+    "hellogitty-light.webp": ([[("hellogitty-light.png", 1120)]], LIGHT),
 }
 
 
-def main():
+def main(only=None):
     os.makedirs(OUT, exist_ok=True)
-    for name, rows in LAYOUTS.items():
+    for name, (rows, t) in LAYOUTS.items():
+        if only and name not in only:
+            continue
         p = os.path.join(OUT, name)
-        panel(rows).save(p, quality=86, method=6)
+        panel(rows, t).save(p, quality=86, method=6)
         print(f"{name} {Image.open(p).size} {os.path.getsize(p) // 1024} KB")
 
 
 if __name__ == "__main__":
-    main()
+    import sys
+    main(set(sys.argv[1:]) or None)

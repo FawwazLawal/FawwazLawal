@@ -1,16 +1,20 @@
-"""Stats panel and public repository cards for the profile README, in the hero's style.
+"""Stats panel, repository cards and upstream ledger for the profile README, in the hero's style.
 
-Reads public data only (public, non-fork repositories owned by the user) through the
-GitHub GraphQL API and writes:
+Reads public data only through the GitHub GraphQL API and writes:
 
     assets/stats.svg              dark-mode stats panel
     assets/stats-light.svg        light-mode stats panel
-    assets/repos/<name>.svg       one card per public repository
-    README.md                     the card grid between the REPOS markers
+    assets/repos/<name>.svg       one card per featured public repository
+    README.md                     the card grid between the REPOS markers, if present
+    README.md                     the upstream ledger between the UPSTREAM markers: public
+                                  pull requests authored by LOGIN in repositories it does
+                                  not own, merged and open, as plain text with links
 
     GITHUB_TOKEN=... python3 gen/stats_cards.py
 
-Runs daily in .github/workflows/stats.yml. Standard library only.
+Runs daily in .github/workflows/stats.yml. Standard library only. If the ledger query
+fails, the previous ledger is left in place; it carries its own date, so it never
+claims to be fresher than it is.
 """
 
 import datetime as dt
@@ -78,18 +82,84 @@ query($login: String!) {
 """
 
 
-def fetch():
+PR_QUERY = """
+query($q: String!) {
+  search(query: $q, type: ISSUE, first: 50) {
+    nodes {
+      ... on PullRequest {
+        title url number state merged mergedAt createdAt
+        repository { nameWithOwner }
+      }
+    }
+  }
+}
+"""
+
+# Practice repositories (first-contribution exercises) are not project contributions.
+LEDGER_EXCLUDE = {"MikeMajdalani1/devtreasure-contributions"}
+
+
+def graphql(query, variables):
     token = os.environ["GITHUB_TOKEN"]
     req = urllib.request.Request(
         "https://api.github.com/graphql",
-        data=json.dumps({"query": QUERY, "variables": {"login": LOGIN}}).encode(),
+        data=json.dumps({"query": query, "variables": variables}).encode(),
         headers={"Authorization": f"bearer {token}", "Content-Type": "application/json",
                  "User-Agent": "profile-stats-cards"})
     with urllib.request.urlopen(req, timeout=30) as r:
         out = json.load(r)
     if out.get("errors"):
-        raise SystemExit(f"GraphQL errors: {out['errors']}")
-    return out["data"]["user"]
+        raise RuntimeError(f"GraphQL errors: {out['errors']}")
+    return out["data"]
+
+
+def fetch():
+    try:
+        return graphql(QUERY, {"login": LOGIN})["user"]
+    except RuntimeError as e:
+        raise SystemExit(str(e))
+
+
+def fetch_prs():
+    q = f"is:pr is:public author:{LOGIN} -user:{LOGIN} sort:created-desc"
+    return [n for n in graphql(PR_QUERY, {"q": q})["search"]["nodes"] if n]
+
+
+def md_escape(s):
+    return re.sub(r"([\\`*_\[\]<>|])", r"\\\1", re.sub(r"\s+", " ", s or "").strip())
+
+
+def ledger_md(prs, today):
+    """Merged first, then open, newest first; closed-without-merge is left out."""
+    order = {"merged": 0, "open": 1}
+    rows = []
+    for p in prs:
+        repo = p["repository"]["nameWithOwner"]
+        state = "merged" if p.get("merged") else p["state"].lower()
+        if state not in order or repo in LEDGER_EXCLUDE:
+            continue
+        when = (p["mergedAt"] if state == "merged" else p["createdAt"])[:10]
+        rows.append((order[state], when, state, p, repo))
+    rows.sort(key=lambda r: r[1], reverse=True)
+    rows.sort(key=lambda r: r[0])
+    out = ["| | Pull request | Project | Date |", "|---|---|---|--:|"]
+    for _, when, state, p, repo in rows:
+        out.append(f"| `{state}` | [{md_escape(p['title'])}]({p['url']}) | [{repo}](https://github.com/{repo}) | {when} |")
+    merged = sum(1 for r in rows if r[2] == "merged")
+    out += ["", f"<sub>{merged} merged · {len(rows) - merged} open · generated {today} from GitHub's API by "
+                f"<a href=\"./gen/stats_cards.py\">gen/stats_cards.py</a>: every public pull request I have opened "
+                f"against a repository I don't own, except ones closed without merging and practice repositories.</sub>"]
+    return "\n".join(out)
+
+
+def write_block(readme, marker, block):
+    s = open(readme, encoding="utf-8").read()
+    if f"<!-- {marker}:START -->" not in s:
+        return False
+    s = re.sub(rf"<!-- {marker}:START -->.*?<!-- {marker}:END -->",
+               lambda m: f"<!-- {marker}:START -->\n{block}\n<!-- {marker}:END -->", s, flags=re.S)
+    open(readme, "w", encoding="utf-8").write(s)
+    return True
 
 
 def clean(s):
@@ -150,7 +220,7 @@ def frame(w, h, body, title, theme):
   <rect width="{w}" height="{h}" fill="{theme["panel"]}"/>
   {tex}
   <rect x="-240" y="0" width="240" height="{h}" fill="url(#sweep)">
-    <animate attributeName="x" values="-240;{w}" dur="6s" repeatCount="indefinite"/>
+    <animate attributeName="x" values="-240;{w}" dur="3s" repeatCount="1" fill="freeze"/>
   </rect>
   {body}
 </g>
@@ -279,14 +349,16 @@ def main():
     for fn in os.listdir(os.path.join(ROOT, "assets", "repos")):
         if fn not in keep:
             os.remove(os.path.join(ROOT, "assets", "repos", fn))
-    grid = "\n".join(cells)
     readme = os.path.join(ROOT, "README.md")
-    s = open(readme, encoding="utf-8").read()
-    s = re.sub(r"<!-- REPOS:START -->.*?<!-- REPOS:END -->",
-               lambda m: '<!-- REPOS:START -->\n<p align="center">\n' + grid + "\n</p>\n<!-- REPOS:END -->",
-               s, flags=re.S)
-    open(readme, "w", encoding="utf-8").write(s)
+    write_block(readme, "REPOS", '<p align="center">\n' + "\n".join(cells) + "\n</p>")
     print(f"{len(repos)} repositories, stats dark+light written")
+    try:
+        prs = fetch_prs()
+    except Exception as e:                      # keep the dated previous ledger rather than fail the job
+        print(f"upstream ledger skipped: {e}")
+        return
+    if write_block(readme, "UPSTREAM", ledger_md(prs, dt.date.today().isoformat())):
+        print(f"upstream ledger: {len(prs)} pull requests found")
 
 
 if __name__ == "__main__":
