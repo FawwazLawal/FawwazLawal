@@ -355,10 +355,11 @@ def main():
     try:
         prs = fetch_prs()
     except Exception as e:                      # keep the dated previous ledger rather than fail the job
-        print(f"upstream ledger skipped: {e}")
+        print(f"::warning title=Upstream ledger skipped::{e}")     # Actions annotation; ledger keeps its old date
         return
-    if write_block(readme, "UPSTREAM", ledger_md(prs, dt.date.today().isoformat())):
-        print(f"upstream ledger: {len(prs)} pull requests found")
+    wrote = write_block(readme, "UPSTREAM", ledger_md(prs, dt.date.today().isoformat()))
+    print(f"::notice title=Upstream ledger::{len(prs)} pull requests found"
+          f"{'' if wrote else ' (README has no UPSTREAM markers)'}")
 
 
 if __name__ == "__main__":
