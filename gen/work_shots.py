@@ -235,15 +235,16 @@ def split_capture():
     dark = Image.open(os.path.join(SHOTS, SPLIT[0])).convert("RGB")
     light = Image.open(os.path.join(SHOTS, SPLIT[1])).convert("RGB")
     dx, dy = offset(dark, light)
-    shifted = Image.new("RGB", light.size)
-    shifted.paste(light, (-dx, -dy))
     w, h = dark.size
+    lw, lh = light.size
+    shifted = Image.new("RGB", dark.size)
+    shifted.paste(light, (-dx, -dy))
     m = Image.new("L", (w, h), 0)
     top, bottom = int(w * 0.58), int(w * 0.42)
     ImageDraw.Draw(m).polygon([(top, 0), (w, 0), (w, h), (bottom, h)], fill=255)
     im = Image.composite(shifted, dark, m)
     ImageDraw.Draw(im).line([(top, 0), (bottom, h)], fill=CYAN, width=5)
-    return im.crop((0, max(0, -dy), w - max(0, dx), h))
+    return im.crop((max(0, -dx), max(0, -dy), min(w, lw - dx), min(h, lh - dy)))   # where both captures have pixels
 
 
 def split_panel(t=DARK):
