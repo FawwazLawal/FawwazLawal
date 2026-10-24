@@ -2,10 +2,14 @@
 
 Reads public data only through the GitHub GraphQL API and writes:
 
-    assets/stats.svg              dark-mode stats panel
-    assets/stats-light.svg        light-mode stats panel
-    assets/repos/<name>.svg       one card per featured public repository
-    README.md                     the card grid between the REPOS markers, if present
+    assets/stats.svg              dark-mode stats panel: three figures, 42 px labels, so it
+    assets/stats-light.svg        stays legible on a phone; light-mode twin
+    README.md                     the panel's <picture> between the STATS markers, with an alt
+                                  that carries the same figures as text, and one dated line
+                                  between the ACTIVITY markers: GitHub's count of private
+                                  contributions, which corroborates the private work
+    assets/repos/<name>.svg       one card per featured public repository, only if the
+    README.md                     README has REPOS markers (card grid between them)
     README.md                     the upstream ledger between the UPSTREAM markers: public
                                   pull requests authored by LOGIN in repositories it does
                                   not own, merged and open, as plain text with links
@@ -130,25 +134,23 @@ def md_escape(s):
 
 
 def ledger_md(prs, today):
-    """Merged first, then open, newest first; closed-without-merge is left out."""
-    order = {"merged": 0, "open": 1}
+    """A <details> list: merged first, then open, newest first. Closed-without-merge and practice
+    repositories are left out. A list (not a table) so it wraps on a phone."""
     rows = []
-    for p in prs:
-        repo = p["repository"]["nameWithOwner"]
-        state = "merged" if p.get("merged") else p["state"].lower()
-        if state not in order or repo in LEDGER_EXCLUDE:
-            continue
+    for state, p, repo in ledger_rows(prs):
         when = (p["mergedAt"] if state == "merged" else p["createdAt"])[:10]
-        rows.append((order[state], when, state, p, repo))
+        rows.append((state, when, p, repo))
     rows.sort(key=lambda r: r[1], reverse=True)
-    rows.sort(key=lambda r: r[0])
-    out = ["| | Pull request | Project | Date |", "|---|---|---|--:|"]
-    for _, when, state, p, repo in rows:
-        out.append(f"| `{state}` | [{md_escape(p['title'])}]({p['url']}) | [{repo}](https://github.com/{repo}) | {when} |")
-    merged = sum(1 for r in rows if r[2] == "merged")
-    out += ["", f"<sub>{merged} merged · {len(rows) - merged} open · generated {today} from GitHub's API by "
-                f"<a href=\"./gen/stats_cards.py\">gen/stats_cards.py</a>: every public pull request I have opened "
-                f"against a repository I don't own, except ones closed without merging and practice repositories.</sub>"]
+    rows.sort(key=lambda r: r[0] != "merged")
+    merged = sum(1 for r in rows if r[0] == "merged")
+    out = ["<details>",
+           f"<summary><b>All {len(rows)} pull requests and their state today</b> · {merged} merged · "
+           f"{len(rows) - merged} open</summary>", ""]
+    for state, when, p, repo in rows:
+        out.append(f"- `{state}` [{md_escape(p['title'])}]({p['url']}) · [{repo}](https://github.com/{repo}) · {when}")
+    out += ["", f"<sub><code>GENERATED</code> {today} from GitHub's API by <a href=\"./gen/stats_cards.py\">gen/stats_cards.py</a>: "
+                f"every public pull request I have opened against a repository I don't own, except ones closed "
+                f"without merging and practice repositories.</sub>", "", "</details>"]
     return "\n".join(out)
 
 
@@ -252,57 +254,37 @@ def text(x, y, s, size, fill, weight="normal", anchor="start", ls=0, opacity=1):
             f'{escape(str(s))}</text>')
 
 
-def stat_block(x, y, value, label, color, theme):
-    return text(x, y, value, 34, color, "bold") + text(x, y + 22, label, 13, theme["muted"], ls=1.2)
+def stat_cell(x, value, label, sub, color, theme):
+    """One readout: a large figure and two 42 px label lines (42 px stays above 12 px at a 358 px phone column)."""
+    return (text(x, 214, value, 112, color, "bold") + text(x, 268, label, 42, theme["bone"], ls=1)
+            + text(x, 318, sub, 42, theme["muted"], ls=1))
 
 
-def stats_svg(user, repos, theme):
+def stats_svg(user, theme, upstream):
+    """Three figures, sized to stay legible on a phone. upstream is (total, merged) or None if the query failed."""
     cc = user["contributionsCollection"]
     cal = cc["contributionCalendar"]
     days = [d for w in cal["weeks"] for d in w["contributionDays"]]
-    cur, longest = streaks(days)
-    stars = sum(r["stargazerCount"] for r in repos)
-    sizes = {}
-    for r in repos:
-        for e in r["languages"]["edges"]:
-            sizes[e["node"]["name"]] = sizes.get(e["node"]["name"], 0) + e["size"]
-    total = sum(sizes.values()) or 1
-    langs = sorted(sizes.items(), key=lambda kv: -kv[1])[:6]
+    cur, _ = streaks(days)
+    W, H = 1200, 360
+    b = [text(40, 64, "// SYSTEM STATUS", 42, theme["cyan"], ls=2),
+         text(W - 40, 64, f"SYNC {dt.date.today().isoformat()}", 42, theme["muted"], anchor="end"),
+         f'<line x1="40" y1="88" x2="{W - 40}" y2="88" stroke="{theme["cyan_dim"]}" stroke-opacity="0.5"/>',
+         stat_cell(40, f"{cal['totalContributions']:,}", "CONTRIBUTIONS", "PAST YEAR", theme["cyan"], theme),
+         stat_cell(430, str(cur), "DAY STREAK", "CURRENT", theme["magenta"], theme)]
+    if upstream:
+        b.append(stat_cell(800, str(upstream[0]), "UPSTREAM PRS", f"{upstream[1]} MERGED", theme["lavender"], theme))
+    else:
+        b.append(stat_cell(800, "—", "UPSTREAM PRS", "UNAVAILABLE", theme["muted"], theme))
+    for x in (400, 770):
+        b.append(f'<line x1="{x}" y1="120" x2="{x}" y2="320" stroke="{theme["cyan_dim"]}" stroke-opacity="0.4"/>')
+    return frame(W, H, "".join(b), stats_alt(cal["totalContributions"], cur, upstream), theme)
 
-    W, H = 1200, 250
-    b = []
-    b.append(text(40, 46, "// SYSTEM STATUS", 13, theme["cyan"], ls=3))
-    b.append(text(W - 40, 46, f"sync {dt.date.today().isoformat()}", 11, theme["muted"], anchor="end", ls=1))
-    b.append(f'<line x1="40" y1="60" x2="{W - 40}" y2="60" stroke="{theme["cyan_dim"]}" stroke-opacity="0.5"/>')
-    # contributions
-    b.append(stat_block(40, 118, cal["totalContributions"], "CONTRIBUTIONS, PAST YEAR", theme["cyan"], theme))
-    b.append(stat_block(40, 188, f"{cur}d", "CURRENT STREAK", theme["magenta"], theme))
-    b.append(stat_block(220, 188, f"{longest}d", "LONGEST STREAK, PAST YEAR", theme["lavender"], theme))
-    # activity
-    x2 = 470
-    b.append(f'<line x1="{x2 - 30}" y1="84" x2="{x2 - 30}" y2="214" stroke="{theme["cyan_dim"]}" stroke-opacity="0.4"/>')
-    b.append(stat_block(x2, 118, len(repos), "PUBLIC REPOSITORIES", theme["cyan"], theme))
-    b.append(stat_block(x2 + 190, 118, stars, "STARS EARNED", theme["yellow"], theme))
-    b.append(stat_block(x2, 188, cc["restrictedContributionsCount"], "PRIVATE, PAST YEAR", theme["magenta"], theme))
-    b.append(stat_block(x2 + 190, 188, cc["totalCommitContributions"], "PUBLIC COMMITS, PAST YEAR", theme["lavender"], theme))
-    # languages
-    x3, bw = 880, 280
-    b.append(f'<line x1="{x3 - 30}" y1="84" x2="{x3 - 30}" y2="214" stroke="{theme["cyan_dim"]}" stroke-opacity="0.4"/>')
-    b.append(text(x3, 92, "LANGUAGES", 13, theme["muted"], ls=1.2))
-    xx = x3
-    for i, (name, size) in enumerate(langs):
-        seg = bw * size / total
-        b.append(f'<rect x="{xx:.1f}" y="104" width="{max(seg - 2, 1):.1f}" height="8" fill="{theme["lang_colors"][i]}"/>')
-        xx += seg
-    for i, (name, size) in enumerate(langs):
-        cx, cy = x3 + (i % 2) * 150, 136 + (i // 2) * 28
-        b.append(f'<circle cx="{cx + 5}" cy="{cy - 4}" r="4" fill="{theme["lang_colors"][i]}"/>')
-        b.append(text(cx + 16, cy, f"{name} {100 * size / total:.1f}%", 13, theme["bone"]))
-    return frame(W, H, "".join(b),
-                 f"GitHub stats for {LOGIN}: total and private contributions, "
-                 "streaks, public repositories, stars, public commits, "
-                 "and languages across public repositories",
-                 theme)
+
+def stats_alt(total, streak, upstream):
+    up = f"{upstream[0]} upstream pull requests, {upstream[1]} merged" if upstream else "upstream count unavailable"
+    return (f"System status, synced {dt.date.today().isoformat()}: {total:,} contributions in the past year, "
+            f"a {streak}-day current streak, {up}.")
 
 
 def repo_svg(r):
@@ -327,38 +309,61 @@ def repo_svg(r):
 FEATURED = {"hellogitty"}
 
 
+def ledger_rows(prs):
+    """Merged and open pull requests to other people's repositories, practice repositories excluded."""
+    rows = []
+    for p in prs:
+        repo = p["repository"]["nameWithOwner"]
+        state = "merged" if p.get("merged") else p["state"].lower()
+        if state in ("merged", "open") and repo not in LEDGER_EXCLUDE:
+            rows.append((state, p, repo))
+    return rows
+
+
 def main():
     user = fetch()
     repos = [r for r in user["repositories"]["nodes"]
              if r["name"].lower() != LOGIN.lower() and not r["isEmpty"]]
-    os.makedirs(os.path.join(ROOT, "assets", "repos"), exist_ok=True)
-    with open(os.path.join(ROOT, "assets", "stats.svg"), "w", encoding="utf-8") as f:
-        f.write(stats_svg(user, repos, DARK))
-    with open(os.path.join(ROOT, "assets", "stats-light.svg"), "w", encoding="utf-8") as f:
-        f.write(stats_svg(user, repos, LIGHT))
-    card_repos = [r for r in repos if r["name"] in FEATURED] if FEATURED else repos
-    keep = set()
-    cells = []
-    for r in card_repos:
-        fn = f"{r['name']}.svg"
-        keep.add(fn)
-        with open(os.path.join(ROOT, "assets", "repos", fn), "w", encoding="utf-8") as f:
-            f.write(repo_svg(r))
-        cells.append(f'<a href="{r["url"]}"><img src="./assets/repos/{fn}" width="49%" '
-                     f'alt="{escape(r["name"])}: {escape(clean(r["description"]))}"></a>')
-    for fn in os.listdir(os.path.join(ROOT, "assets", "repos")):
-        if fn not in keep:
-            os.remove(os.path.join(ROOT, "assets", "repos", fn))
     readme = os.path.join(ROOT, "README.md")
-    write_block(readme, "REPOS", '<p align="center">\n' + "\n".join(cells) + "\n</p>")
-    print(f"{len(repos)} repositories, stats dark+light written")
     try:
-        prs = fetch_prs()
+        prs, err = fetch_prs(), None
     except Exception as e:                      # keep the dated previous ledger rather than fail the job
-        print(f"::warning title=Upstream ledger skipped::{e}")     # Actions annotation; ledger keeps its old date
+        prs, err = None, e
+    rows = ledger_rows(prs) if prs is not None else None
+    upstream = (len(rows), sum(1 for r in rows if r[0] == "merged")) if rows is not None else None
+    for name, theme in (("stats.svg", DARK), ("stats-light.svg", LIGHT)):
+        with open(os.path.join(ROOT, "assets", name), "w", encoding="utf-8") as f:
+            f.write(stats_svg(user, theme, upstream))
+    cc = user["contributionsCollection"]
+    cur, _ = streaks([d for w in cc["contributionCalendar"]["weeks"] for d in w["contributionDays"]])
+    alt = escape(stats_alt(cc["contributionCalendar"]["totalContributions"], cur, upstream), {'"': "&quot;"})
+    write_block(readme, "STATS", '<picture>\n  <source media="(prefers-color-scheme: light)" srcset="./assets/stats-light.svg">\n'
+                f'  <img src="./assets/stats.svg" width="100%" alt="{alt}">\n</picture>')
+    total, private = cc["contributionCalendar"]["totalContributions"], cc["restrictedContributionsCount"]
+    write_block(readme, "ACTIVITY", f"<code>GENERATED</code> {dt.date.today().isoformat()} from GitHub's API: "
+                f"**{private:,} of my {total:,}** contributions in the past year were in private repositories, "
+                f"by GitHub's own count.")
+    if "<!-- REPOS:START -->" in open(readme, encoding="utf-8").read():
+        os.makedirs(os.path.join(ROOT, "assets", "repos"), exist_ok=True)
+        card_repos = [r for r in repos if r["name"] in FEATURED] if FEATURED else repos
+        keep, cells = set(), []
+        for r in card_repos:
+            fn = f"{r['name']}.svg"
+            keep.add(fn)
+            with open(os.path.join(ROOT, "assets", "repos", fn), "w", encoding="utf-8") as f:
+                f.write(repo_svg(r))
+            cells.append(f'<a href="{r["url"]}"><img src="./assets/repos/{fn}" width="49%" '
+                         f'alt="{escape(r["name"])}: {escape(clean(r["description"]))}"></a>')
+        for fn in os.listdir(os.path.join(ROOT, "assets", "repos")):
+            if fn not in keep:
+                os.remove(os.path.join(ROOT, "assets", "repos", fn))
+        write_block(readme, "REPOS", '<p align="center">\n' + "\n".join(cells) + "\n</p>")
+    print(f"{len(repos)} repositories, stats dark+light written")
+    if err is not None:
+        print(f"::warning title=Upstream ledger skipped::{err}")   # Actions annotation; ledger keeps its old date
         return
     wrote = write_block(readme, "UPSTREAM", ledger_md(prs, dt.date.today().isoformat()))
-    print(f"::notice title=Upstream ledger::{len(prs)} pull requests found"
+    print(f"::notice title=Upstream ledger::{len(prs)} pull requests found, {len(rows)} listed"
           f"{'' if wrote else ' (README has no UPSTREAM markers)'}")
 
 

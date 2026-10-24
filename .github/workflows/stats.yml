@@ -27,5 +27,6 @@ jobs:
         run: |
           git config user.name "FawwazLawal"
           git config user.email "263737229+FawwazLawal@users.noreply.github.com"
-          git add -A assets/stats.svg assets/stats-light.svg assets/repos README.md
-          git diff --cached --quiet || { git commit -m "Refresh stats and repository cards"; git push; }
+          git add -A assets/stats.svg assets/stats-light.svg README.md
+          if [ -d assets/repos ]; then git add -A assets/repos; fi
+          git diff --cached --quiet || { git commit -m "Refresh stats and upstream ledger"; git push; }
