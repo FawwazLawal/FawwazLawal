@@ -12,23 +12,23 @@ The STATS, ACTIVITY and UPSTREAM blocks are rewritten daily by gen/stats_cards.p
 
 I build backend services in Go and native apps in Swift and SwiftUI. I came to software
 through security, where the job was asking *"how would I know if this were wrong?"*, and I
-kept the habit: I put as much care into the checks around a system as into the system.
+kept the habit: I put as much care into the checks around a system as into the system. So this
+page runs from the most checkable evidence to the least:
 
-- **Check it upstream:** an [ops log](#00--ops-log-my-pull-requests-to-other-peoples-projects) of my pull requests to Go, MISP, OpenCTI, Coraza and XcodeGen, rebuilt daily.
-- **Install it:** [HelloGitty](https://github.com/FawwazLawal/hellogitty), the Go dashboard I run that work with.
-- **See it, source private:** an Internet Archive music app and an offline-first field operations platform.
+1. **[Ops log](#00--ops-log-my-pull-requests-to-other-peoples-projects)**: every pull request I've opened on someone else's project and where it stands, rebuilt daily from GitHub. <code>GENERATED</code>
+2. **[HelloGitty](#01--hellogitty-the-public-tool-behind-the-log)**: the public tool I track that work with. Install it and look. <code>PUBLIC</code>
+3. **[Restricted](#02--restricted-two-private-projects)**: two private products, in screenshots and in figures I counted. <code>SHOWN</code> <code>STATED</code>
+4. **[Systems](#03--systems-how-i-work)** and **[toolkit](#04--toolkit-what-i-work-with)**: how I check my work and what I work with, in my own words. <code>STATED</code>
 
-Every chapter is stamped with how far you can verify it: <code>PUBLIC</code> <sub>one click to check ·</sub> <code>GENERATED</code> <sub>written daily from GitHub's API ·</sub> <code>SHOWN</code> <sub>a screenshot: the software exists ·</sub> <code>STATED</code> <sub>my word, dated where it changes</sub>
-
-<p><code>00</code>&nbsp;<a href="#00--ops-log-my-pull-requests-to-other-peoples-projects">Ops&nbsp;log</a>&nbsp;&nbsp; <code>01</code>&nbsp;<a href="#01--in-the-open-hellogitty-the-tool-behind-the-log">In&nbsp;the&nbsp;open</a>&nbsp;&nbsp; <code>02</code>&nbsp;<a href="#02--restricted-two-private-projects">Restricted</a>&nbsp;&nbsp; <code>03</code>&nbsp;<a href="#03--systems-how-i-work">Systems</a>&nbsp;&nbsp; <code>04</code>&nbsp;<a href="#04--toolkit-what-i-work-with">Toolkit</a>&nbsp;&nbsp; <code>05</code>&nbsp;<a href="#05--exit-check-the-record">Exit</a></p>
+<sub><code>PUBLIC</code> one click to check · <code>GENERATED</code> written daily from GitHub's API by a script in this repository, and dated · <code>SHOWN</code> a screenshot: it proves the software exists, not how well it works · <code>STATED</code> my word, dated where it changes</sub>
 
 ## 00 · Ops log: my pull requests to other people's projects
 
 <code>GENERATED</code> <sub>rebuilt daily from GitHub's API ·</sub> <code>PUBLIC</code> <sub>each row opens the pull request and its review so far</sub>
 
-**I send fixes upstream to tools I use, mostly security tooling (OpenCTI, MISP, Coraza), plus
-XcodeGen, Go's `go test` help text and impeccable's hardening and audit guides.** Open means
-open: the state column comes from GitHub, not from me.
+**I send fixes upstream, most often to impeccable, the design tool I use most: its hardening
+and audit guides. Beyond that: security tooling (OpenCTI, MISP, Coraza), XcodeGen, and Go's
+`go test` help text.** Open means open: the state column comes from GitHub, not from me.
 
 <!-- UPSTREAM:START -->
 | State | Pull request |
@@ -51,6 +51,8 @@ open: the state column comes from GitHub, not from me.
 <details>
 <summary><b>Field notes: what each change does</b></summary>
 
+- **impeccable** · [Add Arabic-script specifics to hardening reference](https://github.com/pbakaus/impeccable/pull/1084). Merged: the hardening guide now covers Arabic-script text: keep zero-width non-joiners, handle the Persian and Arabic forms of Yeh and Kaf, and format digits and calendars by locale.
+- **impeccable** · [audit: add RTL checks to Responsive Design dimension](https://github.com/pbakaus/impeccable/pull/1114). Adds right-to-left checks to the audit's responsive score: on pages declared RTL, physical CSS such as `margin-left` becomes something to verify in the render, with the cases where it is still correct.
 - **Go** · [`cmd/go`: clarify test cache behavior for file metadata](https://github.com/golang/go/pull/82377). Documents that, for files a test opens, the test cache checks size and modification time, not content.
 - **XcodeGen** · [Warn on unrecognized keys in target dictionaries](https://github.com/yonaskolb/XcodeGen/pull/1660). Warns about a mistyped target key, such as `resources` for `sources`, instead of ignoring it.
 - **Coraza** · [Document skip/skipAfter limitations under multiphase evaluation](https://github.com/corazawaf/coraza/pull/1785). Documents how `skip`, `skipAfter` and `allow` can leave a variable uninspected in the firewall's multiphase mode.
@@ -60,17 +62,18 @@ open: the state column comes from GitHub, not from me.
 </details>
 
 <picture>
-  <source media="(prefers-reduced-motion: reduce)" srcset="./assets/bands/chapter-01-in-the-open-still.webp">
-  <img src="./assets/bands/chapter-01-in-the-open.webp" width="100%" alt="Chapter 01 of 05, In the open. She runs on through an archway of glyphs.">
+  <source media="(prefers-reduced-motion: reduce)" srcset="./assets/bands/chapter-01-hellogitty-still.webp">
+  <img src="./assets/bands/chapter-01-hellogitty.webp" width="100%" alt="Chapter 01 of 05, HelloGitty. She runs on through an archway of glyphs.">
 </picture>
 
-## 01 · In the open: HelloGitty, the tool behind the log
+## 01 · HelloGitty: the public tool behind the log
 
 <code>PUBLIC</code> <sub><a href="https://github.com/FawwazLawal/hellogitty">FawwazLawal/hellogitty</a> · Go · SQLite · MIT licence · <a href="https://github.com/FawwazLawal/hellogitty/releases/latest">v0.2.0 (8)</a>, tag <code>v0.2.8</code>, released 2026-10-23</sub>
 
-**A local dashboard for running open-source work, and the tool behind the ops log:** the issues worth taking, the pull
-requests waiting on you or on a maintainer, and the health of the repositories you follow.
-It polls GitHub hourly into SQLite and serves a self-contained page on `localhost`: no build
+**HelloGitty is a local dashboard for open-source work: every pull request and issue you have
+out on GitHub, sorted by whose move it is, beside the health of the projects you follow.** I
+built it to run the work in the ops log, and it's the one project on this page you can install
+and check for yourself. It polls GitHub hourly into SQLite and serves a self-contained page on `localhost`: no build
 step, no CDN, and it works offline.
 
 <picture>

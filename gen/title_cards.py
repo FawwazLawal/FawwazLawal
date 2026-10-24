@@ -70,7 +70,7 @@ CHAPTERS = 5
 # letter strokes are repainted there, the cursor stays off while the sign is lit (frames
 # 11-29), and its still is a lit frame.
 SPECS.update({
-    "01": chapter("01", "IN THE OPEN", "chapter-01-selected-work.webp", 470, 8, ("01", "SELECTED WORK", "what I have built")),
+    "01": chapter("01", "HELLOGITTY", "chapter-01-selected-work.webp", 470, 8, ("01", "SELECTED WORK", "what I have built")),
     "02": chapter("02", "RESTRICTED", "chapter-02-restricted.webp", 380, 20, ("02", "RESTRICTED", "private repositories"),
                   mode="strokes", cursor_off=[(11, 30)]),
     "03": chapter("03", "SYSTEMS", "chapter-03-systems.webp", 330, 15, ("03", "SYSTEMS", "how I engineer")),
