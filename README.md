@@ -10,11 +10,6 @@ the habit. I spend as much care on the checks around a system as on the system i
 When I'm not building my own projects, I contribute upstream to open source tools I depend
 on — across the security ecosystem, the Swift toolchain, and the Go language.
 
-<picture>
-  <source media="(prefers-color-scheme: light)" srcset="./assets/stats-light.svg" width="100%">
-  <img src="./assets/stats.svg" width="100%" alt="GitHub contribution stats: contributions, streaks, public repositories, stars, commits, and language breakdown across public repos.">
-</picture>
-
 ---
 
 <img src="./assets/chapter-01-selected-work.webp" width="100%" alt="01 // Selected work. She runs through an archway of glyphs.">
@@ -248,6 +243,11 @@ same file, for gates that cannot fail, and for records claiming more certainty t
 | **Delivery** | Docker · GitHub Actions |
 | **Background** | B.S. Cybersecurity · B.S. Electrical Engineering, in progress |
 | **Certifications** | Security+ · CySA+ · PenTest+ · ISC2 Associate |
+
+<picture>
+  <source media="(prefers-color-scheme: light)" srcset="./assets/stats-light.svg" width="100%">
+  <img src="./assets/stats.svg" width="100%" alt="GitHub contribution stats: contributions, streaks, public repositories, stars, commits, and language breakdown across public repos.">
+</picture>
 
 ---
 
