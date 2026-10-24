@@ -14,19 +14,59 @@ I build backend services in Go and native apps in Swift and SwiftUI. I came to s
 through security, where the job was asking *"how would I know if this were wrong?"*, and I
 kept the habit: I put as much care into the checks around a system as into the system.
 
-- **Install it:** [HelloGitty](https://github.com/FawwazLawal/hellogitty), a Go dashboard for running open-source work.
-- **Check it upstream:** [pull requests](#01--upstream-pull-requests-to-other-peoples-projects) to Go, MISP, OpenCTI, Coraza and XcodeGen.
+- **Check it upstream:** an [ops log](#00--ops-log-my-pull-requests-to-other-peoples-projects) of my pull requests to Go, MISP, OpenCTI, Coraza and XcodeGen, rebuilt daily.
+- **Install it:** [HelloGitty](https://github.com/FawwazLawal/hellogitty), the Go dashboard I run that work with.
 - **See it, source private:** an Internet Archive music app and an offline-first field operations platform.
 
 Every chapter is stamped with how far you can verify it: <code>PUBLIC</code> <sub>one click to check ·</sub> <code>GENERATED</code> <sub>written daily from GitHub's API ·</sub> <code>SHOWN</code> <sub>a screenshot: the software exists ·</sub> <code>STATED</code> <sub>my word, dated where it changes</sub>
 
-<p><code>00</code>&nbsp;<a href="#00--in-the-open-hellogitty">In&nbsp;the&nbsp;open</a>&nbsp;&nbsp; <code>01</code>&nbsp;<a href="#01--upstream-pull-requests-to-other-peoples-projects">Upstream</a>&nbsp;&nbsp; <code>02</code>&nbsp;<a href="#02--restricted-two-private-projects">Restricted</a>&nbsp;&nbsp; <code>03</code>&nbsp;<a href="#03--systems-how-i-work">Systems</a>&nbsp;&nbsp; <code>04</code>&nbsp;<a href="#04--toolkit-what-i-work-with">Toolkit</a>&nbsp;&nbsp; <code>05</code>&nbsp;<a href="#05--exit-check-the-record">Exit</a></p>
+<p><code>00</code>&nbsp;<a href="#00--ops-log-my-pull-requests-to-other-peoples-projects">Ops&nbsp;log</a>&nbsp;&nbsp; <code>01</code>&nbsp;<a href="#01--in-the-open-hellogitty-the-tool-behind-the-log">In&nbsp;the&nbsp;open</a>&nbsp;&nbsp; <code>02</code>&nbsp;<a href="#02--restricted-two-private-projects">Restricted</a>&nbsp;&nbsp; <code>03</code>&nbsp;<a href="#03--systems-how-i-work">Systems</a>&nbsp;&nbsp; <code>04</code>&nbsp;<a href="#04--toolkit-what-i-work-with">Toolkit</a>&nbsp;&nbsp; <code>05</code>&nbsp;<a href="#05--exit-check-the-record">Exit</a></p>
 
-## 00 · In the open: HelloGitty
+## 00 · Ops log: my pull requests to other people's projects
+
+<code>GENERATED</code> <sub>rebuilt daily from GitHub's API ·</sub> <code>PUBLIC</code> <sub>each row opens the pull request and its review so far</sub>
+
+**I send fixes upstream to tools I use, mostly security tooling (OpenCTI, MISP, Coraza), plus
+XcodeGen, Go's `go test` help text and impeccable's hardening and audit guides.** Open means
+open: the state column comes from GitHub, not from me.
+
+<!-- UPSTREAM:START -->
+| State | Pull request |
+|---|---|
+| `MERGED` | [fix(ui): fix SMTP configuration margin and empty value display (#18931)](https://github.com/OpenCTI-Platform/opencti/pull/19110)<br><sub>OpenCTI-Platform/opencti #19110 · opened 2026-10-20 · merged 2026-10-23</sub> |
+| `MERGED` | [Add Arabic-script specifics to hardening reference (#1009)](https://github.com/pbakaus/impeccable/pull/1084)<br><sub>pbakaus/impeccable #1084 · opened 2026-10-19 · merged 2026-10-21</sub> |
+| `OPEN` | [Warn on unrecognized keys in target dictionaries](https://github.com/yonaskolb/XcodeGen/pull/1660)<br><sub>yonaskolb/XcodeGen #1660 · opened 2026-10-23</sub> |
+| `OPEN` | [audit: add RTL checks to Responsive Design dimension](https://github.com/pbakaus/impeccable/pull/1114)<br><sub>pbakaus/impeccable #1114 · opened 2026-10-22</sub> |
+| `OPEN` | [fix(ui): separate indicator list column values in the Knowledge tab (#18163)](https://github.com/OpenCTI-Platform/opencti/pull/19154)<br><sub>OpenCTI-Platform/opencti #19154 · opened 2026-10-21</sub> |
+| `OPEN` | [cmd/go: clarify test cache behavior for file metadata](https://github.com/golang/go/pull/82377)<br><sub>golang/go #82377 · opened 2026-10-20</sub> |
+| `OPEN` | [fix: \[api\] return proper REST response from auth key pin endpoint](https://github.com/MISP/MISP/pull/11222)<br><sub>MISP/MISP #11222 · opened 2026-10-20</sub> |
+| `OPEN` | [docs: document skip/skipAfter limitations under multiphase evaluation (#804)](https://github.com/corazawaf/coraza/pull/1785)<br><sub>corazawaf/coraza #1785 · opened 2026-10-19</sub> |
+| `OPEN` | [fix(ui): align info icon tooltips in user creation form (#19017)](https://github.com/OpenCTI-Platform/opencti/pull/19108)<br><sub>OpenCTI-Platform/opencti #19108 · opened 2026-10-19</sub> |
+
+<sub><code>GENERATED</code> 2026-10-24 from GitHub's API by <a href="./gen/stats_cards.py">gen/stats_cards.py</a>: 2 merged · 7 open · 0 closed without merging. Practice repositories are left out. Go merges through Gerrit, so a Go pull request counts as merged when Gerrit's bot says so. If a daily run fails, this date stops moving.</sub>
+<!-- UPSTREAM:END -->
+
+<details>
+<summary><b>Field notes: what each change does</b></summary>
+
+- **Go** · [`cmd/go`: clarify test cache behavior for file metadata](https://github.com/golang/go/pull/82377). Documents that, for files a test opens, the test cache checks size and modification time, not content.
+- **XcodeGen** · [Warn on unrecognized keys in target dictionaries](https://github.com/yonaskolb/XcodeGen/pull/1660). Warns about a mistyped target key, such as `resources` for `sources`, instead of ignoring it.
+- **Coraza** · [Document skip/skipAfter limitations under multiphase evaluation](https://github.com/corazawaf/coraza/pull/1785). Documents how `skip`, `skipAfter` and `allow` can leave a variable uninspected in the firewall's multiphase mode.
+- **MISP** · [Return proper REST response from auth key pin endpoint](https://github.com/MISP/MISP/pull/11222). Makes the endpoint answer API callers with JSON instead of a browser flash message.
+- **OpenCTI** · [Fix SMTP configuration margin and empty value display](https://github.com/OpenCTI-Platform/opencti/pull/19110). Merged: an empty setting shows the platform's plain dash instead of a dash in a chip.
+
+</details>
+
+<picture>
+  <source media="(prefers-reduced-motion: reduce)" srcset="./assets/bands/chapter-01-in-the-open-still.webp">
+  <img src="./assets/bands/chapter-01-in-the-open.webp" width="100%" alt="Chapter 01 of 05, In the open. She runs on through an archway of glyphs.">
+</picture>
+
+## 01 · In the open: HelloGitty, the tool behind the log
 
 <code>PUBLIC</code> <sub><a href="https://github.com/FawwazLawal/hellogitty">FawwazLawal/hellogitty</a> · Go · SQLite · MIT licence · <a href="https://github.com/FawwazLawal/hellogitty/releases/latest">v0.2.0 (8)</a>, tag <code>v0.2.8</code>, released 2026-10-23</sub>
 
-**A local dashboard for running open-source work:** the issues worth taking, the pull
+**A local dashboard for running open-source work, and the tool behind the ops log:** the issues worth taking, the pull
 requests waiting on you or on a maintainer, and the health of the repositories you follow.
 It polls GitHub hourly into SQLite and serves a self-contained page on `localhost`: no build
 step, no CDN, and it works offline.
@@ -35,7 +75,7 @@ step, no CDN, and it works offline.
   <source media="(prefers-color-scheme: dark)" srcset="./assets/work/hellogitty-dark.webp">
   <img src="./assets/work/hellogitty-light.webp" width="100%" alt="HelloGitty on localhost, tracking 31 repositories with 21 in the pipeline. Your move: an RTL-audit pull request to pbakaus/impeccable with changes requested, and an XcodeGen pull request failing on Linux. Waiting on others: eight, led by a MISP API fix awaiting first review. A live sidebar lists new issues from golang/go and other watched repositories.">
 </picture>
-<p align="center"><sub><i>My own instance, a dev build after v0.2.0 (8), in your GitHub theme. The two pull requests under "Your move" are in the next chapter.</i></sub></p>
+<p align="center"><sub><i>My own instance, a dev build after v0.2.0 (8), in your GitHub theme. The two pull requests under "Your move" are rows in the ops log above.</i></sub></p>
 
 ```sh
 go install github.com/FawwazLawal/hellogitty/cmd/hellogitty@latest
@@ -44,42 +84,6 @@ go install github.com/FawwazLawal/hellogitty/cmd/hellogitty@latest
 **Status:** public; needs Go 1.26+ and a GitHub token ([quick start](https://github.com/FawwazLawal/hellogitty#quick-start)).
 Proven: it runs, and its tests run before every tagged release ([workflow](https://github.com/FawwazLawal/hellogitty/blob/main/.github/workflows/release.yml)).
 Not yet shown: anyone using it but me.
-
-<picture>
-  <source media="(prefers-reduced-motion: reduce)" srcset="./assets/bands/chapter-01-upstream-still.webp">
-  <img src="./assets/bands/chapter-01-upstream.webp" width="100%" alt="Chapter 01 of 05, Upstream. She runs on through an archway of glyphs.">
-</picture>
-
-## 01 · Upstream: pull requests to other people's projects
-
-<code>PUBLIC</code> <sub>each link opens the pull request ·</sub> <code>GENERATED</code> <sub>states refresh daily</sub>
-
-What each change does. Whether it has landed comes from GitHub, in the list below.
-
-- **Go** · [`cmd/go`: clarify test cache behavior for file metadata](https://github.com/golang/go/pull/82377). Documents that, for files a test opens, the test cache checks size and modification time, not content.
-- **XcodeGen** · [Warn on unrecognized keys in target dictionaries](https://github.com/yonaskolb/XcodeGen/pull/1660). Warns about a mistyped target key, such as `resources` for `sources`, instead of ignoring it.
-- **Coraza** · [Document skip/skipAfter limitations under multiphase evaluation](https://github.com/corazawaf/coraza/pull/1785). Documents how `skip`, `skipAfter` and `allow` can leave a variable uninspected in the firewall's multiphase mode.
-- **MISP** · [Return proper REST response from auth key pin endpoint](https://github.com/MISP/MISP/pull/11222). Makes the endpoint answer API callers with JSON instead of a browser flash message.
-- **OpenCTI** · [Fix SMTP configuration margin and empty value display](https://github.com/OpenCTI-Platform/opencti/pull/19110). Merged: an empty setting shows the platform's plain dash instead of a dash in a chip.
-
-<!-- UPSTREAM:START -->
-<details open>
-<summary><b>9 pull requests, merged or open, as of 2026-10-24</b> · 2 merged · 7 open</summary>
-
-- `merged 2026-10-23` [fix(ui): fix SMTP configuration margin and empty value display (#18931)](https://github.com/OpenCTI-Platform/opencti/pull/19110) · [OpenCTI-Platform/opencti](https://github.com/OpenCTI-Platform/opencti)
-- `merged 2026-10-21` [Add Arabic-script specifics to hardening reference (#1009)](https://github.com/pbakaus/impeccable/pull/1084) · [pbakaus/impeccable](https://github.com/pbakaus/impeccable)
-- `open since 2026-10-23` [Warn on unrecognized keys in target dictionaries](https://github.com/yonaskolb/XcodeGen/pull/1660) · [yonaskolb/XcodeGen](https://github.com/yonaskolb/XcodeGen)
-- `open since 2026-10-22` [audit: add RTL checks to Responsive Design dimension](https://github.com/pbakaus/impeccable/pull/1114) · [pbakaus/impeccable](https://github.com/pbakaus/impeccable)
-- `open since 2026-10-21` [fix(ui): separate indicator list column values in the Knowledge tab (#18163)](https://github.com/OpenCTI-Platform/opencti/pull/19154) · [OpenCTI-Platform/opencti](https://github.com/OpenCTI-Platform/opencti)
-- `open since 2026-10-20` [cmd/go: clarify test cache behavior for file metadata](https://github.com/golang/go/pull/82377) · [golang/go](https://github.com/golang/go)
-- `open since 2026-10-20` [fix: \[api\] return proper REST response from auth key pin endpoint](https://github.com/MISP/MISP/pull/11222) · [MISP/MISP](https://github.com/MISP/MISP)
-- `open since 2026-10-19` [fix(ui): align info icon tooltips in user creation form (#19017)](https://github.com/OpenCTI-Platform/opencti/pull/19108) · [OpenCTI-Platform/opencti](https://github.com/OpenCTI-Platform/opencti)
-- `open since 2026-10-19` [docs: document skip/skipAfter limitations under multiphase evaluation (#804)](https://github.com/corazawaf/coraza/pull/1785) · [corazawaf/coraza](https://github.com/corazawaf/coraza)
-
-<sub><code>GENERATED</code> 2026-10-24 from GitHub's API by <a href="./gen/stats_cards.py">gen/stats_cards.py</a>: every public pull request I have opened against a repository I don't own. Left out: 2 closed without merging, and first-contribution practice repositories. Go merges through Gerrit, so a Go pull request counts as merged when Gerrit's bot says so. If a daily run fails, these dates stop moving.</sub>
-
-</details>
-<!-- UPSTREAM:END -->
 
 <picture>
   <source media="(prefers-reduced-motion: reduce)" srcset="./assets/bands/chapter-02-restricted-still.webp">
@@ -208,7 +212,7 @@ same file, for gates that cannot fail, and for records claiming more certainty t
 
 Everything that moves or updates comes from a script in [gen/](./gen); only the source
 footage, three Google Flow clips, is not committed. The [daily workflow](./.github/workflows/stats.yml)
-refreshes the numbers and the pull request list. Every band has a reduced-motion still.
+refreshes the numbers and the ops log. Every band has a reduced-motion still.
 
 ```mermaid
 flowchart TD
@@ -218,7 +222,7 @@ flowchart TD
   S["App captures"] --> W["gen/work_shots.py<br/>framing, location blur"]
   W --> P["Screenshots"]
   G["GitHub's API"] --> C["gen/stats_cards.py<br/>daily at 06:17 UTC"]
-  C --> L["Status panel, private count,<br/>pull request list"]
+  C --> L["Status panel, private count,<br/>ops log"]
 ```
 
 <picture>

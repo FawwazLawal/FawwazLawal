@@ -150,29 +150,36 @@ def md_escape(s):
 
 
 def ledger_md(prs, today):
-    """An open <details> list: merged first, then open, newest first, each with a labelled date.
-    Closed-without-merge and practice repositories are left out, and the footnote says how
-    many were closed. A list (not a table) so it wraps on a phone."""
+    """The ops log: a table of every public pull request opened on someone else's repository,
+    merged first, then open, then closed without merging, newest first within each. Practice
+    repositories are left out."""
     rows = []
-    for state, p, repo in ledger_rows(prs):
-        when = ((p["mergedAt"] or p["closedAt"]) if state == "merged" else p["createdAt"])[:10]
-        rows.append((state, when, p, repo))
+    for p in prs:
+        repo = p["repository"]["nameWithOwner"]
+        if practice(repo):
+            continue
+        state = "merged" if p.get("merged") or gerrit_merged(p) else p["state"].lower()
+        if state not in ("merged", "open", "closed"):
+            continue
+        opened = p["createdAt"][:10]
+        if state == "merged":
+            when, detail = (p["mergedAt"] or p["closedAt"])[:10], f"opened {opened} · merged {(p['mergedAt'] or p['closedAt'])[:10]}"
+        elif state == "closed":
+            when, detail = (p["closedAt"] or p["createdAt"])[:10], f"opened {opened} · closed without merging"
+        else:
+            when, detail = opened, f"opened {opened}"
+        rows.append((state, when, p, repo, detail))
+    order = {"merged": 0, "open": 1, "closed": 2}
     rows.sort(key=lambda r: r[1], reverse=True)
-    rows.sort(key=lambda r: r[0] != "merged")
-    merged = sum(1 for r in rows if r[0] == "merged")
-    closed = sum(1 for p in prs if p["state"] == "CLOSED" and not p.get("merged") and not gerrit_merged(p)
-                 and not practice(p["repository"]["nameWithOwner"]))
-    out = ["<details open>",
-           f"<summary><b>{len(rows)} pull requests, merged or open, as of {today}</b> · {merged} merged · "
-           f"{len(rows) - merged} open</summary>", ""]
-    for state, when, p, repo in rows:
-        chip = f"merged {when}" if state == "merged" else f"open since {when}"
-        out.append(f"- `{chip}` [{md_escape(p['title'])}]({p['url']}) · [{repo}](https://github.com/{repo})")
+    rows.sort(key=lambda r: order[r[0]])
+    count = {k: sum(1 for r in rows if r[0] == k) for k in order}
+    out = ["| State | Pull request |", "|---|---|"]
+    for state, when, p, repo, detail in rows:
+        out.append(f"| `{state.upper()}` | [{md_escape(p['title'])}]({p['url']})<br><sub>{repo} #{p['number']} · {detail}</sub> |")
     out += ["", f"<sub><code>GENERATED</code> {today} from GitHub's API by <a href=\"./gen/stats_cards.py\">gen/stats_cards.py</a>: "
-                f"every public pull request I have opened against a repository I don't own. Left out: {closed} closed "
-                f"without merging, and first-contribution practice repositories. Go merges through Gerrit, so a Go "
-                f"pull request counts as merged when Gerrit's bot says so. If a daily run fails, these dates stop moving.</sub>",
-            "", "</details>"]
+                f"{count['merged']} merged · {count['open']} open · {count['closed']} closed without merging. Practice "
+                f"repositories are left out. Go merges through Gerrit, so a Go pull request counts as merged when "
+                f"Gerrit's bot says so. If a daily run fails, this date stops moving.</sub>"]
     return "\n".join(out)
 
 
