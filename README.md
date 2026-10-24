@@ -1,251 +1,248 @@
-<!-- Tier 3, art-directed (docs/design/adr-readme-design-language.md). Bands come from gen/title_cards.py.
-The STATS, ACTIVITY and UPSTREAM blocks are rewritten daily by gen/stats_cards.py: change the generator, not the block. -->
+<!--
+Tier 3, art-directed (docs/design/adr-readme-design-language.md).
+One continuous shot: she looks back in the hero, runs, is stopped at a scanner, works,
+arms herself, and leaves through the gateway in chapter 05. The film carries identity;
+every claim is real text, marked PUBLIC, GENERATED or SELF-REPORTED.
+Bands: assets/bands/, made by gen/title_cards.py from assets/originals/. One moving band per
+screen; each has a reduced-motion still. The STATS and UPSTREAM blocks are rewritten daily
+by gen/stats_cards.py: change the generator, not the block.
+-->
 
-<a href="./assets/bands/film.webp" title="Play the uncut 15.7-second film">
-<picture>
+<a href="./assets/bands/film.webp" title="Play the uncut 15.7-second film"><picture>
   <source media="(prefers-reduced-motion: reduce)" srcset="./assets/bands/hero-still.webp">
-  <img src="./assets/bands/hero.webp" width="100%" alt="Fawwaz Lawal, above a blinking prompt cursor. In a band of glowing 0 and 1 glyphs, a netrunner with a silver-lavender bob looks back at the viewer, then turns and heads into a corridor of code. Opens the uncut film.">
-</picture>
-</a>
+  <img src="./assets/bands/hero.webp" width="100%" alt="Title card, Fawwaz Lawal. A netrunner drawn in glowing 0 and 1 glyphs looks back at you, then runs ahead into a corridor of code.">
+</picture></a>
 
 # Fawwaz Lawal
 
-I build backend services in Go and native apps in Swift and SwiftUI. I came to software
-through security, where the job was asking *"how would I know if this were wrong?"*, and I
-kept the habit: I put as much care into the checks around a system as into the system.
+I'm a software engineer who builds backend services in Go and native apps in Swift, and the checks that tell me when they are wrong.
 
-- **Check it upstream:** an [ops log](#00--ops-log-my-pull-requests-to-other-peoples-projects) of my pull requests to Go, MISP, OpenCTI, Coraza and XcodeGen, rebuilt daily.
-- **Install it:** [HelloGitty](https://github.com/FawwazLawal/hellogitty), the Go dashboard I run that work with.
-- **See it, source private:** an Internet Archive music app and an offline-first field operations platform.
+I came to software through security, where the whole job was asking *"how would I know if this were wrong?"* I kept the habit. I spend as much care on the checks around a system as on the system itself, so this page is built the same way: every chapter is marked with how far you can verify it. Start with the two you can check yourself.
 
-Every chapter is stamped with how far you can verify it: <code>PUBLIC</code> <sub>one click to check ·</sub> <code>GENERATED</code> <sub>written daily from GitHub's API ·</sub> <code>SHOWN</code> <sub>a screenshot: the software exists ·</sub> <code>STATED</code> <sub>my word, dated where it changes</sub>
+- **00 · [In the open](#built-in-the-open-hellogitty).** HelloGitty, a Go dashboard you can install and run. `PUBLIC`
+- **01 · [Upstream](#upstream-pull-requests-to-other-peoples-projects).** My pull requests to other people's projects, merged or not. `PUBLIC` `GENERATED`
+- **02 · [Restricted](#restricted-two-private-projects).** Fisher and Domain Dispatch, the private work. `SELF-REPORTED`
+- **03 · [Systems](#systems-how-i-work).** How I work, from my own build notes. `SELF-REPORTED`
+- **04 · [Toolkit](#toolkit-what-i-build-with).** Languages, credentials, and the scripts that build this page. `PUBLIC` `SELF-REPORTED`
+- **05 · [Exit](#exit-where-the-work-continues).** Where the work continues.
 
-<p><code>00</code>&nbsp;<a href="#00--ops-log-my-pull-requests-to-other-peoples-projects">Ops&nbsp;log</a>&nbsp;&nbsp; <code>01</code>&nbsp;<a href="#01--in-the-open-hellogitty-the-tool-behind-the-log">In&nbsp;the&nbsp;open</a>&nbsp;&nbsp; <code>02</code>&nbsp;<a href="#02--restricted-two-private-projects">Restricted</a>&nbsp;&nbsp; <code>03</code>&nbsp;<a href="#03--systems-how-i-work">Systems</a>&nbsp;&nbsp; <code>04</code>&nbsp;<a href="#04--toolkit-what-i-work-with">Toolkit</a>&nbsp;&nbsp; <code>05</code>&nbsp;<a href="#05--exit-check-the-record">Exit</a></p>
+<sub>`PUBLIC`: open the source or the record yourself. `GENERATED`: rewritten daily from GitHub's API by a script in this repository, and dated. `SELF-REPORTED`: my own account of private work, with a date on every number.</sub>
 
-## 00 · Ops log: my pull requests to other people's projects
+## Built in the open: HelloGitty
 
-<code>GENERATED</code> <sub>rebuilt daily from GitHub's API ·</sub> <code>PUBLIC</code> <sub>each row opens the pull request and its review so far</sub>
+<sub>`PUBLIC` source, install command and changelog are on GitHub.</sub>
 
-**I send fixes upstream to tools I use, mostly security tooling (OpenCTI, MISP, Coraza), plus
-XcodeGen, Go's `go test` help text and impeccable's hardening and audit guides.** Open means
-open: the state column comes from GitHub, not from me.
+A local dashboard for tracking contribution opportunities across repositories you choose: open issues, good-first-issues, maintainer activity, repo health, and pull requests that were closed without merging and why. It polls the GitHub API on a schedule, stores everything in SQLite, and serves one self-contained page on localhost, with no front-end build step, no CDN and no external fonts. It works offline once the data is local.
 
-<!-- UPSTREAM:START -->
-| State | Pull request |
-|---|---|
-| `MERGED` | [fix(ui): fix SMTP configuration margin and empty value display (#18931)](https://github.com/OpenCTI-Platform/opencti/pull/19110)<br><sub>OpenCTI-Platform/opencti #19110 · opened 2026-10-20 · merged 2026-10-23</sub> |
-| `MERGED` | [Add Arabic-script specifics to hardening reference (#1009)](https://github.com/pbakaus/impeccable/pull/1084)<br><sub>pbakaus/impeccable #1084 · opened 2026-10-19 · merged 2026-10-21</sub> |
-| `OPEN` | [Warn on unrecognized keys in target dictionaries](https://github.com/yonaskolb/XcodeGen/pull/1660)<br><sub>yonaskolb/XcodeGen #1660 · opened 2026-10-23</sub> |
-| `OPEN` | [audit: add RTL checks to Responsive Design dimension](https://github.com/pbakaus/impeccable/pull/1114)<br><sub>pbakaus/impeccable #1114 · opened 2026-10-22</sub> |
-| `OPEN` | [fix(ui): separate indicator list column values in the Knowledge tab (#18163)](https://github.com/OpenCTI-Platform/opencti/pull/19154)<br><sub>OpenCTI-Platform/opencti #19154 · opened 2026-10-21</sub> |
-| `OPEN` | [cmd/go: clarify test cache behavior for file metadata](https://github.com/golang/go/pull/82377)<br><sub>golang/go #82377 · opened 2026-10-20</sub> |
-| `OPEN` | [fix: \[api\] return proper REST response from auth key pin endpoint](https://github.com/MISP/MISP/pull/11222)<br><sub>MISP/MISP #11222 · opened 2026-10-20</sub> |
-| `OPEN` | [fix(ui): align info icon tooltips in user creation form (#19017)](https://github.com/OpenCTI-Platform/opencti/pull/19108)<br><sub>OpenCTI-Platform/opencti #19108 · opened 2026-10-19</sub> |
-| `OPEN` | [docs: document skip/skipAfter limitations under multiphase evaluation (#804)](https://github.com/corazawaf/coraza/pull/1785)<br><sub>corazawaf/coraza #1785 · opened 2026-10-19</sub> |
-| `CLOSED` | [test: port PySpark Catalog.listFunctions doctest](https://github.com/lakehq/sail/pull/2821)<br><sub>lakehq/sail #2821 · opened 2026-10-21 · closed without merging</sub> |
-| `CLOSED` | [Fix Accept-Encoding quality parameter handling for gzip](https://github.com/hapifhir/hapi-fhir/pull/8530)<br><sub>hapifhir/hapi-fhir #8530 · opened 2026-10-20 · closed without merging</sub> |
-
-<sub><code>GENERATED</code> 2026-10-24 from GitHub's API by <a href="./gen/stats_cards.py">gen/stats_cards.py</a>: 2 merged · 7 open · 2 closed without merging. Practice repositories are left out. Go merges through Gerrit, so a Go pull request counts as merged when Gerrit's bot says so. If a daily run fails, this date stops moving.</sub>
-<!-- UPSTREAM:END -->
-
-<details>
-<summary><b>Field notes: what each change does</b></summary>
-
-- **Go** · [`cmd/go`: clarify test cache behavior for file metadata](https://github.com/golang/go/pull/82377). Documents that, for files a test opens, the test cache checks size and modification time, not content.
-- **XcodeGen** · [Warn on unrecognized keys in target dictionaries](https://github.com/yonaskolb/XcodeGen/pull/1660). Warns about a mistyped target key, such as `resources` for `sources`, instead of ignoring it.
-- **Coraza** · [Document skip/skipAfter limitations under multiphase evaluation](https://github.com/corazawaf/coraza/pull/1785). Documents how `skip`, `skipAfter` and `allow` can leave a variable uninspected in the firewall's multiphase mode.
-- **MISP** · [Return proper REST response from auth key pin endpoint](https://github.com/MISP/MISP/pull/11222). Makes the endpoint answer API callers with JSON instead of a browser flash message.
-- **OpenCTI** · [Fix SMTP configuration margin and empty value display](https://github.com/OpenCTI-Platform/opencti/pull/19110). Merged: an empty setting shows the platform's plain dash instead of a dash in a chip.
-
-</details>
-
-<picture>
-  <source media="(prefers-reduced-motion: reduce)" srcset="./assets/bands/chapter-01-in-the-open-still.webp">
-  <img src="./assets/bands/chapter-01-in-the-open.webp" width="100%" alt="Chapter 01 of 05, In the open. She runs on through an archway of glyphs.">
-</picture>
-
-## 01 · In the open: HelloGitty, the tool behind the log
-
-<code>PUBLIC</code> <sub><a href="https://github.com/FawwazLawal/hellogitty">FawwazLawal/hellogitty</a> · Go · SQLite · MIT licence · <a href="https://github.com/FawwazLawal/hellogitty/releases/latest">v0.2.0 (8)</a>, tag <code>v0.2.8</code>, released 2026-10-23</sub>
-
-**A local dashboard for running open-source work, and the tool behind the ops log:** the issues worth taking, the pull
-requests waiting on you or on a maintainer, and the health of the repositories you follow.
-It polls GitHub hourly into SQLite and serves a self-contained page on `localhost`: no build
-step, no CDN, and it works offline.
+Every poll writes a machine-readable snapshot alongside the dashboard, so anything downstream can read exactly what the last sweep found rather than scraping HTML. Configuration is one JSON file. A guide to every column, colour and cell is in [docs/GUIDE.md](https://github.com/FawwazLawal/hellogitty/blob/main/docs/GUIDE.md).
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="./assets/work/hellogitty-dark.webp">
-  <img src="./assets/work/hellogitty-light.webp" width="100%" alt="HelloGitty on localhost, tracking 31 repositories with 21 in the pipeline. Your move: an RTL-audit pull request to pbakaus/impeccable with changes requested, and an XcodeGen pull request failing on Linux. Waiting on others: eight, led by a MISP API fix awaiting first review. A live sidebar lists new issues from golang/go and other watched repositories.">
+  <img src="./assets/work/hellogitty-light.webp" width="100%" alt="HelloGitty watching my own pull requests from the next chapter: impeccable #1114 with changes requested and checks passed, XcodeGen #1660 failing on Linux, and MISP #11222 waiting for a first review. Beside them, a live feed of new upstream issues found by each poll, and a pipeline of 21 repositories by stage.">
 </picture>
-<p align="center"><sub><i>My own instance, a dev build after v0.2.0 (8), in your GitHub theme. The two pull requests under "Your move" are rows in the ops log above.</i></sub></p>
+
+<sub>*Shown in your GitHub theme: switch GitHub between light and dark and the capture switches with it, using HelloGitty's own two modes. Captured in October 2026 from a dev build after v0.2.0. The "Your work" panel is my real queue: the same pull requests appear in the ledger below.*</sub>
+
+Install it with Go 1.26 or newer, then follow the five-step [quick start](https://github.com/FawwazLawal/hellogitty#quick-start): a read-only token, one JSON file listing the repositories you follow, and `localhost:7340`.
 
 ```sh
 go install github.com/FawwazLawal/hellogitty/cmd/hellogitty@latest
 ```
 
-**Status:** public; needs Go 1.26+ and a GitHub token ([quick start](https://github.com/FawwazLawal/hellogitty#quick-start)).
-Proven: it runs, and its tests run before every tagged release ([workflow](https://github.com/FawwazLawal/hellogitty/blob/main/.github/workflows/release.yml)).
-Not yet shown: anyone using it but me.
+**Status:** public, [v0.2.0](https://github.com/FawwazLawal/hellogitty/blob/main/CHANGELOG.md) (2026-10-23). It runs on your own machine and listens on loopback only; it is not a hosted service.
+
+<picture>
+  <source media="(prefers-reduced-motion: reduce)" srcset="./assets/bands/chapter-01-upstream-still.webp">
+  <img src="./assets/bands/chapter-01-upstream.webp" width="100%" alt="Chapter 01 of 05, Upstream. She runs on through an archway of glyphs.">
+</picture>
+
+## Upstream: pull requests to other people's projects
+
+<sub>`PUBLIC` `GENERATED` every pull request links to itself; states refresh daily.</sub>
+
+These are the changes I've sent to projects I don't own. Most are small, and the list gives each one's state and date, merged or not. In security tooling: three interface fixes for OpenCTI, a REST response fix for MISP's auth-key pin endpoint, and documentation for Coraza's skip actions under multiphase evaluation. Elsewhere: clearer `go help test` text about how Go's test cache detects changed files, a spec-validation warning for XcodeGen that catches typos such as `resources` for `sources`, Arabic-script guidance and right-to-left audit checks for impeccable, and `q`-value handling for gzip in HAPI FHIR.
+
+<!-- UPSTREAM:START -->
+- `merged 2026-10-23` [fix(ui): fix SMTP configuration margin and empty value display (#18931)](https://github.com/OpenCTI-Platform/opencti/pull/19110) · OpenCTI-Platform/opencti
+- `merged 2026-10-21` [Add Arabic-script specifics to hardening reference (#1009)](https://github.com/pbakaus/impeccable/pull/1084) · pbakaus/impeccable
+- `open since 2026-10-23` [Warn on unrecognized keys in target dictionaries](https://github.com/yonaskolb/XcodeGen/pull/1660) · yonaskolb/XcodeGen
+- `open since 2026-10-22` [audit: add RTL checks to Responsive Design dimension](https://github.com/pbakaus/impeccable/pull/1114) · pbakaus/impeccable
+- `open since 2026-10-21` [fix(ui): separate indicator list column values in the Knowledge tab (#18163)](https://github.com/OpenCTI-Platform/opencti/pull/19154) · OpenCTI-Platform/opencti
+- `open since 2026-10-20` [cmd/go: clarify test cache behavior for file metadata](https://github.com/golang/go/pull/82377) · golang/go
+- `open since 2026-10-20` [fix: \[api\] return proper REST response from auth key pin endpoint](https://github.com/MISP/MISP/pull/11222) · MISP/MISP
+- `open since 2026-10-19` [docs: document skip/skipAfter limitations under multiphase evaluation (#804)](https://github.com/corazawaf/coraza/pull/1785) · corazawaf/coraza
+- `open since 2026-10-19` [fix(ui): align info icon tooltips in user creation form (#19017)](https://github.com/OpenCTI-Platform/opencti/pull/19108) · OpenCTI-Platform/opencti
+- `state unconfirmed` [Fix gzip Accept-Encoding quality parameter handling](https://github.com/hapifhir/hapi-fhir/pull/8530) · hapifhir/hapi-fhir
+- `closed without merge` [test: port PySpark Catalog.listFunctions doctest](https://github.com/lakehq/sail/pull/2821) · lakehq/sail
+
+<sub>2 merged · 7 open · 1 closed without merge · 1 unconfirmed. Seeded 2026-10-24 from independently checked pull requests; from the next run, rewritten daily by <a href="./gen/stats_cards.py">gen/stats_cards.py</a> from GitHub's search API. Every public pull request I've opened against a repository I don't own is listed, except one line added to a contributor-practice list.</sub>
+<!-- UPSTREAM:END -->
 
 <picture>
   <source media="(prefers-reduced-motion: reduce)" srcset="./assets/bands/chapter-02-restricted-still.webp">
-  <img src="./assets/bands/chapter-02-restricted.webp" width="100%" alt="Chapter 02 of 05, Restricted. A retinal scanner sweeps red across her visor and ACCESS DENIED flashes in magenta neon.">
+  <img src="./assets/bands/chapter-02-restricted.webp" width="100%" alt="Chapter 02 of 05, Restricted. A retinal scanner sweeps her visor and ACCESS DENIED flashes in magenta.">
 </picture>
 
-## 02 · Restricted: two private projects
+## Restricted: two private projects
 
-<code>SHOWN</code> <sub>screenshots ·</sub> <code>STATED</code> <sub>descriptions and figures, dated · source private</sub>
+<sub>`SELF-REPORTED` screenshots of the apps; source private; every figure dated. One count below is `GENERATED` by GitHub.</sub>
 
-The source is private, so this chapter shows the apps and marks every number as my word.
-GitHub counts the work without showing it:
+The two projects I spend most of my time on live in private repositories. The source stays closed, so this chapter shows what they do and what they look like, and marks every number as mine. GitHub can count the private work without showing it:
 
-<!-- ACTIVITY:START -->
-<code>GENERATED</code> 2026-10-24 from GitHub's API: **2,189 of my 2,417** contributions in the past year were in private repositories.
-<!-- ACTIVITY:END -->
+<!-- STATS:START -->
+**2,189 of 2,363** contributions in the past year were made in private repositories, by GitHub's own count. Public commits in the same year: **108**.<br>
+<sub>Synced 2026-10-23 from GitHub's GraphQL API by <a href="./gen/stats_cards.py">gen/stats_cards.py</a>, daily. If a sync fails, this date stops moving.</sub>
+<!-- STATS:END -->
 
-### Fisher: the Internet Archive's audio as a music app
+### Fisher
 
-<code>SHOWN</code> <sub>iPhone app · Swift · SwiftUI · Go backend · in development</sub>
+`Swift` `SwiftUI` `Go`
 
-An iPhone app and Go backend that make audio hosted on the Internet Archive feel like a music
-app: mixes built by stated rules, a home feed that learns from listening on the device, and a
-note on each recording's history.
+An iPhone client and a Go backend for the Internet Archive's public audio: a century of concerts, broadcasts and records, many of them on no streaming service. Playback is the easy part. The work is making an archive this large and this uncurated feel like a music app.
 
-<img src="./assets/work/fisher.webp" width="100%" alt="Three iPhone screens from Fisher. Home shows generated Popular Mixes with mosaic covers and a Trending Now row. The Hip Hop Essentials playlist shows its mosaic cover and track list. The player shows a Dr. Dre recording with an About this recording note.">
+<img src="./assets/work/fisher.webp" width="100%" alt="Three iPhone screens from Fisher. Home with a Good afternoon greeting, Liked Songs and Trending Now shortcuts, a Popular Mixes row with generated mosaic artwork, and a Trending Now row. A playlist screen for Hip Hop Essentials with mosaic art, a play button and a numbered track list. A now playing screen for Dr. Dre with artwork, scrubber, transport controls and an About this recording panel.">
 
-**Status:** in development, not in any app store; <code>STATED</code> 629 commits as of
-2026-10-16. Pictured: the iPhone app.
+<sub>*Three screens from the app, framed by <a href="./gen/work_shots.py">gen/work_shots.py</a>.*</sub>
 
-### Domain Dispatch: field operations where the network drops
+Mixes are built by rule, not by hand, and each one states the rule it was built from. *Hip Hop Essentials* is "tagged hip hop or rap, most downloaded this week, one record an artist, from artists a music database knows." The cover art is a mosaic assembled from the records that made the cut. The home feed reorders from listening behaviour, with artist affinity and genre weighting that decay over time, computed entirely on-device. The player carries a written note on the recording itself, so a 1992 record arrives with its history attached rather than as a bare file name.
 
-<code>SHOWN</code> <sub>macOS app · Swift · SwiftUI · Vapor · Kotlin · alpha</sub>
+**Status:** in development; not in any app store. Built as a Go API with background workers and a SwiftUI client with a widget extension, with unit and UI test targets; 629 commits as of 2026-10-16. Shown here: three screens. Not public: the source, the backend or any build.
 
-One live map for teams working where connectivity ends: drones, vehicles, traffic cameras,
-aircraft, weather and mesh radios, with mission planning and dispatch. Offline-first: map
-packs, a sync queue that drains on reconnect, and a status bar that says what is connected.
-It speaks Cursor-on-Target over an embedded TAK relay, MQTT and HLS.
+### Domain Dispatch
 
-<img src="./assets/work/domain-dispatch-map.webp" width="100%" alt="Domain Dispatch live map on macOS: a public traffic camera feed open beside the operator's own entities on a blurred satellite map, a status bar reporting a camera source unavailable and no devices connected, and a sidebar running from Live Map to Offline Maps.">
-<p align="center"><sub><i>The basemap is blurred, and the camera's agency badge and state obscured, because the console is pointed at a real place.</i></sub></p>
+`Swift` `SwiftUI` `Vapor` `Kotlin`
 
-**The failure worth designing for is the invisible one.** An elevation lookup cached network
-failures as "no data", so an operator could plan offline, reconnect, and never get the terrain
-warning back. The fix separates *checking* from *could not check* from *no conflict*: an absent
-answer that renders as "clear" fails in the dangerous direction. The lookup also sends planned
-coordinates to a third party, so it is opt-in.
+A multi-modal field operations platform designed for work where connectivity ends. It fuses drones, vehicles, traffic cameras, aircraft, weather and mesh radios into one live operational picture, with mission tasking, event dispatch and review workflows: macOS and iOS in Swift and SwiftUI, a Vapor service, an Android companion. Offline-first by design. It has to work at a trailhead with no signal, and that drives nearly every architectural decision.
 
-**Status:** alpha; <code>STATED</code> v0.193.0-alpha as of 2026-10-16. Pictured: the macOS
-app; the iOS app, Vapor service and Android companion are not. No claim of field use.
+<img src="./assets/work/domain-dispatch-map.webp" width="100%" alt="Domain Dispatch live map on macOS. A sidebar lists Live Map, Live Feeds, Create Event, Task Board, Task Rules, Alert History, a sync centre, after-action review, offline maps and paired devices. A satellite map shows camera and aircraft markers with range rings, and a public traffic camera feed is open in place beside it.">
+
+<sub>*The macOS app. The basemap is blurred and the camera's agency badge obscured, because the console is pointed at a real place.*</sub>
+
+Owned assets and public infrastructure share one map. Public traffic cameras sit beside the operator's own entities, and any camera opens in place and can be pinned to a live feed panel. Everything assumes the link will drop: offline map packs, a sync queue that drains when the connection returns, and a status bar that stays honest about what is connected and what is not.
+
+<img src="./assets/work/domain-dispatch-plan.webp" width="100%" alt="Domain Dispatch mission planning on macOS. A satellite map with a drawn boundary and range ring sits beside a panel for Area of Operations, Assets, Flight Parameters at 50 metres and 8 metres per second, Classification and Geofence, and Operator, with Save Plan and Begin Mission buttons.">
+
+<sub>*Mission planning, macOS. Same redactions.*</sub>
+
+Planning is a checklist with teeth. An area of operations is drawn on the map, searched by address, or taken from the current view. Assets, flight parameters, classification, geofence and operator each have to be set before a mission can begin. Plans save and replay. Interop is first party: Cursor-on-Target over an embedded TAK relay, MQTT, HLS video, and multi-source fusion with explicit conflict resolution when two sources disagree about the same entity.
+
+The failures worth designing for are the invisible ones. An elevation lookup was caching network failures as "no data", so an operator could plan offline, reconnect, and never get the terrain warning back. The fix separates *checking* from *could not check* from *no conflict*, because an absent answer that renders as "clear" fails in the dangerous direction. The same reasoning made the terrain lookup opt-in: it sends planned search area coordinates to a third party, and that is an operator's decision, not a default.
+
+**Status:** alpha, v0.193.0-alpha as of 2026-10-16. Pictured: the macOS app. Described but not pictured: the iOS app, the Vapor service and the Android companion.
 
 <details>
-<summary><b>Declassify the repository figures</b> · <code>STATED</code> 2026-10-16</summary>
+<summary><b>Declassify the repository figures</b> <sub>(self-reported, 2026-10-16)</sub></summary>
 
 | Domain Dispatch, private repository | Count |
 |---|--:|
 | Commits | 1,497 |
+| Tagged releases | 189 |
+| Swift modules | 7 |
+| Source files | 345 |
+| Third-party runtime dependencies | 0 |
+| Test files | 455 |
 | Tests | about 3,600 |
 | Automated quality gates | 44 |
-| Self-tests that prove a gate fails when it should | 27 |
+| Self-tests whose only job is to prove a gate fails when it should | 27 |
+| Logged engineering incidents, each with a root cause | 550 |
+| Recorded architecture decisions | 131 |
 
-<sub>Counted from the private repository on 2026-10-16. No counting method is published, so read these as my record.</sub>
+<sub>Entered by hand on 2026-10-16 and not updated since. The repository is private, so none of these can be checked from here.</sub>
 
 </details>
 
 <picture>
   <source media="(prefers-reduced-motion: reduce)" srcset="./assets/bands/chapter-03-systems-still.webp">
-  <img src="./assets/bands/chapter-03-systems.webp" width="100%" alt="Chapter 03 of 05, Systems. She works at a curved holographic terminal surrounded by floating code panels.">
+  <img src="./assets/bands/chapter-03-systems.webp" width="100%" alt="Chapter 03 of 05, Systems. She works at a curved holographic terminal while a test suite flashes green.">
 </picture>
 
-## 03 · Systems: how I work
+## Systems: how I work
 
-<code>STATED</code> <sub>from my own build notes ·</sub> <code>PUBLIC</code> <sub>one pull request and one command you can run</sub>
+<sub>`SELF-REPORTED` incidents and numbers from my own build notes on private projects; one `PUBLIC` link.</sub>
 
-**A check that cannot go red is not a check.** A mutation test of mine passed a test that
-never ran against the mutant: `go test` without `-count=1` can replay a cached result. I now
-watch a check fail against the broken state before I trust it to pass.
-[My Go pull request](https://github.com/golang/go/pull/82377) is the public trace.
+Five rules I hold myself to, most with the incident that taught me.
 
-**Detectors stop defect classes. Rules do not.** Of thirteen recurring defect classes in my
-build process, the only two that stopped were stopped by an automated check. I build the
-detector first.
+### A check that cannot go red is not a check
 
-**Replace the proxy with the act.** `git check-ignore -v` exits 0 even for a file a negated
-rule keeps; `git add --dry-run` is the operation itself:
+A mutation test of mine reported a pass on a test that had never run: `go test ./...` without `-count=1` can replay a cached result, and 1 of 25 mutants came back falsely green. I now show a check failing against the broken state before I trust it passing. Since then I've proposed clearer wording for Go's own help text on how the test cache decides a file has changed ([golang/go#82377](https://github.com/golang/go/pull/82377)).
 
-```console
-$ git check-ignore -v keep.log; echo "exit $?"
-.gitignore:2:!keep.log	keep.log
-exit 0
-$ git add --dry-run keep.log
-add 'keep.log'
-```
+### Detectors stop defect classes. Rules do not.
 
-**Audit by computation, not by eye.** I checked a design system against WCAG AA by computing
-every contrast ratio instead of trusting the documented ones. One token passed by 0.0008;
-another failed outright and was unused, so I deleted it.
+Of thirteen recurring defect classes in my own build process, the only two that ever stopped were stopped by an automated check, not by a rule everyone had agreed to. I build the detector first.
 
-**Measure before you claim.** "It builds" means it ran just now and exited 0. Reading is a
-hypothesis, running is a finding, and I say which one I have.
+### Replace the proxy with the act
+
+`git check-ignore -v` exits 0 when any pattern matches, including a negating one, so a perfectly committable file can look ignored. `git add --dry-run` is the operation itself. A check should measure the thing you care about, not a predicate about it.
+
+### Audit by computation, not by eye
+
+I audited a design system for WCAG AA by computing the contrast ratios instead of trusting the documented values. One token passed by 0.0008. Another failed outright and had zero usages, so I deleted it rather than fixing it: an unused failing token is a trap for the next person.
+
+### Measure before you claim
+
+"It builds" means it ran this session and exited 0. Every number says where it came from. Reading is a hypothesis, running is a finding, and I say which one I have. This page follows the same rule, which is why its chapters carry markings.
 
 ### Working with agents
 
-My day-to-day development runs through roughly thirty specialised Claude Code agents:
-builders, QA, composition review, release. The agents were the easy part. The work was
-building the instruments that keep them honest: detection for two agents about to write the
-same file, for gates that cannot fail, and for records claiming more certainty than they have.
+My day-to-day development runs through roughly thirty specialised Claude Code agents: builders, QA, composition review, release. The agents were the easy part. The work was building the instruments that keep them honest: detection for two agents about to write the same file, for gates that cannot fail, and for records claiming more certainty than they have.
 
 <picture>
   <source media="(prefers-reduced-motion: reduce)" srcset="./assets/bands/chapter-04-toolkit-still.webp">
   <img src="./assets/bands/chapter-04-toolkit.webp" width="100%" alt="Chapter 04 of 05, Toolkit. A gloved hand pulls holographic tools out of the air in cyan and violet.">
 </picture>
 
-## 04 · Toolkit: what I work with
+## Toolkit: what I build with
 
-<code>STATED</code> <sub>my list; Go, Python, Swift and GitHub Actions can be read in the public code linked above.</sub>
+<sub>`PUBLIC` the scripts that build this page are in this repository. `SELF-REPORTED` languages and credentials.</sub>
+
+### What I work in
 
 - **Languages:** Go · Swift · Python · Kotlin
 - **Apple:** SwiftUI · Xcode
+- **Security, upstream:** OpenCTI · MISP · Coraza, through the [pull requests above](#upstream-pull-requests-to-other-peoples-projects)
 - **Delivery:** Docker · GitHub Actions
-- **Security tools I contribute to:** OpenCTI · MISP · Coraza (interface, API and documentation fixes)
 - **Background:** B.S. Cybersecurity · B.S. Electrical Engineering (in progress)
-- **Certifications:** Security+ · CySA+ · PenTest+ · Associate of ISC2
+- **Certifications:** CompTIA Security+ · CySA+ · PenTest+ · ISC2 Associate
+
+Go and Python are the ones you can read in public: HelloGitty, and the scripts below. Swift and Kotlin live in the private work, and the credentials have no public verification link here.
 
 ### How this page is built
 
-Everything that moves or updates comes from a script in [gen/](./gen); only the source
-footage, three Google Flow clips, is not committed. The [daily workflow](./.github/workflows/stats.yml)
-refreshes the numbers and the ops log. Every band has a reduced-motion still.
+Everything on this page that moves or updates comes out of a script in this repository, so it can be rebuilt and checked rather than taken on trust.
 
 ```mermaid
 flowchart TD
-  F["Footage generated with Google Flow<br/>(not committed)"] --> A["gen/ascii_film.py<br/>every frame in 0/1 glyphs"]
-  A --> T["gen/title_cards.py<br/>titles, cursor, loops, stills"]
-  T --> B["Opening film and chapter bands"]
-  S["App captures"] --> W["gen/work_shots.py<br/>framing, location blur"]
-  W --> P["Screenshots"]
-  G["GitHub's API"] --> C["gen/stats_cards.py<br/>daily at 06:17 UTC"]
-  C --> L["Status panel, private count,<br/>ops log"]
+  F["Three generated video clips<br/>(kept out of the repo)"] --> A["gen/ascii_film.py<br/>redraws every frame in 0/1 glyphs"]
+  A --> T["gen/title_cards.py<br/>titles, cursor, loop cuts, stills"]
+  T --> B["The opening film and five chapter bands"]
+  S["Captures of the apps"] --> W["gen/work_shots.py<br/>frames each screenshot"]
+  W --> P["Screenshots in chapters 00 and 02"]
+  G["GitHub GraphQL API"] --> C["gen/stats_cards.py<br/>daily, in GitHub Actions"]
+  C --> L["Upstream ledger and private-work count"]
+```
+
+<sub>*If the diagram doesn't render, here it is in words: footage to glyph film to titled bands; app captures to framed screenshots; GitHub's API to the daily ledger and count.*</sub>
+
+Two of the four run from a clone. The first rebuilds every band, still and the full film from the renders kept in `assets/originals/`; the second rewrites the ledger and the count, as GitHub Actions does every day at 06:17 UTC.
+
+```sh
+python3 gen/title_cards.py
+GITHUB_TOKEN=... python3 gen/stats_cards.py
 ```
 
 <picture>
   <source media="(prefers-reduced-motion: reduce)" srcset="./assets/bands/chapter-05-exit-still.webp">
-  <img src="./assets/bands/chapter-05-exit.webp" width="100%" alt="Chapter 05 of 05, Exit. She walks a corridor of falling binary towards a white gateway and steps through into light.">
+  <img src="./assets/bands/chapter-05-exit.webp" width="100%" alt="Chapter 05 of 05, Exit. She walks a corridor of falling binary toward a blinding white gateway and steps into the light.">
 </picture>
 
-## 05 · Exit: check the record
+## Exit: where the work continues
 
-<code>PUBLIC</code> <sub>every link opens a public record ·</sub> <code>GENERATED</code> <sub>the status panel, synced daily</sub>
+The transmission ends here. The work doesn't, and all of it that's public is one click away:
 
 - **Run it.** [HelloGitty](https://github.com/FawwazLawal/hellogitty) installs with one `go install` and runs on your machine.
-- **Follow it upstream.** [My pull requests to other people's projects](https://github.com/search?q=is%3Apr+is%3Apublic+author%3AFawwazLawal+-user%3AFawwazLawal&type=pullrequests&s=created&o=desc), live on GitHub, newest first, closed ones included.
-- **Read the code.** My [public repositories, with forks hidden](https://github.com/FawwazLawal?tab=repositories&type=source).
-- **Watch the whole shot.** [The uncut 15.7-second film](./assets/bands/film.webp) (4 MB); the top of the page runs a 4.7-second cut.
+- **Follow it upstream.** [My pull requests to other people's projects](https://github.com/search?q=is%3Apr+is%3Apublic+author%3AFawwazLawal+-user%3AFawwazLawal&type=pullrequests&s=created&o=desc), live on GitHub, newest first.
+- **Watch the whole shot.** The opening film runs 4.7 seconds here; [the uncut 15.7-second version](./assets/bands/film.webp) opens in GitHub's file viewer, or click the film at the top.
 
-<!-- STATS:START -->
-<picture>
-  <source media="(prefers-color-scheme: light)" srcset="./assets/stats-light.svg">
-  <img src="./assets/stats.svg" width="100%" alt="System status, synced 2026-10-24: 2,417 contributions in the past year, 2,189 of them in private repositories, 9 upstream pull requests, 2 merged.">
-</picture>
-<!-- STATS:END -->
+<p align="center"><code>&gt; end of transmission.</code></p>
 
-<p align="center"><code>&gt; end of transmission</code></p>
+<p align="center"><sub>Footage generated with Google Flow, cut and rendered into 0/1 glyphs frame by frame by <a href="./gen/ascii_film.py">gen/ascii_film.py</a>, titled by <a href="./gen/title_cards.py">gen/title_cards.py</a>. Screenshots framed by <a href="./gen/work_shots.py">gen/work_shots.py</a>. Ledger and count regenerated daily by <a href="./gen/stats_cards.py">gen/stats_cards.py</a>.</sub></p>
