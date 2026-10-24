@@ -119,7 +119,7 @@ closed, so this chapter shows what they do and what they look like, and marks wh
 are my word. GitHub can count the private work without showing it:
 
 <!-- ACTIVITY:START -->
-<code>GENERATED</code> 2026-10-24 from GitHub's API: **2,189 of my 2,380** contributions in the past year were in private repositories.
+<code>GENERATED</code> 2026-10-24 from GitHub's API: **2,189 of my 2,414** contributions in the past year were in private repositories.
 <!-- ACTIVITY:END -->
 
 ### Fisher: the Internet Archive's audio as a music app
@@ -318,7 +318,7 @@ their old date.
 <!-- STATS:START -->
 <picture>
   <source media="(prefers-color-scheme: light)" srcset="./assets/stats-light.svg">
-  <img src="./assets/stats.svg" width="100%" alt="System status, synced 2026-10-24: 2,380 contributions in the past year, 2,189 of them in private repositories, 9 upstream pull requests, 2 merged.">
+  <img src="./assets/stats.svg" width="100%" alt="System status, synced 2026-10-24: 2,414 contributions in the past year, 2,189 of them in private repositories, 9 upstream pull requests, 2 merged.">
 </picture>
 <!-- STATS:END -->
 
