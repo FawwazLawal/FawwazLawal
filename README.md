@@ -40,10 +40,12 @@ open: the state column comes from GitHub, not from me.
 | `OPEN` | [fix(ui): separate indicator list column values in the Knowledge tab (#18163)](https://github.com/OpenCTI-Platform/opencti/pull/19154)<br><sub>OpenCTI-Platform/opencti #19154 · opened 2026-10-21</sub> |
 | `OPEN` | [cmd/go: clarify test cache behavior for file metadata](https://github.com/golang/go/pull/82377)<br><sub>golang/go #82377 · opened 2026-10-20</sub> |
 | `OPEN` | [fix: \[api\] return proper REST response from auth key pin endpoint](https://github.com/MISP/MISP/pull/11222)<br><sub>MISP/MISP #11222 · opened 2026-10-20</sub> |
-| `OPEN` | [docs: document skip/skipAfter limitations under multiphase evaluation (#804)](https://github.com/corazawaf/coraza/pull/1785)<br><sub>corazawaf/coraza #1785 · opened 2026-10-19</sub> |
 | `OPEN` | [fix(ui): align info icon tooltips in user creation form (#19017)](https://github.com/OpenCTI-Platform/opencti/pull/19108)<br><sub>OpenCTI-Platform/opencti #19108 · opened 2026-10-19</sub> |
+| `OPEN` | [docs: document skip/skipAfter limitations under multiphase evaluation (#804)](https://github.com/corazawaf/coraza/pull/1785)<br><sub>corazawaf/coraza #1785 · opened 2026-10-19</sub> |
+| `CLOSED` | [test: port PySpark Catalog.listFunctions doctest](https://github.com/lakehq/sail/pull/2821)<br><sub>lakehq/sail #2821 · opened 2026-10-21 · closed without merging</sub> |
+| `CLOSED` | [Fix Accept-Encoding quality parameter handling for gzip](https://github.com/hapifhir/hapi-fhir/pull/8530)<br><sub>hapifhir/hapi-fhir #8530 · opened 2026-10-20 · closed without merging</sub> |
 
-<sub><code>GENERATED</code> 2026-10-24 from GitHub's API by <a href="./gen/stats_cards.py">gen/stats_cards.py</a>: 2 merged · 7 open · 0 closed without merging. Practice repositories are left out. Go merges through Gerrit, so a Go pull request counts as merged when Gerrit's bot says so. If a daily run fails, this date stops moving.</sub>
+<sub><code>GENERATED</code> 2026-10-24 from GitHub's API by <a href="./gen/stats_cards.py">gen/stats_cards.py</a>: 2 merged · 7 open · 2 closed without merging. Practice repositories are left out. Go merges through Gerrit, so a Go pull request counts as merged when Gerrit's bot says so. If a daily run fails, this date stops moving.</sub>
 <!-- UPSTREAM:END -->
 
 <details>
@@ -98,7 +100,7 @@ The source is private, so this chapter shows the apps and marks every number as 
 GitHub counts the work without showing it:
 
 <!-- ACTIVITY:START -->
-<code>GENERATED</code> 2026-10-24 from GitHub's API: **2,189 of my 2,414** contributions in the past year were in private repositories.
+<code>GENERATED</code> 2026-10-24 from GitHub's API: **2,189 of my 2,417** contributions in the past year were in private repositories.
 <!-- ACTIVITY:END -->
 
 ### Fisher: the Internet Archive's audio as a music app
@@ -242,7 +244,7 @@ flowchart TD
 <!-- STATS:START -->
 <picture>
   <source media="(prefers-color-scheme: light)" srcset="./assets/stats-light.svg">
-  <img src="./assets/stats.svg" width="100%" alt="System status, synced 2026-10-24: 2,414 contributions in the past year, 2,189 of them in private repositories, 9 upstream pull requests, 2 merged.">
+  <img src="./assets/stats.svg" width="100%" alt="System status, synced 2026-10-24: 2,417 contributions in the past year, 2,189 of them in private repositories, 9 upstream pull requests, 2 merged.">
 </picture>
 <!-- STATS:END -->
 
