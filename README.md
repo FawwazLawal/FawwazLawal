@@ -45,7 +45,7 @@ and audit guides. Beyond that: security tooling (OpenCTI, MISP, Coraza), XcodeGe
 | `CLOSED` | [test: port PySpark Catalog.listFunctions doctest](https://github.com/lakehq/sail/pull/2821)<br><sub>lakehq/sail #2821 · opened 2026-10-21 · closed without merging</sub> |
 | `CLOSED` | [Fix Accept-Encoding quality parameter handling for gzip](https://github.com/hapifhir/hapi-fhir/pull/8530)<br><sub>hapifhir/hapi-fhir #8530 · opened 2026-10-20 · closed without merging</sub> |
 
-<sub><code>GENERATED</code> 2026-10-25 from GitHub's API by <a href="./gen/stats_cards.py">gen/stats_cards.py</a>: 2 merged · 7 open · 2 closed without merging. Practice repositories are left out. Go merges through Gerrit, so a Go pull request counts as merged when Gerrit's bot says so. If a daily run fails, this date stops moving.</sub>
+<sub><code>GENERATED</code> 2026-10-26 from GitHub's API by <a href="./gen/stats_cards.py">gen/stats_cards.py</a>: 2 merged · 7 open · 2 closed without merging. Practice repositories are left out. Go merges through Gerrit, so a Go pull request counts as merged when Gerrit's bot says so. If a daily run fails, this date stops moving.</sub>
 <!-- UPSTREAM:END -->
 
 <details>
@@ -100,7 +100,7 @@ The source is private, so this chapter shows the apps and marks every number as 
 GitHub counts the work without showing it:
 
 <!-- ACTIVITY:START -->
-<code>GENERATED</code> 2026-10-25 from GitHub's API: **2,308 of my 2,580** contributions in the past year were in private repositories.
+<code>GENERATED</code> 2026-10-26 from GitHub's API: **2,308 of my 2,611** contributions in the past year were in private repositories.
 <!-- ACTIVITY:END -->
 
 ### Fisher: the Internet Archive's audio as a music app
@@ -244,7 +244,7 @@ flowchart TD
 <!-- STATS:START -->
 <picture>
   <source media="(prefers-color-scheme: light)" srcset="./assets/stats-light.svg">
-  <img src="./assets/stats.svg" width="100%" alt="System status, synced 2026-10-25: 2,580 contributions in the past year, 2,308 of them in private repositories, 9 upstream pull requests, 2 merged.">
+  <img src="./assets/stats.svg" width="100%" alt="System status, synced 2026-10-26: 2,611 contributions in the past year, 2,308 of them in private repositories, 9 upstream pull requests, 2 merged.">
 </picture>
 <!-- STATS:END -->
 
