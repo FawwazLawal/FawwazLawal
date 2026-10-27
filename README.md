@@ -35,6 +35,15 @@ and audit guides. Beyond that: security tooling (OpenCTI, MISP, Coraza), XcodeGe
 |---|---|
 | `MERGED` | [fix(ui): fix SMTP configuration margin and empty value display (#18931)](https://github.com/OpenCTI-Platform/opencti/pull/19110)<br><sub>OpenCTI-Platform/opencti #19110 · opened 2026-10-20 · merged 2026-10-23</sub> |
 | `MERGED` | [Add Arabic-script specifics to hardening reference (#1009)](https://github.com/pbakaus/impeccable/pull/1084)<br><sub>pbakaus/impeccable #1084 · opened 2026-10-19 · merged 2026-10-21</sub> |
+| `OPEN` | [fix: Handle URIToken in account\_lines marker lookup](https://github.com/Xahau/xahaud/pull/925)<br><sub>Xahau/xahaud #925 · opened 2026-10-27</sub> |
+| `OPEN` | [refactor: Move generateBlindingFactor() from protocol to test utilities](https://github.com/XRPLF/rippled/pull/8644)<br><sub>XRPLF/rippled #8644 · opened 2026-10-27</sub> |
+| `OPEN` | [fix: guard against duplicate-id responses in WebSocket handler](https://github.com/XRPLF/xrpl-py/pull/1070)<br><sub>XRPLF/xrpl-py #1070 · opened 2026-10-27</sub> |
+| `OPEN` | [feat(chat): auto-favorite nodes on direct message](https://github.com/meshtastic/web/pull/1491)<br><sub>meshtastic/web #1491 · opened 2026-10-27</sub> |
+| `OPEN` | [fix: Skip fee subtraction for sponsor-paid escrow transactions](https://github.com/ripple/explorer/pull/1383)<br><sub>ripple/explorer #1383 · opened 2026-10-26</sub> |
+| `OPEN` | [fix: correct 2-byte variable-length decode formula in BinaryParser](https://github.com/XRPLF/xrpl4j/pull/858)<br><sub>XRPLF/xrpl4j #858 · opened 2026-10-26</sub> |
+| `OPEN` | [feat: Add Wallet.from\_mnemonic() for BIP39 mnemonic-derived wallets](https://github.com/XRPLF/xrpl-py/pull/1069)<br><sub>XRPLF/xrpl-py #1069 · opened 2026-10-26</sub> |
+| `OPEN` | [fix: Skip marker transaction in accountTxPage instead of dropping it](https://github.com/Xahau/xahaud/pull/920)<br><sub>Xahau/xahaud #920 · opened 2026-10-26</sub> |
+| `OPEN` | [Fix broken links in XLS-85 and XLS-82 feature pages](https://github.com/ripple/opensource.ripple.com/pull/242)<br><sub>ripple/opensource.ripple.com #242 · opened 2026-10-26</sub> |
 | `OPEN` | [Warn on unrecognized keys in target dictionaries](https://github.com/yonaskolb/XcodeGen/pull/1660)<br><sub>yonaskolb/XcodeGen #1660 · opened 2026-10-23</sub> |
 | `OPEN` | [audit: add RTL checks to Responsive Design dimension](https://github.com/pbakaus/impeccable/pull/1114)<br><sub>pbakaus/impeccable #1114 · opened 2026-10-22</sub> |
 | `OPEN` | [fix(ui): separate indicator list column values in the Knowledge tab (#18163)](https://github.com/OpenCTI-Platform/opencti/pull/19154)<br><sub>OpenCTI-Platform/opencti #19154 · opened 2026-10-21</sub> |
@@ -45,7 +54,7 @@ and audit guides. Beyond that: security tooling (OpenCTI, MISP, Coraza), XcodeGe
 | `CLOSED` | [test: port PySpark Catalog.listFunctions doctest](https://github.com/lakehq/sail/pull/2821)<br><sub>lakehq/sail #2821 · opened 2026-10-21 · closed without merging</sub> |
 | `CLOSED` | [Fix Accept-Encoding quality parameter handling for gzip](https://github.com/hapifhir/hapi-fhir/pull/8530)<br><sub>hapifhir/hapi-fhir #8530 · opened 2026-10-20 · closed without merging</sub> |
 
-<sub><code>GENERATED</code> 2026-10-26 from GitHub's API by <a href="./gen/stats_cards.py">gen/stats_cards.py</a>: 2 merged · 7 open · 2 closed without merging. Practice repositories are left out. Go merges through Gerrit, so a Go pull request counts as merged when Gerrit's bot says so. If a daily run fails, this date stops moving.</sub>
+<sub><code>GENERATED</code> 2026-10-27 from GitHub's API by <a href="./gen/stats_cards.py">gen/stats_cards.py</a>: 2 merged · 16 open · 2 closed without merging. Practice repositories are left out. Go merges through Gerrit, so a Go pull request counts as merged when Gerrit's bot says so. If a daily run fails, this date stops moving.</sub>
 <!-- UPSTREAM:END -->
 
 <details>
@@ -100,7 +109,7 @@ The source is private, so this chapter shows the apps and marks every number as 
 GitHub counts the work without showing it:
 
 <!-- ACTIVITY:START -->
-<code>GENERATED</code> 2026-10-26 from GitHub's API: **2,308 of my 2,611** contributions in the past year were in private repositories.
+<code>GENERATED</code> 2026-10-27 from GitHub's API: **2,345 of my 2,712** contributions in the past year were in private repositories.
 <!-- ACTIVITY:END -->
 
 ### Fisher: the Internet Archive's audio as a music app
@@ -244,7 +253,7 @@ flowchart TD
 <!-- STATS:START -->
 <picture>
   <source media="(prefers-color-scheme: light)" srcset="./assets/stats-light.svg">
-  <img src="./assets/stats.svg" width="100%" alt="System status, synced 2026-10-26: 2,611 contributions in the past year, 2,308 of them in private repositories, 9 upstream pull requests, 2 merged.">
+  <img src="./assets/stats.svg" width="100%" alt="System status, synced 2026-10-27: 2,712 contributions in the past year, 2,345 of them in private repositories, 18 upstream pull requests, 2 merged.">
 </picture>
 <!-- STATS:END -->
 
