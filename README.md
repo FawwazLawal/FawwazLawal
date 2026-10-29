@@ -35,6 +35,7 @@ and audit guides. Beyond that: security tooling (OpenCTI, MISP, Coraza), XcodeGe
 |---|---|
 | `MERGED` | [fix(ui): fix SMTP configuration margin and empty value display (#18931)](https://github.com/OpenCTI-Platform/opencti/pull/19110)<br><sub>OpenCTI-Platform/opencti #19110 · opened 2026-10-20 · merged 2026-10-23</sub> |
 | `MERGED` | [Add Arabic-script specifics to hardening reference (#1009)](https://github.com/pbakaus/impeccable/pull/1084)<br><sub>pbakaus/impeccable #1084 · opened 2026-10-19 · merged 2026-10-21</sub> |
+| `OPEN` | [fix: reset both UNLReport arrays on flag ledger boundary](https://github.com/Xahau/xahaud/pull/928)<br><sub>Xahau/xahaud #928 · opened 2026-10-28</sub> |
 | `OPEN` | [fix: use deterministic parentCloseTime for ClaimReward sfRewardTime](https://github.com/Xahau/xahaud/pull/927)<br><sub>Xahau/xahaud #927 · opened 2026-10-28</sub> |
 | `OPEN` | [fix: remove misleading getDefaultRipple() from TrustLine and account\_lines](https://github.com/Xahau/xahaud/pull/926)<br><sub>Xahau/xahaud #926 · opened 2026-10-27</sub> |
 | `OPEN` | [fix: Handle URIToken in account\_lines marker lookup](https://github.com/Xahau/xahaud/pull/925)<br><sub>Xahau/xahaud #925 · opened 2026-10-27</sub> |
@@ -56,7 +57,7 @@ and audit guides. Beyond that: security tooling (OpenCTI, MISP, Coraza), XcodeGe
 | `CLOSED` | [test: port PySpark Catalog.listFunctions doctest](https://github.com/lakehq/sail/pull/2821)<br><sub>lakehq/sail #2821 · opened 2026-10-21 · closed without merging</sub> |
 | `CLOSED` | [Fix Accept-Encoding quality parameter handling for gzip](https://github.com/hapifhir/hapi-fhir/pull/8530)<br><sub>hapifhir/hapi-fhir #8530 · opened 2026-10-20 · closed without merging</sub> |
 
-<sub><code>GENERATED</code> 2026-10-28 from GitHub's API by <a href="./gen/stats_cards.py">gen/stats_cards.py</a>: 2 merged · 18 open · 2 closed without merging. Practice repositories are left out. Go merges through Gerrit, so a Go pull request counts as merged when Gerrit's bot says so. If a daily run fails, this date stops moving.</sub>
+<sub><code>GENERATED</code> 2026-10-29 from GitHub's API by <a href="./gen/stats_cards.py">gen/stats_cards.py</a>: 2 merged · 19 open · 2 closed without merging. Practice repositories are left out. Go merges through Gerrit, so a Go pull request counts as merged when Gerrit's bot says so. If a daily run fails, this date stops moving.</sub>
 <!-- UPSTREAM:END -->
 
 <details>
@@ -111,7 +112,7 @@ The source is private, so this chapter shows the apps and marks every number as 
 GitHub counts the work without showing it:
 
 <!-- ACTIVITY:START -->
-<code>GENERATED</code> 2026-10-28 from GitHub's API: **2,459 of my 2,890** contributions in the past year were in private repositories.
+<code>GENERATED</code> 2026-10-29 from GitHub's API: **2,459 of my 2,976** contributions in the past year were in private repositories.
 <!-- ACTIVITY:END -->
 
 ### Fisher: the Internet Archive's audio as a music app
@@ -255,7 +256,7 @@ flowchart TD
 <!-- STATS:START -->
 <picture>
   <source media="(prefers-color-scheme: light)" srcset="./assets/stats-light.svg">
-  <img src="./assets/stats.svg" width="100%" alt="System status, synced 2026-10-28: 2,890 contributions in the past year, 2,459 of them in private repositories, 20 upstream pull requests, 2 merged.">
+  <img src="./assets/stats.svg" width="100%" alt="System status, synced 2026-10-29: 2,976 contributions in the past year, 2,459 of them in private repositories, 21 upstream pull requests, 2 merged.">
 </picture>
 <!-- STATS:END -->
 
