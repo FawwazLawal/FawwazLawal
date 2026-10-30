@@ -195,11 +195,24 @@ def ledger_md(prs, today):
                 "| State | Pull request |", "|---|---|"]
         out += [row_md(r) for r in page]
         out += ["", "</details>"]
-    out += ["", f"<sub><code>GENERATED</code> {today} from GitHub's API by <a href=\"./gen/stats_cards.py\">gen/stats_cards.py</a>: "
-                f"{count['merged']} merged · {count['open']} open · {count['closed']} closed without merging. Practice "
-                f"repositories are left out. Go merges through Gerrit, so a Go pull request counts as merged when "
-                f"Gerrit's bot says so. If a daily run fails, this date stops moving.</sub>"]
     return "\n".join(out)
+
+
+def ledger_caption(prs, today):
+    """The GENERATED caption that follows the ledger. Separated from ledger_md so a
+    hand-written block (Field notes) can sit between the tables and this caption."""
+    count = {"merged": 0, "open": 0, "closed": 0}
+    for p in prs:
+        repo = p["repository"]["nameWithOwner"]
+        if practice(repo):
+            continue
+        state = "merged" if p.get("merged") or gerrit_merged(p) else p["state"].lower()
+        if state in count:
+            count[state] += 1
+    return (f"<sub><code>GENERATED</code> {today} from GitHub's API by <a href=\"./gen/stats_cards.py\">gen/stats_cards.py</a>: "
+            f"{count['merged']} merged · {count['open']} open · {count['closed']} closed without merging. Practice "
+            f"repositories are left out. Go merges through Gerrit, so a Go pull request counts as merged when "
+            f"Gerrit's bot says so. If a daily run fails, this date stops moving.</sub>")
 
 
 def write_block(readme, marker, block):
@@ -391,7 +404,9 @@ def main():
     if err is not None:
         print(f"::warning title=Upstream ledger skipped::{err}")   # Actions annotation; ledger keeps its old date
         return
-    wrote = write_block(readme, "UPSTREAM", ledger_md(prs, dt.date.today().isoformat()))
+    today = dt.date.today().isoformat()
+    wrote = write_block(readme, "UPSTREAM", ledger_md(prs, today))
+    write_block(readme, "UPSTREAM_CAPTION", ledger_caption(prs, today))
     print(f"::notice title=Upstream ledger::{len(prs)} pull requests found, {len(rows)} listed"
           f"{'' if wrote else ' (README has no UPSTREAM markers)'}")
 

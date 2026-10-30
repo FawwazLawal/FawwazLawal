@@ -27,11 +27,11 @@ I build backend services in Go and native apps in Swift and SwiftUI. From securi
 </p>
 <!-- REPOS:END -->
 
-Jump to **[Ops log](#00--ops-log-my-pull-requests-to-other-peoples-projects)** · **[HelloGitty](#01--hellogitty-the-public-tool-behind-the-log)** · **[Restricted](#02--restricted-two-private-projects)** · **[Systems](#03--systems-how-i-work)** · **[Toolkit](#04--toolkit-what-i-work-with)** · **[Exit](#05--exit-check-the-record)**
+Jump to **[Ops log](https://github.com/FawwazLawal/FawwazLawal#00--ops-log-my-pull-requests-to-other-peoples-projects)** · **[HelloGitty](https://github.com/FawwazLawal/FawwazLawal#01--hellogitty-the-public-tool-behind-the-log)** · **[Restricted](https://github.com/FawwazLawal/FawwazLawal#02--restricted-two-private-projects)** · **[Systems](https://github.com/FawwazLawal/FawwazLawal#03--systems-how-i-work)** · **[Toolkit](https://github.com/FawwazLawal/FawwazLawal#04--toolkit-what-i-work-with)** · **[Exit](https://github.com/FawwazLawal/FawwazLawal#05--exit-check-the-record)**
 
 <sub><code>PUBLIC</code> one click to check · <code>GENERATED</code> written daily from GitHub's API by a script in this repository, and dated · <code>SHOWN</code> a screenshot · <code>STATED</code> my word, dated where it changes</sub>
 
-## 00 · Ops log: my pull requests to other people's projects
+### 00 · Ops log: my pull requests to other people's projects
 
 <code>GENERATED</code> <sub>rebuilt daily from GitHub's API ·</sub> <code>PUBLIC</code> <sub>each row opens the pull request and its review so far</sub>
 
@@ -81,8 +81,6 @@ and audit guides. Beyond that: security tooling (OpenCTI, MISP, Coraza), XcodeGe
 | `CLOSED` | [Fix Accept-Encoding quality parameter handling for gzip](https://github.com/hapifhir/hapi-fhir/pull/8530)<br><sub>hapifhir/hapi-fhir #8530 · opened 2026-10-20 · closed without merging</sub> |
 
 </details>
-
-<sub><code>GENERATED</code> 2026-10-30 from GitHub's API by <a href="./gen/stats_cards.py">gen/stats_cards.py</a>: 2 merged · 19 open · 2 closed without merging. Practice repositories are left out. Go merges through Gerrit, so a Go pull request counts as merged when Gerrit's bot says so. If a daily run fails, this date stops moving.</sub>
 <!-- UPSTREAM:END -->
 
 <details>
@@ -98,6 +96,12 @@ and audit guides. Beyond that: security tooling (OpenCTI, MISP, Coraza), XcodeGe
 
 </details>
 
+<!-- UPSTREAM_CAPTION:START -->
+<sub><code>GENERATED</code> 2026-10-30 from GitHub's API by <a href="./gen/stats_cards.py">gen/stats_cards.py</a>: 2 merged · 19 open · 2 closed without merging. Practice repositories are left out. Go merges through Gerrit, so a Go pull request counts as merged when Gerrit's bot says so. If a daily run fails, this date stops moving.</sub>
+<!-- UPSTREAM_CAPTION:END -->
+
+---
+
 <a href="https://github.com/FawwazLawal/hellogitty">
 <picture>
   <source media="(prefers-reduced-motion: reduce)" srcset="./assets/bands/chapter-01-hellogitty-still.webp">
@@ -105,7 +109,7 @@ and audit guides. Beyond that: security tooling (OpenCTI, MISP, Coraza), XcodeGe
 </picture>
 </a>
 
-## 01 · HelloGitty: the public tool behind the log
+### 01 · HelloGitty: the public tool behind the log
 
 <code>PUBLIC</code> **[FawwazLawal/hellogitty](https://github.com/FawwazLawal/hellogitty)**<br>
 <sub>Go · SQLite · Special Licence · <a href="https://github.com/FawwazLawal/hellogitty/releases/latest">v0.2.0 (8)</a>, tag <code>v0.2.8</code>, released 2026-10-23</sub>
@@ -127,12 +131,14 @@ go install github.com/FawwazLawal/hellogitty/cmd/hellogitty@latest
 Proven: it runs, and its tests run before every tagged release ([workflow](https://github.com/FawwazLawal/hellogitty/blob/main/.github/workflows/release.yml)).
 Not yet shown: anyone using it but me.
 
+---
+
 <picture>
   <source media="(prefers-reduced-motion: reduce)" srcset="./assets/bands/chapter-02-restricted-still.webp">
   <img src="./assets/bands/chapter-02-restricted.webp" width="100%" alt="Chapter 02 of 05, Restricted. A retinal scanner sweeps red across her visor and ACCESS DENIED flashes in magenta neon.">
 </picture>
 
-## 02 · Restricted: two private projects
+### 02 · Restricted: two private projects
 
 <code>SHOWN</code> <sub>screenshots ·</sub> <code>STATED</code> <sub>descriptions and figures, dated · source private</sub>
 
@@ -196,12 +202,14 @@ app; the iOS app, Vapor service and Android companion are not. No claim of field
 
 </details>
 
+---
+
 <picture>
   <source media="(prefers-reduced-motion: reduce)" srcset="./assets/bands/chapter-03-systems-still.webp">
   <img src="./assets/bands/chapter-03-systems.webp" width="100%" alt="Chapter 03 of 05, Systems. She works at a curved holographic terminal surrounded by floating code panels.">
 </picture>
 
-## 03 · Systems: how I work
+### 03 · Systems: how I work
 
 <code>STATED</code> <sub>from my own build notes ·</sub> <code>PUBLIC</code> <sub>one pull request and one command you can run</sub>
 
@@ -244,12 +252,14 @@ same file, for gates that cannot fail, and for records claiming more certainty t
 
 </details>
 
+---
+
 <picture>
   <source media="(prefers-reduced-motion: reduce)" srcset="./assets/bands/chapter-04-toolkit-still.webp">
   <img src="./assets/bands/chapter-04-toolkit.webp" width="100%" alt="Chapter 04 of 05, Toolkit. A gloved hand pulls holographic tools out of the air in cyan and violet.">
 </picture>
 
-## 04 · Toolkit: what I work with
+### 04 · Toolkit: what I work with
 
 <code>STATED</code> <sub>my list; Go, Python, Swift and GitHub Actions can be read in the public code linked above.</sub>
 
@@ -282,12 +292,14 @@ flowchart TD
 
 </details>
 
+---
+
 <picture>
   <source media="(prefers-reduced-motion: reduce)" srcset="./assets/bands/chapter-05-exit-still.webp">
   <img src="./assets/bands/chapter-05-exit.webp" width="100%" alt="Chapter 05 of 05, Exit. She walks a corridor of falling binary towards a white gateway and steps through into light.">
 </picture>
 
-## 05 · Exit: check the record
+### 05 · Exit: check the record
 
 <code>PUBLIC</code> <sub>every link opens a public record</sub>
 
@@ -300,5 +312,7 @@ flowchart TD
 - **Watch the whole shot.** [The uncut 15.7-second film](./assets/bands/film.webp) (4 MB); the top of the page runs a 4.7-second cut.
 
 </details>
+
+---
 
 <p align="center"><code>&gt; end of transmission</code></p>
