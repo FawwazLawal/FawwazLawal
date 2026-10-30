@@ -15,7 +15,7 @@ I build backend services in Go and native apps in Swift and SwiftUI. From securi
 <!-- STATS:START -->
 <picture>
   <source media="(prefers-color-scheme: light)" srcset="./assets/stats-light.svg">
-  <img src="./assets/stats.svg" width="100%" alt="System status, synced 2026-10-30: 3,041 contributions in the past year, 2,459 of them in private repositories, 21 upstream pull requests, 2 merged.">
+  <img src="./assets/stats.svg" width="100%" alt="System status, synced 2026-10-30: 3,058 contributions in the past year, 2,459 of them in private repositories, 21 upstream pull requests, 2 merged.">
 </picture>
 <!-- STATS:END -->
 
@@ -44,6 +44,7 @@ and audit guides. Beyond that: security tooling (OpenCTI, MISP, Coraza), XcodeGe
 |---|---|
 | `MERGED` | [fix(ui): fix SMTP configuration margin and empty value display (#18931)](https://github.com/OpenCTI-Platform/opencti/pull/19110)<br><sub>OpenCTI-Platform/opencti #19110 · opened 2026-10-20 · merged 2026-10-23</sub> |
 | `MERGED` | [Add Arabic-script specifics to hardening reference (#1009)](https://github.com/pbakaus/impeccable/pull/1084)<br><sub>pbakaus/impeccable #1084 · opened 2026-10-19 · merged 2026-10-21</sub> |
+| `OPEN` | [fix(ui): align info icon tooltips in user creation form (#19017)](https://github.com/OpenCTI-Platform/opencti/pull/19108)<br><sub>OpenCTI-Platform/opencti #19108 · opened 2026-10-19</sub> |
 | `OPEN` | [refactor: Move generateBlindingFactor() from protocol to test utilities](https://github.com/XRPLF/rippled/pull/8644)<br><sub>XRPLF/rippled #8644 · opened 2026-10-27</sub> |
 | `OPEN` | [audit: add RTL checks to Responsive Design dimension](https://github.com/pbakaus/impeccable/pull/1114)<br><sub>pbakaus/impeccable #1114 · opened 2026-10-22</sub> |
 | `OPEN` | [feat(chat): auto-favorite nodes on direct message](https://github.com/meshtastic/web/pull/1491)<br><sub>meshtastic/web #1491 · opened 2026-10-27</sub> |
@@ -51,13 +52,13 @@ and audit guides. Beyond that: security tooling (OpenCTI, MISP, Coraza), XcodeGe
 | `OPEN` | [feat: Add Wallet.from\_mnemonic() for BIP39 mnemonic-derived wallets](https://github.com/XRPLF/xrpl-py/pull/1069)<br><sub>XRPLF/xrpl-py #1069 · opened 2026-10-26</sub> |
 | `OPEN` | [fix: reset both UNLReport arrays on flag ledger boundary](https://github.com/Xahau/xahaud/pull/928)<br><sub>Xahau/xahaud #928 · opened 2026-10-28</sub> |
 | `OPEN` | [fix(ui): separate indicator list column values in the Knowledge tab (#18163)](https://github.com/OpenCTI-Platform/opencti/pull/19154)<br><sub>OpenCTI-Platform/opencti #19154 · opened 2026-10-21</sub> |
-| `OPEN` | [cmd/go: clarify test cache behavior for file metadata](https://github.com/golang/go/pull/82377)<br><sub>golang/go #82377 · opened 2026-10-20</sub> |
 
 <details>
 <summary>Page 2 - pull requests 11 to 20</summary>
 
 | State | Pull request |
 |---|---|
+| `OPEN` | [cmd/go: clarify test cache behavior for file metadata](https://github.com/golang/go/pull/82377)<br><sub>golang/go #82377 · opened 2026-10-20</sub> |
 | `OPEN` | [fix: \[api\] return proper REST response from auth key pin endpoint](https://github.com/MISP/MISP/pull/11222)<br><sub>MISP/MISP #11222 · opened 2026-10-20</sub> |
 | `OPEN` | [fix: guard against duplicate-id responses in WebSocket handler](https://github.com/XRPLF/xrpl-py/pull/1070)<br><sub>XRPLF/xrpl-py #1070 · opened 2026-10-27</sub> |
 | `OPEN` | [fix: Skip fee subtraction for sponsor-paid escrow transactions](https://github.com/ripple/explorer/pull/1383)<br><sub>ripple/explorer #1383 · opened 2026-10-26</sub> |
@@ -66,7 +67,6 @@ and audit guides. Beyond that: security tooling (OpenCTI, MISP, Coraza), XcodeGe
 | `OPEN` | [fix: Handle URIToken in account\_lines marker lookup](https://github.com/Xahau/xahaud/pull/925)<br><sub>Xahau/xahaud #925 · opened 2026-10-27</sub> |
 | `OPEN` | [fix: use deterministic parentCloseTime for ClaimReward sfRewardTime](https://github.com/Xahau/xahaud/pull/927)<br><sub>Xahau/xahaud #927 · opened 2026-10-28</sub> |
 | `OPEN` | [fix: remove misleading getDefaultRipple() from TrustLine and account\_lines](https://github.com/Xahau/xahaud/pull/926)<br><sub>Xahau/xahaud #926 · opened 2026-10-27</sub> |
-| `OPEN` | [fix(ui): align info icon tooltips in user creation form (#19017)](https://github.com/OpenCTI-Platform/opencti/pull/19108)<br><sub>OpenCTI-Platform/opencti #19108 · opened 2026-10-19</sub> |
 | `OPEN` | [Fix broken links in XLS-85 and XLS-82 feature pages](https://github.com/ripple/opensource.ripple.com/pull/242)<br><sub>ripple/opensource.ripple.com #242 · opened 2026-10-26</sub> |
 
 </details>
@@ -143,7 +143,7 @@ Not yet shown: anyone using it but me.
 <code>SHOWN</code> <sub>screenshots ·</sub> <code>STATED</code> <sub>descriptions and figures, dated · source private</sub>
 
 <!-- ACTIVITY:START -->
-<code>GENERATED</code> 2026-10-30 from GitHub's API: **2,459 of my 3,041** contributions in the past year were in private repositories.
+<code>GENERATED</code> 2026-10-30 from GitHub's API: **2,459 of my 3,058** contributions in the past year were in private repositories.
 <!-- ACTIVITY:END -->
 
 <details>
