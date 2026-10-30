@@ -91,7 +91,7 @@ query($q: String!) {
   search(query: $q, type: ISSUE, first: 50) {
     nodes {
       ... on PullRequest {
-        title url number state merged mergedAt createdAt closedAt
+        title url number state merged mergedAt createdAt closedAt updatedAt
         repository { nameWithOwner }
         comments(last: 10) { nodes { body author { login } } }
       }
@@ -149,9 +149,13 @@ def md_escape(s):
     return re.sub(r"([\\`*_\[\]<>|])", r"\\\1", re.sub(r"\s+", " ", s or "").strip())
 
 
+PAGE_SIZE = 10
+
+
 def ledger_md(prs, today):
-    """The ops log: a table of every public pull request opened on someone else's repository,
-    merged first, then open, then closed without merging, newest first within each. Practice
+    """The ops log: every public pull request opened on someone else's repository, grouped
+    merged / open / closed, each group sorted by its own recency (merge time, most recent
+    activity, close time). Page 1 renders inline; pages 2+ sit inside <details>. Practice
     repositories are left out."""
     rows = []
     for p in prs:
@@ -163,19 +167,34 @@ def ledger_md(prs, today):
             continue
         opened = p["createdAt"][:10]
         if state == "merged":
-            when, detail = (p["mergedAt"] or p["closedAt"])[:10], f"opened {opened} · merged {(p['mergedAt'] or p['closedAt'])[:10]}"
+            merged_at = p["mergedAt"] or p["closedAt"]
+            when, detail = merged_at, f"opened {opened} · merged {merged_at[:10]}"
         elif state == "closed":
-            when, detail = (p["closedAt"] or p["createdAt"])[:10], f"opened {opened} · closed without merging"
+            when, detail = p["closedAt"] or p["createdAt"], f"opened {opened} · closed without merging"
         else:
-            when, detail = opened, f"opened {opened}"
+            when, detail = p.get("updatedAt") or p["createdAt"], f"opened {opened}"
         rows.append((state, when, p, repo, detail))
     order = {"merged": 0, "open": 1, "closed": 2}
     rows.sort(key=lambda r: r[1], reverse=True)
     rows.sort(key=lambda r: order[r[0]])
     count = {k: sum(1 for r in rows if r[0] == k) for k in order}
+
+    def row_md(r):
+        state, when, p, repo, detail = r
+        return (f"| `{state.upper()}` | [{md_escape(p['title'])}]({p['url']})"
+                f"<br><sub>{repo} #{p['number']} · {detail}</sub> |")
+
+    pages = [rows[i:i + PAGE_SIZE] for i in range(0, len(rows), PAGE_SIZE)] or [[]]
     out = ["| State | Pull request |", "|---|---|"]
-    for state, when, p, repo, detail in rows:
-        out.append(f"| `{state.upper()}` | [{md_escape(p['title'])}]({p['url']})<br><sub>{repo} #{p['number']} · {detail}</sub> |")
+    out += [row_md(r) for r in pages[0]]
+    for pi, page in enumerate(pages[1:], start=2):
+        start_n = (pi - 1) * PAGE_SIZE + 1
+        end_n = start_n + len(page) - 1
+        out += ["", "<details>",
+                f"<summary>Page {pi} - pull requests {start_n} to {end_n}</summary>", "",
+                "| State | Pull request |", "|---|---|"]
+        out += [row_md(r) for r in page]
+        out += ["", "</details>"]
     out += ["", f"<sub><code>GENERATED</code> {today} from GitHub's API by <a href=\"./gen/stats_cards.py\">gen/stats_cards.py</a>: "
                 f"{count['merged']} merged · {count['open']} open · {count['closed']} closed without merging. Practice "
                 f"repositories are left out. Go merges through Gerrit, so a Go pull request counts as merged when "

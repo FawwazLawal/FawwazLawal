@@ -1,3 +1,4 @@
 source/
 preview/
 __pycache__/
+.DS_Store

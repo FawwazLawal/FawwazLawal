@@ -1,5 +1,5 @@
 <!-- Tier 3, art-directed (docs/design/adr-readme-design-language.md). Bands come from gen/title_cards.py.
-The STATS, ACTIVITY and UPSTREAM blocks are rewritten daily by gen/stats_cards.py: change the generator, not the block. -->
+The STATS, ACTIVITY, REPOS and UPSTREAM blocks are rewritten daily by gen/stats_cards.py: change the generator, not the block. -->
 
 <a href="./assets/bands/film.webp" title="Play the uncut 15.7-second film">
 <picture>
@@ -10,17 +10,23 @@ The STATS, ACTIVITY and UPSTREAM blocks are rewritten daily by gen/stats_cards.p
 
 # Fawwaz Lawal
 
-I build backend services in Go and native apps in Swift and SwiftUI. I came to software
-through security, where the job was asking *"how would I know if this were wrong?"*, and I
-kept the habit: I put as much care into the checks around a system as into the system. So this
-page runs from the most checkable evidence to the least:
+I build backend services in Go and native apps in Swift and SwiftUI. From security, I kept the habit of asking *"how would I know if this were wrong?"* — so this page runs from the most checkable evidence to the least.
 
-1. **[Ops log](#00--ops-log-my-pull-requests-to-other-peoples-projects)**: every pull request I've opened on someone else's project and where it stands, rebuilt daily from GitHub. <code>GENERATED</code>
-2. **[HelloGitty](#01--hellogitty-the-public-tool-behind-the-log)**: the public tool I track that work with. Install it and look. <code>PUBLIC</code>
-3. **[Restricted](#02--restricted-two-private-projects)**: two private products, in screenshots and in figures I counted. <code>SHOWN</code> <code>STATED</code>
-4. **[Systems](#03--systems-how-i-work)** and **[toolkit](#04--toolkit-what-i-work-with)**: how I check my work and what I work with, in my own words. <code>STATED</code>
+<!-- STATS:START -->
+<picture>
+  <source media="(prefers-color-scheme: light)" srcset="./assets/stats-light.svg">
+  <img src="./assets/stats.svg" width="100%" alt="System status, synced 2026-10-29: 2,976 contributions in the past year, 2,459 of them in private repositories, 21 upstream pull requests, 2 merged.">
+</picture>
+<!-- STATS:END -->
 
-<sub><code>PUBLIC</code> one click to check · <code>GENERATED</code> written daily from GitHub's API by a script in this repository, and dated · <code>SHOWN</code> a screenshot: it proves the software exists, not how well it works · <code>STATED</code> my word, dated where it changes</sub>
+<a href="https://github.com/FawwazLawal/hellogitty"><code>PUBLIC</code> <b>FawwazLawal/hellogitty</b></a> · <sub>Go · SQLite · the local dashboard behind the ops log, one <code>go install</code> away</sub>
+
+<!-- REPOS:START -->
+<!-- REPOS:END -->
+
+Jump to **[Ops log](#00--ops-log-my-pull-requests-to-other-peoples-projects)** · **[HelloGitty](#01--hellogitty-the-public-tool-behind-the-log)** · **[Restricted](#02--restricted-two-private-projects)** · **[Systems](#03--systems-how-i-work)** · **[Toolkit](#04--toolkit-what-i-work-with)** · **[Exit](#05--exit-check-the-record)**
+
+<sub><code>PUBLIC</code> one click to check · <code>GENERATED</code> written daily from GitHub's API by a script in this repository, and dated · <code>SHOWN</code> a screenshot · <code>STATED</code> my word, dated where it changes</sub>
 
 ## 00 · Ops log: my pull requests to other people's projects
 
@@ -43,6 +49,12 @@ and audit guides. Beyond that: security tooling (OpenCTI, MISP, Coraza), XcodeGe
 | `OPEN` | [fix: guard against duplicate-id responses in WebSocket handler](https://github.com/XRPLF/xrpl-py/pull/1070)<br><sub>XRPLF/xrpl-py #1070 · opened 2026-10-27</sub> |
 | `OPEN` | [feat(chat): auto-favorite nodes on direct message](https://github.com/meshtastic/web/pull/1491)<br><sub>meshtastic/web #1491 · opened 2026-10-27</sub> |
 | `OPEN` | [fix: Skip fee subtraction for sponsor-paid escrow transactions](https://github.com/ripple/explorer/pull/1383)<br><sub>ripple/explorer #1383 · opened 2026-10-26</sub> |
+
+<details>
+<summary>Page 2 - pull requests 11 to 20</summary>
+
+| State | Pull request |
+|---|---|
 | `OPEN` | [fix: correct 2-byte variable-length decode formula in BinaryParser](https://github.com/XRPLF/xrpl4j/pull/858)<br><sub>XRPLF/xrpl4j #858 · opened 2026-10-26</sub> |
 | `OPEN` | [feat: Add Wallet.from\_mnemonic() for BIP39 mnemonic-derived wallets](https://github.com/XRPLF/xrpl-py/pull/1069)<br><sub>XRPLF/xrpl-py #1069 · opened 2026-10-26</sub> |
 | `OPEN` | [fix: Skip marker transaction in accountTxPage instead of dropping it](https://github.com/Xahau/xahaud/pull/920)<br><sub>Xahau/xahaud #920 · opened 2026-10-26</sub> |
@@ -53,9 +65,19 @@ and audit guides. Beyond that: security tooling (OpenCTI, MISP, Coraza), XcodeGe
 | `OPEN` | [cmd/go: clarify test cache behavior for file metadata](https://github.com/golang/go/pull/82377)<br><sub>golang/go #82377 · opened 2026-10-20</sub> |
 | `OPEN` | [fix: \[api\] return proper REST response from auth key pin endpoint](https://github.com/MISP/MISP/pull/11222)<br><sub>MISP/MISP #11222 · opened 2026-10-20</sub> |
 | `OPEN` | [fix(ui): align info icon tooltips in user creation form (#19017)](https://github.com/OpenCTI-Platform/opencti/pull/19108)<br><sub>OpenCTI-Platform/opencti #19108 · opened 2026-10-19</sub> |
+
+</details>
+
+<details>
+<summary>Page 3 - pull requests 21 to 23</summary>
+
+| State | Pull request |
+|---|---|
 | `OPEN` | [docs: document skip/skipAfter limitations under multiphase evaluation (#804)](https://github.com/corazawaf/coraza/pull/1785)<br><sub>corazawaf/coraza #1785 · opened 2026-10-19</sub> |
 | `CLOSED` | [test: port PySpark Catalog.listFunctions doctest](https://github.com/lakehq/sail/pull/2821)<br><sub>lakehq/sail #2821 · opened 2026-10-21 · closed without merging</sub> |
 | `CLOSED` | [Fix Accept-Encoding quality parameter handling for gzip](https://github.com/hapifhir/hapi-fhir/pull/8530)<br><sub>hapifhir/hapi-fhir #8530 · opened 2026-10-20 · closed without merging</sub> |
+
+</details>
 
 <sub><code>GENERATED</code> 2026-10-29 from GitHub's API by <a href="./gen/stats_cards.py">gen/stats_cards.py</a>: 2 merged · 19 open · 2 closed without merging. Practice repositories are left out. Go merges through Gerrit, so a Go pull request counts as merged when Gerrit's bot says so. If a daily run fails, this date stops moving.</sub>
 <!-- UPSTREAM:END -->
@@ -73,14 +95,17 @@ and audit guides. Beyond that: security tooling (OpenCTI, MISP, Coraza), XcodeGe
 
 </details>
 
+<a href="https://github.com/FawwazLawal/hellogitty">
 <picture>
   <source media="(prefers-reduced-motion: reduce)" srcset="./assets/bands/chapter-01-hellogitty-still.webp">
-  <img src="./assets/bands/chapter-01-hellogitty.webp" width="100%" alt="Chapter 01 of 05, HelloGitty. She runs on through an archway of glyphs.">
+  <img src="./assets/bands/chapter-01-hellogitty.webp" width="100%" alt="Chapter 01 of 05, HelloGitty. She runs on through an archway of glyphs. Opens the HelloGitty repository.">
 </picture>
+</a>
 
 ## 01 · HelloGitty: the public tool behind the log
 
-<code>PUBLIC</code> <sub><a href="https://github.com/FawwazLawal/hellogitty">FawwazLawal/hellogitty</a> · Go · SQLite · Special Licence · <a href="https://github.com/FawwazLawal/hellogitty/releases/latest">v0.2.0 (8)</a>, tag <code>v0.2.8</code>, released 2026-10-23</sub>
+<code>PUBLIC</code> **[FawwazLawal/hellogitty](https://github.com/FawwazLawal/hellogitty)**<br>
+<sub>Go · SQLite · Special Licence · <a href="https://github.com/FawwazLawal/hellogitty/releases/latest">v0.2.0 (8)</a>, tag <code>v0.2.8</code>, released 2026-10-23</sub>
 
 **HelloGitty is a local dashboard for open-source work: every pull request and issue you have
 out on GitHub, sorted by whose move it is, beside the health of the projects you follow.** I
@@ -108,12 +133,15 @@ Not yet shown: anyone using it but me.
 
 <code>SHOWN</code> <sub>screenshots ·</sub> <code>STATED</code> <sub>descriptions and figures, dated · source private</sub>
 
-The source is private, so this chapter shows the apps and marks every number as my word.
-GitHub counts the work without showing it:
-
 <!-- ACTIVITY:START -->
 <code>GENERATED</code> 2026-10-29 from GitHub's API: **2,459 of my 2,976** contributions in the past year were in private repositories.
 <!-- ACTIVITY:END -->
+
+<details>
+<summary><b>Open the two private projects</b> · Fisher (iPhone, Internet Archive audio) and Domain Dispatch (macOS, field operations)</summary>
+
+The source is private, so this chapter shows the apps and marks every number as my word.
+GitHub counts the work without showing it, as the figure above.
 
 ### Fisher: the Internet Archive's audio as a music app
 
@@ -163,6 +191,8 @@ app; the iOS app, Vapor service and Android companion are not. No claim of field
 
 </details>
 
+</details>
+
 <picture>
   <source media="(prefers-reduced-motion: reduce)" srcset="./assets/bands/chapter-03-systems-still.webp">
   <img src="./assets/bands/chapter-03-systems.webp" width="100%" alt="Chapter 03 of 05, Systems. She works at a curved holographic terminal surrounded by floating code panels.">
@@ -171,6 +201,9 @@ app; the iOS app, Vapor service and Android companion are not. No claim of field
 ## 03 · Systems: how I work
 
 <code>STATED</code> <sub>from my own build notes ·</sub> <code>PUBLIC</code> <sub>one pull request and one command you can run</sub>
+
+<details>
+<summary><b>Open: five habits, with one public trace</b></summary>
 
 **A check that cannot go red is not a check.** A mutation test of mine passed a test that
 never ran against the mutant: `go test` without `-count=1` can replay a cached result. I now
@@ -206,6 +239,8 @@ builders, QA, composition review, release. The agents were the easy part. The wo
 building the instruments that keep them honest: detection for two agents about to write the
 same file, for gates that cannot fail, and for records claiming more certainty than they have.
 
+</details>
+
 <picture>
   <source media="(prefers-reduced-motion: reduce)" srcset="./assets/bands/chapter-04-toolkit-still.webp">
   <img src="./assets/bands/chapter-04-toolkit.webp" width="100%" alt="Chapter 04 of 05, Toolkit. A gloved hand pulls holographic tools out of the air in cyan and violet.">
@@ -214,6 +249,9 @@ same file, for gates that cannot fail, and for records claiming more certainty t
 ## 04 · Toolkit: what I work with
 
 <code>STATED</code> <sub>my list; Go, Python, Swift and GitHub Actions can be read in the public code linked above.</sub>
+
+<details>
+<summary><b>Open: languages, platforms, delivery, background</b></summary>
 
 - **Languages:** Go · Swift · Python · Kotlin
 - **Apple:** SwiftUI · Xcode
@@ -239,6 +277,8 @@ flowchart TD
   C --> L["Status panel, private count,<br/>ops log"]
 ```
 
+</details>
+
 <picture>
   <source media="(prefers-reduced-motion: reduce)" srcset="./assets/bands/chapter-05-exit-still.webp">
   <img src="./assets/bands/chapter-05-exit.webp" width="100%" alt="Chapter 05 of 05, Exit. She walks a corridor of falling binary towards a white gateway and steps through into light.">
@@ -246,18 +286,16 @@ flowchart TD
 
 ## 05 · Exit: check the record
 
-<code>PUBLIC</code> <sub>every link opens a public record ·</sub> <code>GENERATED</code> <sub>the status panel, synced daily</sub>
+<code>PUBLIC</code> <sub>every link opens a public record</sub>
+
+<details>
+<summary><b>Open: four public records to walk out through</b></summary>
 
 - **Run it.** [HelloGitty](https://github.com/FawwazLawal/hellogitty) installs with one `go install` and runs on your machine.
 - **Follow it upstream.** [My pull requests to other people's projects](https://github.com/search?q=is%3Apr+is%3Apublic+author%3AFawwazLawal+-user%3AFawwazLawal&type=pullrequests&s=created&o=desc), live on GitHub, newest first, closed ones included.
 - **Read the code.** My [public repositories, with forks hidden](https://github.com/FawwazLawal?tab=repositories&type=source).
 - **Watch the whole shot.** [The uncut 15.7-second film](./assets/bands/film.webp) (4 MB); the top of the page runs a 4.7-second cut.
 
-<!-- STATS:START -->
-<picture>
-  <source media="(prefers-color-scheme: light)" srcset="./assets/stats-light.svg">
-  <img src="./assets/stats.svg" width="100%" alt="System status, synced 2026-10-29: 2,976 contributions in the past year, 2,459 of them in private repositories, 21 upstream pull requests, 2 merged.">
-</picture>
-<!-- STATS:END -->
+</details>
 
 <p align="center"><code>&gt; end of transmission</code></p>
