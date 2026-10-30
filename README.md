@@ -15,7 +15,7 @@ I build backend services in Go and native apps in Swift and SwiftUI. From securi
 <!-- STATS:START -->
 <picture>
   <source media="(prefers-color-scheme: light)" srcset="./assets/stats-light.svg">
-  <img src="./assets/stats.svg" width="100%" alt="System status, synced 2026-10-30: 3,032 contributions in the past year, 2,459 of them in private repositories, 21 upstream pull requests, 2 merged.">
+  <img src="./assets/stats.svg" width="100%" alt="System status, synced 2026-10-30: 3,041 contributions in the past year, 2,459 of them in private repositories, 21 upstream pull requests, 2 merged.">
 </picture>
 <!-- STATS:END -->
 
@@ -143,7 +143,7 @@ Not yet shown: anyone using it but me.
 <code>SHOWN</code> <sub>screenshots ·</sub> <code>STATED</code> <sub>descriptions and figures, dated · source private</sub>
 
 <!-- ACTIVITY:START -->
-<code>GENERATED</code> 2026-10-30 from GitHub's API: **2,459 of my 3,032** contributions in the past year were in private repositories.
+<code>GENERATED</code> 2026-10-30 from GitHub's API: **2,459 of my 3,041** contributions in the past year were in private repositories.
 <!-- ACTIVITY:END -->
 
 <details>
