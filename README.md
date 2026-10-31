@@ -10,7 +10,7 @@ The STATS, ACTIVITY, REPOS and UPSTREAM blocks are rewritten daily by gen/stats_
 
 # Fawwaz Lawal
 
-I build backend services in Go and native apps in Swift and SwiftUI. From security, I kept the habit of asking *"how would I know if this were wrong?"* — so this page runs from the most checkable evidence to the least.
+what we coding today
 
 <!-- STATS:START -->
 <picture>
