@@ -15,7 +15,7 @@ what we coding today
 <!-- STATS:START -->
 <picture>
   <source media="(prefers-color-scheme: light)" srcset="./assets/stats-light.svg">
-  <img src="./assets/stats.svg" width="100%" alt="System status, synced 2026-11-06: 3,351 contributions in the past year, 2,639 of them in private repositories, 21 upstream pull requests, 4 merged.">
+  <img src="./assets/stats.svg" width="100%" alt="System status, synced 2026-11-07: 3,440 contributions in the past year, 2,646 of them in private repositories, 21 upstream pull requests, 4 merged.">
 </picture>
 <!-- STATS:END -->
 
@@ -46,7 +46,7 @@ and audit guides. Beyond that: security tooling (OpenCTI, MISP, Coraza), XcodeGe
 | `MERGED` | [fix(ui): align info icon tooltips in user creation form (#19017)](https://github.com/OpenCTI-Platform/opencti/pull/19108)<br><sub>OpenCTI-Platform/opencti #19108 · opened 2026-10-19 · merged 2026-11-04</sub> |
 | `MERGED` | [fix(ui): fix SMTP configuration margin and empty value display (#18931)](https://github.com/OpenCTI-Platform/opencti/pull/19110)<br><sub>OpenCTI-Platform/opencti #19110 · opened 2026-10-20 · merged 2026-10-23</sub> |
 | `MERGED` | [Add Arabic-script specifics to hardening reference (#1009)](https://github.com/pbakaus/impeccable/pull/1084)<br><sub>pbakaus/impeccable #1084 · opened 2026-10-19 · merged 2026-10-21</sub> |
-| `OPEN` | [fix(ui): align info icons in CSV mapper creation form (#19622)](https://github.com/OpenCTI-Platform/opencti/pull/19663)<br><sub>OpenCTI-Platform/opencti #19663 · opened 2026-11-05</sub> |
+| `OPEN` | [fix(ui): align info icons in CSV and JSON mapper forms (#19622)](https://github.com/OpenCTI-Platform/opencti/pull/19663)<br><sub>OpenCTI-Platform/opencti #19663 · opened 2026-11-05</sub> |
 | `OPEN` | [Fix broken links in XLS-85 and XLS-82 feature pages](https://github.com/ripple/opensource.ripple.com/pull/242)<br><sub>ripple/opensource.ripple.com #242 · opened 2026-10-26</sub> |
 | `OPEN` | [fix: reset UNLReport ActiveValidators when the first report is VL-only](https://github.com/Xahau/xahaud/pull/928)<br><sub>Xahau/xahaud #928 · opened 2026-10-28</sub> |
 | `OPEN` | [fix: Handle URIToken in account\_lines marker lookup](https://github.com/Xahau/xahaud/pull/925)<br><sub>Xahau/xahaud #925 · opened 2026-10-27</sub> |
@@ -98,7 +98,7 @@ and audit guides. Beyond that: security tooling (OpenCTI, MISP, Coraza), XcodeGe
 </details>
 
 <!-- UPSTREAM_CAPTION:START -->
-<sub><code>GENERATED</code> 2026-11-06 from GitHub's API by <a href="./gen/stats_cards.py">gen/stats_cards.py</a>: 4 merged · 17 open · 3 closed without merging. Practice repositories are left out. Go merges through Gerrit, so a Go pull request counts as merged when Gerrit's bot says so. If a daily run fails, this date stops moving.</sub>
+<sub><code>GENERATED</code> 2026-11-07 from GitHub's API by <a href="./gen/stats_cards.py">gen/stats_cards.py</a>: 4 merged · 17 open · 3 closed without merging. Practice repositories are left out. Go merges through Gerrit, so a Go pull request counts as merged when Gerrit's bot says so. If a daily run fails, this date stops moving.</sub>
 <!-- UPSTREAM_CAPTION:END -->
 
 ---
@@ -144,7 +144,7 @@ Not yet shown: anyone using it but me.
 <code>SHOWN</code> <sub>screenshots ·</sub> <code>STATED</code> <sub>descriptions and figures, dated · source private</sub>
 
 <!-- ACTIVITY:START -->
-<code>GENERATED</code> 2026-11-06 from GitHub's API: **2,639 of my 3,351** contributions in the past year were in private repositories.
+<code>GENERATED</code> 2026-11-07 from GitHub's API: **2,646 of my 3,440** contributions in the past year were in private repositories.
 <!-- ACTIVITY:END -->
 
 <details>
