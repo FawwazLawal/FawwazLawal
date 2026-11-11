@@ -15,7 +15,7 @@ what we coding today
 <!-- STATS:START -->
 <picture>
   <source media="(prefers-color-scheme: light)" srcset="./assets/stats-light.svg">
-  <img src="./assets/stats.svg" width="100%" alt="System status, synced 2026-11-10: 3,943 contributions in the past year, 3,051 of them in private repositories, 23 upstream pull requests, 5 merged.">
+  <img src="./assets/stats.svg" width="100%" alt="System status, synced 2026-11-11: 4,014 contributions in the past year, 3,121 of them in private repositories, 23 upstream pull requests, 5 merged.">
 </picture>
 <!-- STATS:END -->
 
@@ -100,7 +100,7 @@ and audit guides. Beyond that: security tooling (OpenCTI, MISP, Coraza), XcodeGe
 </details>
 
 <!-- UPSTREAM_CAPTION:START -->
-<sub><code>GENERATED</code> 2026-11-10 from GitHub's API by <a href="./gen/stats_cards.py">gen/stats_cards.py</a>: 5 merged · 18 open · 3 closed without merging. Practice repositories are left out. Go merges through Gerrit, so a Go pull request counts as merged when Gerrit's bot says so. If a daily run fails, this date stops moving.</sub>
+<sub><code>GENERATED</code> 2026-11-11 from GitHub's API by <a href="./gen/stats_cards.py">gen/stats_cards.py</a>: 5 merged · 18 open · 3 closed without merging. Practice repositories are left out. Go merges through Gerrit, so a Go pull request counts as merged when Gerrit's bot says so. If a daily run fails, this date stops moving.</sub>
 <!-- UPSTREAM_CAPTION:END -->
 
 ---
@@ -146,7 +146,7 @@ Not yet shown: anyone using it but me.
 <code>SHOWN</code> <sub>screenshots ·</sub> <code>STATED</code> <sub>descriptions and figures, dated · source private</sub>
 
 <!-- ACTIVITY:START -->
-<code>GENERATED</code> 2026-11-10 from GitHub's API: **3,051 of my 3,943** contributions in the past year were in private repositories.
+<code>GENERATED</code> 2026-11-11 from GitHub's API: **3,121 of my 4,014** contributions in the past year were in private repositories.
 <!-- ACTIVITY:END -->
 
 <details>
