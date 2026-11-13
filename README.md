@@ -15,7 +15,7 @@ what we coding today
 <!-- STATS:START -->
 <picture>
   <source media="(prefers-color-scheme: light)" srcset="./assets/stats-light.svg">
-  <img src="./assets/stats.svg" width="100%" alt="System status, synced 2026-11-12: 4,071 contributions in the past year, 3,172 of them in private repositories, 26 upstream pull requests, 5 merged.">
+  <img src="./assets/stats.svg" width="100%" alt="System status, synced 2026-11-13: 4,119 contributions in the past year, 3,218 of them in private repositories, 26 upstream pull requests, 5 merged.">
 </picture>
 <!-- STATS:END -->
 
@@ -47,9 +47,9 @@ and audit guides. Beyond that: security tooling (OpenCTI, MISP, Coraza), XcodeGe
 | `MERGED` | [fix(ui): align info icon tooltips in user creation form (#19017)](https://github.com/OpenCTI-Platform/opencti/pull/19108)<br><sub>OpenCTI-Platform/opencti #19108 · opened 2026-10-19 · merged 2026-11-04</sub> |
 | `MERGED` | [fix(ui): fix SMTP configuration margin and empty value display (#18931)](https://github.com/OpenCTI-Platform/opencti/pull/19110)<br><sub>OpenCTI-Platform/opencti #19110 · opened 2026-10-20 · merged 2026-10-23</sub> |
 | `MERGED` | [Add Arabic-script specifics to hardening reference (#1009)](https://github.com/pbakaus/impeccable/pull/1084)<br><sub>pbakaus/impeccable #1084 · opened 2026-10-19 · merged 2026-10-21</sub> |
+| `OPEN` | [fix: fail fast on truncated input in BinaryParser.read(int)](https://github.com/XRPLF/xrpl4j/pull/881)<br><sub>XRPLF/xrpl4j #881 · opened 2026-11-11</sub> |
 | `OPEN` | [fix: Use underscore in getobject\_Fetch\_Pack\_get category name](https://github.com/XRPLF/rippled/pull/8720)<br><sub>XRPLF/rippled #8720 · opened 2026-11-12</sub> |
 | `OPEN` | [fix: add missing f-string prefix to five binary codec error messages](https://github.com/XRPLF/xrpl-py/pull/1082)<br><sub>XRPLF/xrpl-py #1082 · opened 2026-11-12</sub> |
-| `OPEN` | [fix: fail fast on truncated input in BinaryParser.read(int)](https://github.com/XRPLF/xrpl4j/pull/881)<br><sub>XRPLF/xrpl4j #881 · opened 2026-11-11</sub> |
 | `OPEN` | [fix(ui): align info icons in CSV and JSON mapper forms (#19622)](https://github.com/OpenCTI-Platform/opencti/pull/19663)<br><sub>OpenCTI-Platform/opencti #19663 · opened 2026-11-05</sub> |
 | `OPEN` | [Enforce the 128 KB emoji size limit in slack-gif-creator validate\_gif](https://github.com/anthropics/skills/pull/2174)<br><sub>anthropics/skills #2174 · opened 2026-11-10</sub> |
 
@@ -103,7 +103,7 @@ and audit guides. Beyond that: security tooling (OpenCTI, MISP, Coraza), XcodeGe
 </details>
 
 <!-- UPSTREAM_CAPTION:START -->
-<sub><code>GENERATED</code> 2026-11-12 from GitHub's API by <a href="./gen/stats_cards.py">gen/stats_cards.py</a>: 5 merged · 21 open · 3 closed without merging. Practice repositories are left out. Go merges through Gerrit, so a Go pull request counts as merged when Gerrit's bot says so. If a daily run fails, this date stops moving.</sub>
+<sub><code>GENERATED</code> 2026-11-13 from GitHub's API by <a href="./gen/stats_cards.py">gen/stats_cards.py</a>: 5 merged · 21 open · 3 closed without merging. Practice repositories are left out. Go merges through Gerrit, so a Go pull request counts as merged when Gerrit's bot says so. If a daily run fails, this date stops moving.</sub>
 <!-- UPSTREAM_CAPTION:END -->
 
 ---
@@ -149,7 +149,7 @@ Not yet shown: anyone using it but me.
 <code>SHOWN</code> <sub>screenshots ·</sub> <code>STATED</code> <sub>descriptions and figures, dated · source private</sub>
 
 <!-- ACTIVITY:START -->
-<code>GENERATED</code> 2026-11-12 from GitHub's API: **3,172 of my 4,071** contributions in the past year were in private repositories.
+<code>GENERATED</code> 2026-11-13 from GitHub's API: **3,218 of my 4,119** contributions in the past year were in private repositories.
 <!-- ACTIVITY:END -->
 
 <details>
