@@ -15,7 +15,7 @@ what we coding today
 <!-- STATS:START -->
 <picture>
   <source media="(prefers-color-scheme: light)" srcset="./assets/stats-light.svg">
-  <img src="./assets/stats.svg" width="100%" alt="System status, synced 2026-11-11: 4,014 contributions in the past year, 3,121 of them in private repositories, 23 upstream pull requests, 5 merged.">
+  <img src="./assets/stats.svg" width="100%" alt="System status, synced 2026-11-13: 4,119 contributions in the past year, 3,218 of them in private repositories, 26 upstream pull requests, 5 merged.">
 </picture>
 <!-- STATS:END -->
 
@@ -47,17 +47,20 @@ comes from GitHub, not from me.
 | `MERGED` | [fix(ui): align info icon tooltips in user creation form (#19017)](https://github.com/OpenCTI-Platform/opencti/pull/19108)<br><sub>OpenCTI-Platform/opencti #19108 · opened 2026-10-19 · merged 2026-11-04</sub> |
 | `MERGED` | [fix(ui): fix SMTP configuration margin and empty value display (#18931)](https://github.com/OpenCTI-Platform/opencti/pull/19110)<br><sub>OpenCTI-Platform/opencti #19110 · opened 2026-10-20 · merged 2026-10-23</sub> |
 | `MERGED` | [Add Arabic-script specifics to hardening reference (#1009)](https://github.com/pbakaus/impeccable/pull/1084)<br><sub>pbakaus/impeccable #1084 · opened 2026-10-19 · merged 2026-10-21</sub> |
+| `OPEN` | [fix: fail fast on truncated input in BinaryParser.read(int)](https://github.com/XRPLF/xrpl4j/pull/881)<br><sub>XRPLF/xrpl4j #881 · opened 2026-11-11</sub> |
+| `OPEN` | [fix: Use underscore in getobject\_Fetch\_Pack\_get category name](https://github.com/XRPLF/rippled/pull/8720)<br><sub>XRPLF/rippled #8720 · opened 2026-11-12</sub> |
+| `OPEN` | [fix: add missing f-string prefix to five binary codec error messages](https://github.com/XRPLF/xrpl-py/pull/1082)<br><sub>XRPLF/xrpl-py #1082 · opened 2026-11-12</sub> |
 | `OPEN` | [fix(ui): align info icons in CSV and JSON mapper forms (#19622)](https://github.com/OpenCTI-Platform/opencti/pull/19663)<br><sub>OpenCTI-Platform/opencti #19663 · opened 2026-11-05</sub> |
 | `OPEN` | [Enforce the 128 KB emoji size limit in slack-gif-creator validate\_gif](https://github.com/anthropics/skills/pull/2174)<br><sub>anthropics/skills #2174 · opened 2026-11-10</sub> |
-| `OPEN` | [fix: Show the Payment Channels row on the account page](https://github.com/ripple/explorer/pull/1386)<br><sub>ripple/explorer #1386 · opened 2026-11-08</sub> |
-| `OPEN` | [Fix broken links in XLS-85 and XLS-82 feature pages](https://github.com/ripple/opensource.ripple.com/pull/242)<br><sub>ripple/opensource.ripple.com #242 · opened 2026-10-26</sub> |
-| `OPEN` | [fix: reset UNLReport ActiveValidators when the first report is VL-only](https://github.com/Xahau/xahaud/pull/928)<br><sub>Xahau/xahaud #928 · opened 2026-10-28</sub> |
 
 <details>
 <summary>Page 2 - pull requests 11 to 20</summary>
 
 | State | Pull request |
 |---|---|
+| `OPEN` | [fix: Show the Payment Channels row on the account page](https://github.com/ripple/explorer/pull/1386)<br><sub>ripple/explorer #1386 · opened 2026-11-08</sub> |
+| `OPEN` | [Fix broken links in XLS-85 and XLS-82 feature pages](https://github.com/ripple/opensource.ripple.com/pull/242)<br><sub>ripple/opensource.ripple.com #242 · opened 2026-10-26</sub> |
+| `OPEN` | [fix: reset UNLReport ActiveValidators when the first report is VL-only](https://github.com/Xahau/xahaud/pull/928)<br><sub>Xahau/xahaud #928 · opened 2026-10-28</sub> |
 | `OPEN` | [fix: Handle URIToken in account\_lines marker lookup](https://github.com/Xahau/xahaud/pull/925)<br><sub>Xahau/xahaud #925 · opened 2026-10-27</sub> |
 | `OPEN` | [fix: use deterministic parentCloseTime for ClaimReward sfRewardTime](https://github.com/Xahau/xahaud/pull/927)<br><sub>Xahau/xahaud #927 · opened 2026-10-28</sub> |
 | `OPEN` | [fix: remove misleading getDefaultRipple() from TrustLine and account\_lines](https://github.com/Xahau/xahaud/pull/926)<br><sub>Xahau/xahaud #926 · opened 2026-10-27</sub> |
@@ -65,17 +68,17 @@ comes from GitHub, not from me.
 | `OPEN` | [fix: Skip fee subtraction for sponsor-paid escrow transactions](https://github.com/ripple/explorer/pull/1383)<br><sub>ripple/explorer #1383 · opened 2026-10-26</sub> |
 | `OPEN` | [refactor: Move generateBlindingFactor() from protocol to test utilities](https://github.com/XRPLF/rippled/pull/8644)<br><sub>XRPLF/rippled #8644 · opened 2026-10-27</sub> |
 | `OPEN` | [feat(chat): auto-favorite nodes on direct message](https://github.com/meshtastic/web/pull/1491)<br><sub>meshtastic/web #1491 · opened 2026-10-27</sub> |
-| `OPEN` | [feat: Add Wallet.from\_mnemonic() for BIP39 mnemonic-derived wallets](https://github.com/XRPLF/xrpl-py/pull/1069)<br><sub>XRPLF/xrpl-py #1069 · opened 2026-10-26</sub> |
-| `OPEN` | [fix(ui): separate indicator list column values in the Knowledge tab (#18163)](https://github.com/OpenCTI-Platform/opencti/pull/19154)<br><sub>OpenCTI-Platform/opencti #19154 · opened 2026-10-21</sub> |
-| `OPEN` | [cmd/go: clarify test cache behavior for file metadata](https://github.com/golang/go/pull/82377)<br><sub>golang/go #82377 · opened 2026-10-20</sub> |
 
 </details>
 
 <details>
-<summary>Page 3 - pull requests 21 to 26</summary>
+<summary>Page 3 - pull requests 21 to 29</summary>
 
 | State | Pull request |
 |---|---|
+| `OPEN` | [feat: Add Wallet.from\_mnemonic() for BIP39 mnemonic-derived wallets](https://github.com/XRPLF/xrpl-py/pull/1069)<br><sub>XRPLF/xrpl-py #1069 · opened 2026-10-26</sub> |
+| `OPEN` | [fix(ui): separate indicator list column values in the Knowledge tab (#18163)](https://github.com/OpenCTI-Platform/opencti/pull/19154)<br><sub>OpenCTI-Platform/opencti #19154 · opened 2026-10-21</sub> |
+| `OPEN` | [cmd/go: clarify test cache behavior for file metadata](https://github.com/golang/go/pull/82377)<br><sub>golang/go #82377 · opened 2026-10-20</sub> |
 | `OPEN` | [fix: \[api\] return proper REST response from auth key pin endpoint](https://github.com/MISP/MISP/pull/11222)<br><sub>MISP/MISP #11222 · opened 2026-10-20</sub> |
 | `OPEN` | [fix: guard against duplicate-id responses in WebSocket handler](https://github.com/XRPLF/xrpl-py/pull/1070)<br><sub>XRPLF/xrpl-py #1070 · opened 2026-10-27</sub> |
 | `OPEN` | [docs: document skip/skipAfter limitations under multiphase evaluation (#804)](https://github.com/corazawaf/coraza/pull/1785)<br><sub>corazawaf/coraza #1785 · opened 2026-10-19</sub> |
@@ -102,7 +105,7 @@ comes from GitHub, not from me.
 </details>
 
 <!-- UPSTREAM_CAPTION:START -->
-<sub><code>GENERATED</code> 2026-11-11 from GitHub's API by <a href="./gen/stats_cards.py">gen/stats_cards.py</a>: 5 merged · 18 open · 3 closed without merging. Practice repositories are left out. Go merges through Gerrit, so a Go pull request counts as merged when Gerrit's bot says so. If a daily run fails, this date stops moving.</sub>
+<sub><code>GENERATED</code> 2026-11-13 from GitHub's API by <a href="./gen/stats_cards.py">gen/stats_cards.py</a>: 5 merged · 21 open · 3 closed without merging. Practice repositories are left out. Go merges through Gerrit, so a Go pull request counts as merged when Gerrit's bot says so. If a daily run fails, this date stops moving.</sub>
 <!-- UPSTREAM_CAPTION:END -->
 
 ---
@@ -148,7 +151,7 @@ Not yet shown: anyone using it but me.
 <code>SHOWN</code> <sub>screenshots ·</sub> <code>STATED</code> <sub>descriptions and figures, dated · source private</sub>
 
 <!-- ACTIVITY:START -->
-<code>GENERATED</code> 2026-11-11 from GitHub's API: **3,121 of my 4,014** contributions in the past year were in private repositories.
+<code>GENERATED</code> 2026-11-13 from GitHub's API: **3,218 of my 4,119** contributions in the past year were in private repositories.
 <!-- ACTIVITY:END -->
 
 <details>
