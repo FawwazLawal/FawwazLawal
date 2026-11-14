@@ -15,7 +15,7 @@ what we coding today
 <!-- STATS:START -->
 <picture>
   <source media="(prefers-color-scheme: light)" srcset="./assets/stats-light.svg">
-  <img src="./assets/stats.svg" width="100%" alt="System status, synced 2026-11-14: 4,301 contributions in the past year, 3,396 of them in private repositories, 29 upstream pull requests, 5 merged.">
+  <img src="./assets/stats.svg" width="100%" alt="System status, synced 2026-11-14: 4,343 contributions in the past year, 3,437 of them in private repositories, 29 upstream pull requests, 5 merged.">
 </picture>
 <!-- STATS:END -->
 
@@ -77,11 +77,11 @@ comes from GitHub, not from me.
 | State | Pull request |
 |---|---|
 | `OPEN` | [feat: Add Wallet.from\_mnemonic() for BIP39 mnemonic-derived wallets](https://github.com/XRPLF/xrpl-py/pull/1069)<br><sub>XRPLF/xrpl-py #1069 · opened 2026-10-26</sub> |
-| `OPEN` | [fix(ui): separate indicator list column values in the Knowledge tab (#18163)](https://github.com/OpenCTI-Platform/opencti/pull/19154)<br><sub>OpenCTI-Platform/opencti #19154 · opened 2026-10-21</sub> |
 | `OPEN` | [cmd/go: clarify test cache behavior for file metadata](https://github.com/golang/go/pull/82377)<br><sub>golang/go #82377 · opened 2026-10-20</sub> |
 | `OPEN` | [fix: \[api\] return proper REST response from auth key pin endpoint](https://github.com/MISP/MISP/pull/11222)<br><sub>MISP/MISP #11222 · opened 2026-10-20</sub> |
 | `OPEN` | [fix: guard against duplicate-id responses in WebSocket handler](https://github.com/XRPLF/xrpl-py/pull/1070)<br><sub>XRPLF/xrpl-py #1070 · opened 2026-10-27</sub> |
 | `OPEN` | [docs: document skip/skipAfter limitations under multiphase evaluation (#804)](https://github.com/corazawaf/coraza/pull/1785)<br><sub>corazawaf/coraza #1785 · opened 2026-10-19</sub> |
+| `CLOSED` | [fix(ui): separate indicator list column values in the Knowledge tab (#18163)](https://github.com/OpenCTI-Platform/opencti/pull/19154)<br><sub>OpenCTI-Platform/opencti #19154 · opened 2026-10-21 · closed without merging</sub> |
 | `CLOSED` | [fix: Skip marker transaction in accountTxPage instead of dropping it](https://github.com/Xahau/xahaud/pull/920)<br><sub>Xahau/xahaud #920 · opened 2026-10-26 · closed without merging</sub> |
 | `CLOSED` | [test: port PySpark Catalog.listFunctions doctest](https://github.com/lakehq/sail/pull/2821)<br><sub>lakehq/sail #2821 · opened 2026-10-21 · closed without merging</sub> |
 | `CLOSED` | [Fix Accept-Encoding quality parameter handling for gzip](https://github.com/hapifhir/hapi-fhir/pull/8530)<br><sub>hapifhir/hapi-fhir #8530 · opened 2026-10-20 · closed without merging</sub> |
@@ -105,7 +105,7 @@ comes from GitHub, not from me.
 </details>
 
 <!-- UPSTREAM_CAPTION:START -->
-<sub><code>GENERATED</code> 2026-11-14 from GitHub's API by <a href="./gen/stats_cards.py">gen/stats_cards.py</a>: 5 merged · 21 open · 3 closed without merging. Practice repositories are left out. Go merges through Gerrit, so a Go pull request counts as merged when Gerrit's bot says so. If a daily run fails, this date stops moving.</sub>
+<sub><code>GENERATED</code> 2026-11-14 from GitHub's API by <a href="./gen/stats_cards.py">gen/stats_cards.py</a>: 5 merged · 20 open · 4 closed without merging. Practice repositories are left out. Go merges through Gerrit, so a Go pull request counts as merged when Gerrit's bot says so. If a daily run fails, this date stops moving.</sub>
 <!-- UPSTREAM_CAPTION:END -->
 
 ---
@@ -151,7 +151,7 @@ Not yet shown: anyone using it but me.
 <code>SHOWN</code> <sub>screenshots ·</sub> <code>STATED</code> <sub>descriptions and figures, dated · source private</sub>
 
 <!-- ACTIVITY:START -->
-<code>GENERATED</code> 2026-11-14 from GitHub's API: **3,396 of my 4,301** contributions in the past year were in private repositories.
+<code>GENERATED</code> 2026-11-14 from GitHub's API: **3,437 of my 4,343** contributions in the past year were in private repositories.
 <!-- ACTIVITY:END -->
 
 <details>
