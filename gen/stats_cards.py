@@ -13,6 +13,9 @@ Reads public data only through the GitHub GraphQL API and writes:
     README.md                     the upstream ledger between the UPSTREAM markers: public
                                   pull requests authored by LOGIN in repositories it does
                                   not own, merged and open, as plain text with links
+    README.md                     the ledger's dated caption between the UPSTREAM_CAPTION
+                                  markers: merged, open and closed counted, which is the
+                                  same total the status card shows
 
     GITHUB_TOKEN=... python3 gen/stats_cards.py
 
@@ -198,17 +201,31 @@ def ledger_md(prs, today):
     return "\n".join(out)
 
 
-def ledger_caption(prs, today):
-    """The GENERATED caption that follows the ledger. Separated from ledger_md so a
-    hand-written block (Field notes) can sit between the tables and this caption."""
+def ledger_counts(prs):
+    """One count of the upstream ledger by state, practice repositories excluded. The status
+    card's total and this caption are the same number and come from here, so the page cannot
+    show two totals for one thing again."""
     count = {"merged": 0, "open": 0, "closed": 0}
     for p in prs:
-        repo = p["repository"]["nameWithOwner"]
-        if practice(repo):
+        if practice(p["repository"]["nameWithOwner"]):
             continue
         state = "merged" if p.get("merged") or gerrit_merged(p) else p["state"].lower()
         if state in count:
             count[state] += 1
+    return count
+
+
+def upstream_totals(prs):
+    """What the status card shows: (every upstream pull request, the merged ones). The total
+    is the caption's total, counted once in ledger_counts."""
+    count = ledger_counts(prs)
+    return sum(count.values()), count["merged"]
+
+
+def ledger_caption(prs, today):
+    """The GENERATED caption that follows the ledger. Separated from ledger_md so a
+    hand-written block (Field notes) can sit between the tables and this caption."""
+    count = ledger_counts(prs)
     return (f"<sub><code>GENERATED</code> {today} from GitHub's API by <a href=\"./gen/stats_cards.py\">gen/stats_cards.py</a>: "
             f"{count['merged']} merged · {count['open']} open · {count['closed']} closed without merging. Practice "
             f"repositories are left out. Go merges through Gerrit, so a Go pull request counts as merged when "
@@ -319,7 +336,7 @@ def stats_svg(user, theme, upstream):
     if upstream:
         b.append(stat_cell(800, str(upstream[0]), "UPSTREAM PRS", f"{upstream[1]} MERGED", theme["cyan"], theme))
     else:
-        b.append(stat_cell(800, "—", "UPSTREAM PRS", "UNAVAILABLE", theme["muted"], theme))
+        b.append(stat_cell(800, "-", "UPSTREAM PRS", "UNAVAILABLE", theme["muted"], theme))
     for x in (400, 770):
         b.append(f'<line x1="{x}" y1="120" x2="{x}" y2="320" stroke="{theme["cyan_dim"]}" stroke-opacity="0.4"/>')
     return frame(W, H, "".join(b), stats_alt(total, private, upstream), theme)
@@ -353,17 +370,6 @@ def repo_svg(r):
 FEATURED = {"hellogitty"}
 
 
-def ledger_rows(prs):
-    """Merged and open pull requests to other people's repositories, practice repositories excluded."""
-    rows = []
-    for p in prs:
-        repo = p["repository"]["nameWithOwner"]
-        state = "merged" if p.get("merged") or gerrit_merged(p) else p["state"].lower()
-        if state in ("merged", "open") and not practice(repo):
-            rows.append((state, p, repo))
-    return rows
-
-
 def main():
     user = fetch()
     repos = [r for r in user["repositories"]["nodes"]
@@ -373,8 +379,7 @@ def main():
         prs, err = fetch_prs(), None
     except Exception as e:                      # keep the dated previous ledger rather than fail the job
         prs, err = None, e
-    rows = ledger_rows(prs) if prs is not None else None
-    upstream = (len(rows), sum(1 for r in rows if r[0] == "merged")) if rows is not None else None
+    upstream = upstream_totals(prs) if prs is not None else None
     for name, theme in (("stats.svg", DARK), ("stats-light.svg", LIGHT)):
         with open(os.path.join(ROOT, "assets", name), "w", encoding="utf-8") as f:
             f.write(stats_svg(user, theme, upstream))
@@ -407,7 +412,7 @@ def main():
     today = dt.date.today().isoformat()
     wrote = write_block(readme, "UPSTREAM", ledger_md(prs, today))
     write_block(readme, "UPSTREAM_CAPTION", ledger_caption(prs, today))
-    print(f"::notice title=Upstream ledger::{len(prs)} pull requests found, {len(rows)} listed"
+    print(f"::notice title=Upstream ledger::{len(prs)} pull requests found, {upstream[0]} listed"
           f"{'' if wrote else ' (README has no UPSTREAM markers)'}")
 
 
