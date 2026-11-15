@@ -15,7 +15,7 @@ what we coding today
 <!-- STATS:START -->
 <picture>
   <source media="(prefers-color-scheme: light)" srcset="./assets/stats-light.svg">
-  <img src="./assets/stats.svg" width="100%" alt="System status, synced 2026-11-14: 4,343 contributions in the past year, 3,437 of them in private repositories, 29 upstream pull requests, 5 merged.">
+  <img src="./assets/stats.svg" width="100%" alt="System status, synced 2026-11-15: 4,771 contributions in the past year, 3,864 of them in private repositories, 29 upstream pull requests, 5 merged.">
 </picture>
 <!-- STATS:END -->
 
@@ -47,9 +47,9 @@ comes from GitHub, not from me.
 | `MERGED` | [fix(ui): align info icon tooltips in user creation form (#19017)](https://github.com/OpenCTI-Platform/opencti/pull/19108)<br><sub>OpenCTI-Platform/opencti #19108 · opened 2026-10-19 · merged 2026-11-04</sub> |
 | `MERGED` | [fix(ui): fix SMTP configuration margin and empty value display (#18931)](https://github.com/OpenCTI-Platform/opencti/pull/19110)<br><sub>OpenCTI-Platform/opencti #19110 · opened 2026-10-20 · merged 2026-10-23</sub> |
 | `MERGED` | [Add Arabic-script specifics to hardening reference (#1009)](https://github.com/pbakaus/impeccable/pull/1084)<br><sub>pbakaus/impeccable #1084 · opened 2026-10-19 · merged 2026-10-21</sub> |
+| `OPEN` | [fix: fail fast on truncated input in BinaryParser.read(int)](https://github.com/XRPLF/xrpl4j/pull/881)<br><sub>XRPLF/xrpl4j #881 · opened 2026-11-11</sub> |
 | `OPEN` | [refactor: Move generateBlindingFactor() from protocol to test utilities](https://github.com/XRPLF/rippled/pull/8644)<br><sub>XRPLF/rippled #8644 · opened 2026-10-27</sub> |
 | `OPEN` | [feat(chat): auto-favorite nodes on direct message](https://github.com/meshtastic/web/pull/1491)<br><sub>meshtastic/web #1491 · opened 2026-10-27</sub> |
-| `OPEN` | [fix: fail fast on truncated input in BinaryParser.read(int)](https://github.com/XRPLF/xrpl4j/pull/881)<br><sub>XRPLF/xrpl4j #881 · opened 2026-11-11</sub> |
 | `OPEN` | [fix: Use underscore in getobject\_Fetch\_Pack\_get category name](https://github.com/XRPLF/rippled/pull/8720)<br><sub>XRPLF/rippled #8720 · opened 2026-11-12</sub> |
 | `OPEN` | [fix: add missing f-string prefix to five binary codec error messages](https://github.com/XRPLF/xrpl-py/pull/1082)<br><sub>XRPLF/xrpl-py #1082 · opened 2026-11-12</sub> |
 
@@ -105,7 +105,7 @@ comes from GitHub, not from me.
 </details>
 
 <!-- UPSTREAM_CAPTION:START -->
-<sub><code>GENERATED</code> 2026-11-14 from GitHub's API by <a href="./gen/stats_cards.py">gen/stats_cards.py</a>: 5 merged · 20 open · 4 closed without merging. Practice repositories are left out. Go merges through Gerrit, so a Go pull request counts as merged when Gerrit's bot says so. If a daily run fails, this date stops moving.</sub>
+<sub><code>GENERATED</code> 2026-11-15 from GitHub's API by <a href="./gen/stats_cards.py">gen/stats_cards.py</a>: 5 merged · 20 open · 4 closed without merging. Practice repositories are left out. Go merges through Gerrit, so a Go pull request counts as merged when Gerrit's bot says so. If a daily run fails, this date stops moving.</sub>
 <!-- UPSTREAM_CAPTION:END -->
 
 ---
@@ -151,7 +151,7 @@ Not yet shown: anyone using it but me.
 <code>SHOWN</code> <sub>screenshots ·</sub> <code>STATED</code> <sub>descriptions and figures, dated · source private</sub>
 
 <!-- ACTIVITY:START -->
-<code>GENERATED</code> 2026-11-14 from GitHub's API: **3,437 of my 4,343** contributions in the past year were in private repositories.
+<code>GENERATED</code> 2026-11-15 from GitHub's API: **3,864 of my 4,771** contributions in the past year were in private repositories.
 <!-- ACTIVITY:END -->
 
 <details>
