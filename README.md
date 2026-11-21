@@ -15,7 +15,7 @@ what we coding today
 <!-- STATS:START -->
 <picture>
   <source media="(prefers-color-scheme: light)" srcset="./assets/stats-light.svg">
-  <img src="./assets/stats.svg" width="100%" alt="System status, synced 2026-11-20: 7,107 contributions in the past year, 6,153 of them in private repositories, 31 upstream pull requests, 6 merged.">
+  <img src="./assets/stats.svg" width="100%" alt="System status, synced 2026-11-21: 7,309 contributions in the past year, 6,354 of them in private repositories, 31 upstream pull requests, 6 merged.">
 </picture>
 <!-- STATS:END -->
 
@@ -48,8 +48,8 @@ comes from GitHub, not from me.
 | `MERGED` | [fix(ui): align info icon tooltips in user creation form (#19017)](https://github.com/OpenCTI-Platform/opencti/pull/19108)<br><sub>OpenCTI-Platform/opencti #19108 · opened 2026-10-19 · merged 2026-11-04</sub> |
 | `MERGED` | [fix(ui): fix SMTP configuration margin and empty value display (#18931)](https://github.com/OpenCTI-Platform/opencti/pull/19110)<br><sub>OpenCTI-Platform/opencti #19110 · opened 2026-10-20 · merged 2026-10-23</sub> |
 | `MERGED` | [Add Arabic-script specifics to hardening reference (#1009)](https://github.com/pbakaus/impeccable/pull/1084)<br><sub>pbakaus/impeccable #1084 · opened 2026-10-19 · merged 2026-10-21</sub> |
-| `OPEN` | [refactor: Pass TMTransaction by pointer in Overlay::relay](https://github.com/XRPLF/rippled/pull/8731)<br><sub>XRPLF/rippled #8731 · opened 2026-11-17</sub> |
 | `OPEN` | [fix!: throw IllegalArgumentException for reserved VL first byte and encode overflow](https://github.com/XRPLF/xrpl4j/pull/882)<br><sub>XRPLF/xrpl4j #882 · opened 2026-11-18</sub> |
+| `OPEN` | [refactor: Pass TMTransaction by pointer in Overlay::relay](https://github.com/XRPLF/rippled/pull/8731)<br><sub>XRPLF/rippled #8731 · opened 2026-11-17</sub> |
 | `OPEN` | [Warn on unrecognized keys in target dictionaries](https://github.com/yonaskolb/XcodeGen/pull/1660)<br><sub>yonaskolb/XcodeGen #1660 · opened 2026-10-23</sub> |
 | `OPEN` | [feat: Add Wallet.from\_mnemonic() for BIP39 mnemonic-derived wallets](https://github.com/XRPLF/xrpl-py/pull/1069)<br><sub>XRPLF/xrpl-py #1069 · opened 2026-10-26</sub> |
 
@@ -115,7 +115,7 @@ comes from GitHub, not from me.
 </details>
 
 <!-- UPSTREAM_CAPTION:START -->
-<sub><code>GENERATED</code> 2026-11-20 from GitHub's API by <a href="./gen/stats_cards.py">gen/stats_cards.py</a>: 6 merged · 20 open · 5 closed without merging. Practice repositories are left out. Go merges through Gerrit, so a Go pull request counts as merged when Gerrit's bot says so. If a daily run fails, this date stops moving.</sub>
+<sub><code>GENERATED</code> 2026-11-21 from GitHub's API by <a href="./gen/stats_cards.py">gen/stats_cards.py</a>: 6 merged · 20 open · 5 closed without merging. Practice repositories are left out. Go merges through Gerrit, so a Go pull request counts as merged when Gerrit's bot says so. If a daily run fails, this date stops moving.</sub>
 <!-- UPSTREAM_CAPTION:END -->
 
 ---
@@ -161,7 +161,7 @@ Not yet shown: anyone using it but me.
 <code>SHOWN</code> <sub>screenshots ·</sub> <code>STATED</code> <sub>descriptions and figures, dated · source private</sub>
 
 <!-- ACTIVITY:START -->
-<code>GENERATED</code> 2026-11-20 from GitHub's API: **6,153 of my 7,107** contributions in the past year were in private repositories.
+<code>GENERATED</code> 2026-11-21 from GitHub's API: **6,354 of my 7,309** contributions in the past year were in private repositories.
 <!-- ACTIVITY:END -->
 
 <details>
