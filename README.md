@@ -15,7 +15,7 @@ what we coding today
 <!-- STATS:START -->
 <picture>
   <source media="(prefers-color-scheme: light)" srcset="./assets/stats-light.svg">
-  <img src="./assets/stats.svg" width="100%" alt="System status, synced 2026-11-24: 8,266 contributions in the past year, 7,307 of them in private repositories, 31 upstream pull requests, 6 merged.">
+  <img src="./assets/stats.svg" width="100%" alt="System status, synced 2026-11-25: 8,533 contributions in the past year, 7,573 of them in private repositories, 31 upstream pull requests, 6 merged.">
 </picture>
 <!-- STATS:END -->
 
@@ -58,7 +58,6 @@ comes from GitHub, not from me.
 
 | State | Pull request |
 |---|---|
-| `OPEN` | [Warn on unrecognized keys in target dictionaries](https://github.com/yonaskolb/XcodeGen/pull/1660)<br><sub>yonaskolb/XcodeGen #1660 · opened 2026-10-23</sub> |
 | `OPEN` | [fix: fail fast on truncated input in BinaryParser.read(int)](https://github.com/XRPLF/xrpl4j/pull/881)<br><sub>XRPLF/xrpl4j #881 · opened 2026-11-11</sub> |
 | `OPEN` | [fix: Use underscore in getobject\_Fetch\_Pack\_get category name](https://github.com/XRPLF/rippled/pull/8720)<br><sub>XRPLF/rippled #8720 · opened 2026-11-12</sub> |
 | `OPEN` | [cmd/go: clarify test cache behavior for file metadata](https://github.com/golang/go/pull/82377)<br><sub>golang/go #82377 · opened 2026-10-20</sub> |
@@ -68,6 +67,7 @@ comes from GitHub, not from me.
 | `OPEN` | [fix: Show the Payment Channels row on the account page](https://github.com/ripple/explorer/pull/1386)<br><sub>ripple/explorer #1386 · opened 2026-11-08</sub> |
 | `OPEN` | [Fix broken links in XLS-85 and XLS-82 feature pages](https://github.com/ripple/opensource.ripple.com/pull/242)<br><sub>ripple/opensource.ripple.com #242 · opened 2026-10-26</sub> |
 | `OPEN` | [fix: reset UNLReport ActiveValidators when the first report is VL-only](https://github.com/Xahau/xahaud/pull/928)<br><sub>Xahau/xahaud #928 · opened 2026-10-28</sub> |
+| `OPEN` | [fix: Handle URIToken in account\_lines marker lookup](https://github.com/Xahau/xahaud/pull/925)<br><sub>Xahau/xahaud #925 · opened 2026-10-27</sub> |
 
 </details>
 
@@ -76,12 +76,12 @@ comes from GitHub, not from me.
 
 | State | Pull request |
 |---|---|
-| `OPEN` | [fix: Handle URIToken in account\_lines marker lookup](https://github.com/Xahau/xahaud/pull/925)<br><sub>Xahau/xahaud #925 · opened 2026-10-27</sub> |
 | `OPEN` | [fix: use deterministic parentCloseTime for ClaimReward sfRewardTime](https://github.com/Xahau/xahaud/pull/927)<br><sub>Xahau/xahaud #927 · opened 2026-10-28</sub> |
 | `OPEN` | [fix: remove misleading getDefaultRipple() from TrustLine and account\_lines](https://github.com/Xahau/xahaud/pull/926)<br><sub>Xahau/xahaud #926 · opened 2026-10-27</sub> |
 | `OPEN` | [fix: Skip fee subtraction for sponsor-paid escrow transactions](https://github.com/ripple/explorer/pull/1383)<br><sub>ripple/explorer #1383 · opened 2026-10-26</sub> |
 | `OPEN` | [fix: \[api\] return proper REST response from auth key pin endpoint](https://github.com/MISP/MISP/pull/11222)<br><sub>MISP/MISP #11222 · opened 2026-10-20</sub> |
 | `OPEN` | [fix: guard against duplicate-id responses in WebSocket handler](https://github.com/XRPLF/xrpl-py/pull/1070)<br><sub>XRPLF/xrpl-py #1070 · opened 2026-10-27</sub> |
+| `CLOSED` | [Warn on unrecognized keys in target dictionaries](https://github.com/yonaskolb/XcodeGen/pull/1660)<br><sub>yonaskolb/XcodeGen #1660 · opened 2026-10-23 · closed without merging</sub> |
 | `CLOSED` | [feat(chat): auto-favorite nodes on direct message](https://github.com/meshtastic/web/pull/1491)<br><sub>meshtastic/web #1491 · opened 2026-10-27 · closed without merging</sub> |
 | `CLOSED` | [fix(ui): separate indicator list column values in the Knowledge tab (#18163)](https://github.com/OpenCTI-Platform/opencti/pull/19154)<br><sub>OpenCTI-Platform/opencti #19154 · opened 2026-10-21 · closed without merging</sub> |
 | `CLOSED` | [fix: Skip marker transaction in accountTxPage instead of dropping it](https://github.com/Xahau/xahaud/pull/920)<br><sub>Xahau/xahaud #920 · opened 2026-10-26 · closed without merging</sub> |
@@ -115,7 +115,7 @@ comes from GitHub, not from me.
 </details>
 
 <!-- UPSTREAM_CAPTION:START -->
-<sub><code>GENERATED</code> 2026-11-24 from GitHub's API by <a href="./gen/stats_cards.py">gen/stats_cards.py</a>: 6 merged · 20 open · 5 closed without merging. Practice repositories are left out. Go merges through Gerrit, so a Go pull request counts as merged when Gerrit's bot says so. If a daily run fails, this date stops moving.</sub>
+<sub><code>GENERATED</code> 2026-11-25 from GitHub's API by <a href="./gen/stats_cards.py">gen/stats_cards.py</a>: 6 merged · 19 open · 6 closed without merging. Practice repositories are left out. Go merges through Gerrit, so a Go pull request counts as merged when Gerrit's bot says so. If a daily run fails, this date stops moving.</sub>
 <!-- UPSTREAM_CAPTION:END -->
 
 ---
@@ -161,7 +161,7 @@ Not yet shown: anyone using it but me.
 <code>SHOWN</code> <sub>screenshots ·</sub> <code>STATED</code> <sub>descriptions and figures, dated · source private</sub>
 
 <!-- ACTIVITY:START -->
-<code>GENERATED</code> 2026-11-24 from GitHub's API: **7,307 of my 8,266** contributions in the past year were in private repositories.
+<code>GENERATED</code> 2026-11-25 from GitHub's API: **7,573 of my 8,533** contributions in the past year were in private repositories.
 <!-- ACTIVITY:END -->
 
 <details>
