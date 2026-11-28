@@ -103,9 +103,28 @@ query($q: String!) {
 }
 """
 
+ISSUE_QUERY = """
+query($q: String!) {
+  search(query: $q, type: ISSUE, first: 50) {
+    nodes {
+      ... on Issue {
+        title url number state stateReason createdAt closedAt updatedAt
+        repository { nameWithOwner }
+        closedByPullRequestsReferences(first: 5, includeClosedPrs: true) { nodes { number state merged } }
+        timelineItems(itemTypes: [CROSS_REFERENCED_EVENT], first: 20) {
+          nodes { ... on CrossReferencedEvent { source { ... on PullRequest {
+            number state merged repository { nameWithOwner } } } } }
+        }
+      }
+    }
+  }
+}
+"""
+
 # Practice repositories (first-contribution exercises) are not project contributions.
 # Compared in lower case: GitHub reports this one under both owner spellings.
-LEDGER_EXCLUDE = {"mikemajdalani1/devtreasure-contributions", "mikemajdalani/devtreasure-contributions"}
+LEDGER_EXCLUDE = {"mikemajdalani1/devtreasure-contributions", "mikemajdalani/devtreasure-contributions",
+                  "jonathangin52/jonathangin52"}
 
 
 def practice(repo):
@@ -148,6 +167,34 @@ def fetch_prs():
     return [n for n in graphql(PR_QUERY, {"q": q})["search"]["nodes"] if n]
 
 
+def fetch_issues():
+    q = f"is:issue is:public author:{LOGIN} -user:{LOGIN} sort:created-desc"
+    return [n for n in graphql(ISSUE_QUERY, {"q": q})["search"]["nodes"] if n]
+
+
+def pr_state(p):
+    return "merged" if p.get("merged") else "closed without merging" if p["state"] == "CLOSED" else "open"
+
+
+def issue_detail(i):
+    parts = [f"opened {i['createdAt'][:10]}"]
+    if i["state"] == "CLOSED":
+        reason = (i.get("stateReason") or "").replace("_", " ").lower()
+        parts.append(f"closed {i['closedAt'][:10]}" + (f" as {reason}" if reason else ""))
+    else:
+        parts.append("open")
+    repo = i["repository"]["nameWithOwner"]
+    fixes = {p["number"]: p for p in i["closedByPullRequestsReferences"]["nodes"]}
+    refs = {}
+    for e in i["timelineItems"]["nodes"]:
+        p = (e or {}).get("source") or {}
+        if p.get("number") and p["repository"]["nameWithOwner"] == repo and p["number"] not in fixes:
+            refs[p["number"]] = p
+    parts += [f"fix PR #{n} {pr_state(p)}" for n, p in sorted(fixes.items())]
+    parts += [f"referenced by PR #{n} {pr_state(p)}" for n, p in sorted(refs.items())]
+    return " · ".join(parts)
+
+
 def md_escape(s):
     return re.sub(r"([\\`*_\[\]<>|])", r"\\\1", re.sub(r"\s+", " ", s or "").strip())
 
@@ -155,7 +202,7 @@ def md_escape(s):
 PAGE_SIZE = 10
 
 
-def ledger_md(prs, today):
+def ledger_md(prs, today, issues=()):
     """The ops log: every public pull request opened on someone else's repository, grouped
     merged / open / closed, each group sorted by its own recency (merge time, most recent
     activity, close time). Page 1 renders inline; pages 2+ sit inside <details>. Practice
@@ -198,6 +245,12 @@ def ledger_md(prs, today):
                 "| State | Pull request |", "|---|---|"]
         out += [row_md(r) for r in page]
         out += ["", "</details>"]
+    reported = [("reported", i.get("updatedAt") or i["createdAt"], i, i["repository"]["nameWithOwner"], issue_detail(i))
+                for i in issues if not practice(i["repository"]["nameWithOwner"])]
+    reported.sort(key=lambda r: r[1], reverse=True)
+    if reported:
+        out += ["", "| State | Issue |", "|---|---|"]
+        out += [row_md(r) for r in reported]
     return "\n".join(out)
 
 
@@ -376,9 +429,9 @@ def main():
              if r["name"].lower() != LOGIN.lower() and not r["isEmpty"]]
     readme = os.path.join(ROOT, "README.md")
     try:
-        prs, err = fetch_prs(), None
+        prs, issues, err = fetch_prs(), fetch_issues(), None
     except Exception as e:                      # keep the dated previous ledger rather than fail the job
-        prs, err = None, e
+        prs, issues, err = None, None, e
     upstream = upstream_totals(prs) if prs is not None else None
     for name, theme in (("stats.svg", DARK), ("stats-light.svg", LIGHT)):
         with open(os.path.join(ROOT, "assets", name), "w", encoding="utf-8") as f:
@@ -410,7 +463,7 @@ def main():
         print(f"::warning title=Upstream ledger skipped::{err}")   # Actions annotation; ledger keeps its old date
         return
     today = dt.date.today().isoformat()
-    wrote = write_block(readme, "UPSTREAM", ledger_md(prs, today))
+    wrote = write_block(readme, "UPSTREAM", ledger_md(prs, today, issues))
     write_block(readme, "UPSTREAM_CAPTION", ledger_caption(prs, today))
     print(f"::notice title=Upstream ledger::{len(prs)} pull requests found, {upstream[0]} listed"
           f"{'' if wrote else ' (README has no UPSTREAM markers)'}")

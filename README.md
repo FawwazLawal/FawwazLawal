@@ -15,7 +15,7 @@ what we coding today
 <!-- STATS:START -->
 <picture>
   <source media="(prefers-color-scheme: light)" srcset="./assets/stats-light.svg">
-  <img src="./assets/stats.svg" width="100%" alt="System status, synced 2026-11-27: 9,348 contributions in the past year, 8,376 of them in private repositories, 31 upstream pull requests, 6 merged.">
+  <img src="./assets/stats.svg" width="100%" alt="System status, synced 2026-11-27: 9,605 contributions in the past year, 8,628 of them in private repositories, 31 upstream pull requests, 6 merged.">
 </picture>
 <!-- STATS:END -->
 
@@ -29,15 +29,15 @@ what we coding today
 
 <sub><code>PUBLIC</code> one click to check · <code>GENERATED</code> written daily from GitHub's API by a script in this repository, and dated · <code>SHOWN</code> a screenshot · <code>STATED</code> my word, dated where it changes</sub>
 
-### 00 · Ops log: my pull requests to other people's projects
+### 00 · Ops log: my pull requests and issues in other people's projects
 
-<code>GENERATED</code> <sub>rebuilt daily from GitHub's API ·</sub> <code>PUBLIC</code> <sub>each row opens the pull request and its review so far</sub>
+<code>GENERATED</code> <sub>rebuilt daily from GitHub's API ·</sub> <code>PUBLIC</code> <sub>each row opens the pull request or issue and its history so far</sub>
 
 **I send fixes upstream, most often to the XRP Ledger and Xahau: their servers, the Java and
 Python client libraries, the XRPL Explorer and the docs. Beyond that: security tooling (OpenCTI,
 MISP, Coraza), impeccable (the design tool I use most), XcodeGen, Meshtastic's web client,
 and Go's `go test` help text.** Open means open: the state column
-comes from GitHub, not from me.
+comes from GitHub, not from me. A `REPORTED` row is an issue I opened for the maintainers to act on.
 
 <!-- UPSTREAM:START -->
 | State | Pull request |
@@ -97,6 +97,14 @@ comes from GitHub, not from me.
 | `CLOSED` | [Fix Accept-Encoding quality parameter handling for gzip](https://github.com/hapifhir/hapi-fhir/pull/8530)<br><sub>hapifhir/hapi-fhir #8530 · opened 2026-10-20 · closed without merging</sub> |
 
 </details>
+
+| State | Issue |
+|---|---|
+| `REPORTED` | [Selector / MultiSelector: empty-search message inside \`role="listbox"\` fails axe \`aria-required-children\` (critical)](https://github.com/meta/astryx/issues/13842)<br><sub>meta/astryx #13842 · opened 2026-11-26 · closed 2026-11-27 as completed · fix PR #12087 merged</sub> |
+| `REPORTED` | [BinaryParser.readFieldHeader throws java.lang.Error for out-of-range type\_code and field\_code](https://github.com/XRPLF/xrpl4j/issues/883)<br><sub>XRPLF/xrpl4j #883 · opened 2026-11-25 · open</sub> |
+| `REPORTED` | [\[Feature\] audit: flag physical CSS properties on RTL pages](https://github.com/pbakaus/impeccable/issues/1113)<br><sub>pbakaus/impeccable #1113 · opened 2026-10-22 · closed 2026-11-09 as completed · fix PR #1114 merged</sub> |
+| `REPORTED` | [CI example runs \`--lint\` on an unformatted codebase (exits 1 on first run)](https://github.com/nicklockwood/SwiftFormat/issues/2782)<br><sub>nicklockwood/SwiftFormat #2782 · opened 2026-10-19 · closed 2026-10-23 as not planned · fix PR #2783 closed without merging</sub> |
+| `REPORTED` | [\`--help\` omits \`context\` and other routed commands while listing \`telemetry\`](https://github.com/pbakaus/impeccable/issues/1085)<br><sub>pbakaus/impeccable #1085 · opened 2026-10-19 · closed 2026-10-20 as not planned</sub> |
 <!-- UPSTREAM:END -->
 
 <details>
@@ -161,7 +169,7 @@ Not yet shown: anyone using it but me.
 <code>SHOWN</code> <sub>screenshots ·</sub> <code>STATED</code> <sub>descriptions and figures, dated · source private</sub>
 
 <!-- ACTIVITY:START -->
-<code>GENERATED</code> 2026-11-27 from GitHub's API: **8,376 of my 9,348** contributions in the past year were in private repositories.
+<code>GENERATED</code> 2026-11-27 from GitHub's API: **8,628 of my 9,605** contributions in the past year were in private repositories.
 <!-- ACTIVITY:END -->
 
 <details>
