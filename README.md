@@ -15,7 +15,7 @@ what we coding today
 <!-- STATS:START -->
 <picture>
   <source media="(prefers-color-scheme: light)" srcset="./assets/stats-light.svg">
-  <img src="./assets/stats.svg" width="100%" alt="System status, synced 2026-11-27: 9,605 contributions in the past year, 8,628 of them in private repositories, 31 upstream pull requests, 6 merged.">
+  <img src="./assets/stats.svg" width="100%" alt="System status, synced 2026-11-28: 9,606 contributions in the past year, 8,628 of them in private repositories, 31 upstream pull requests, 6 merged.">
 </picture>
 <!-- STATS:END -->
 
@@ -123,7 +123,7 @@ comes from GitHub, not from me. A `REPORTED` row is an issue I opened for the ma
 </details>
 
 <!-- UPSTREAM_CAPTION:START -->
-<sub><code>GENERATED</code> 2026-11-27 from GitHub's API by <a href="./gen/stats_cards.py">gen/stats_cards.py</a>: 6 merged · 19 open · 6 closed without merging. Practice repositories are left out. Go merges through Gerrit, so a Go pull request counts as merged when Gerrit's bot says so. If a daily run fails, this date stops moving.</sub>
+<sub><code>GENERATED</code> 2026-11-28 from GitHub's API by <a href="./gen/stats_cards.py">gen/stats_cards.py</a>: 6 merged · 19 open · 6 closed without merging. Practice repositories are left out. Go merges through Gerrit, so a Go pull request counts as merged when Gerrit's bot says so. If a daily run fails, this date stops moving.</sub>
 <!-- UPSTREAM_CAPTION:END -->
 
 ---
@@ -169,7 +169,7 @@ Not yet shown: anyone using it but me.
 <code>SHOWN</code> <sub>screenshots ·</sub> <code>STATED</code> <sub>descriptions and figures, dated · source private</sub>
 
 <!-- ACTIVITY:START -->
-<code>GENERATED</code> 2026-11-27 from GitHub's API: **8,628 of my 9,605** contributions in the past year were in private repositories.
+<code>GENERATED</code> 2026-11-28 from GitHub's API: **8,628 of my 9,606** contributions in the past year were in private repositories.
 <!-- ACTIVITY:END -->
 
 <details>
